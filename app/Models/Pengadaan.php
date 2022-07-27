@@ -15,4 +15,18 @@ class Pengadaan extends Model
     {
         return $this->hasMany(PengadaanFile::class);
     }
+
+    public function perencanaan()
+    {
+        return $this->hasOne(Perencanaan::class);
+    }
+
+    public function pelaksanaan()
+    {
+        return $this->hasOne(Pelaksanaan::class);
+    }
+
+
+
+
 }

@@ -113,10 +113,8 @@ class PengadaanController extends Controller
     {
         DB::beginTransaction();
         try {
-
             $p = PengadaanFile::find($r->id);
             $p->delete();
-
             DB::commit();
             return 'success';
         } catch (\Throwable $th) {

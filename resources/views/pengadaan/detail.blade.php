@@ -11,6 +11,8 @@
                                     role="tab" aria-selected="false">Pengadaan</a> </li>
                             <li class="nav-item submenu"> <a class="nav-link" data-toggle="tab" href="#settings"
                                     role="tab" aria-selected="false">Perencanaan</a> </li>
+                            <li class="nav-item submenu"> <a class="nav-link" data-toggle="tab" href="#pelaksanaan"
+                                    role="tab" aria-selected="false">Pelaksanaan</a> </li>
                         </ul>
                     </div>
                 </div>
@@ -171,6 +173,9 @@
                         <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="pills-home-tab">
                             @include('pengadaan.perencanaan')
                         </div>
+                        <div class="tab-pane fade" id="pelaksanaan" role="tabpanel" aria-labelledby="pills-home-tab">
+                            @include('pengadaan.pelaksanaan')
+                        </div>
                     </div>
                 </div>
             </div>
@@ -265,5 +270,173 @@
                 }
             });
         })
+
+        $('#form_perencanaan').on('submit', function(e) {
+            e.preventDefault()
+            $.ajax({
+                type: 'POST',
+                url: "{!! url('perencanaan/create') !!}",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(r) {
+                    console.log(r)
+                    if (r == 'success') {
+                        swal("Good job!", "Simpan data berhasil !", {
+                            icon: "success",
+                            buttons: {
+                                confirm: {
+                                    className: 'btn btn-success'
+                                }
+                            },
+                        }).then(function() {
+                            location.reload()
+                        });
+                    }
+                }
+            })
+        });
+
+        $('#perencanaan_file').on('submit', function(e) {
+            e.preventDefault()
+            $.ajax({
+                type: 'POST',
+                url: "{!! url('perencanaan/file') !!}",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(r) {
+                    console.log(r)
+                    if (r == 'success') {
+                        swal("Good job!", "Simpan data berhasil !", {
+                            icon: "success",
+                            buttons: {
+                                confirm: {
+                                    className: 'btn btn-success'
+                                }
+                            },
+                        }).then(function() {
+                            location.reload()
+                        });
+                    }
+                }
+            })
+        });
+
+        $(document).on('click', '.btn-delete', function(e) {
+            var id = $(this).data('id')
+            e.preventDefault()
+            swal({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                buttons: {
+                    confirm: {
+                        text: 'Yes, delete it!',
+                        className: 'btn btn-success'
+                    },
+                    cancel: {
+                        visible: true,
+                        className: 'btn btn-danger'
+                    }
+                }
+            }).then((Delete) => {
+                if (Delete) {
+                    $.ajax({
+                        type: 'GET',
+                        url: "{{ url('perencanaan-file/delete?id=') }}" + id,
+                        success: function(r) {
+                            if (r == 'success') {
+                                swal({
+                                    title: 'Deleted!',
+                                    text: 'Your file has been deleted.',
+                                    type: 'success',
+                                    buttons: {
+                                        confirm: {
+                                            className: 'btn btn-success'
+                                        }
+                                    }
+                                }).then(function() {
+                                    location.reload()
+                                });
+                            }
+                        }
+                    })
+
+                } else {
+                    swal.close();
+                }
+            });
+        })
+
+        $('#form_pelaksanaan').on('submit', function(e) {
+            e.preventDefault()
+            $.ajax({
+                type: 'POST',
+                url: "{!! url('pelaksanaan/create') !!}",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(r) {
+                    console.log(r)
+                    if (r == 'success') {
+                        swal("Good job!", "Simpan data berhasil !", {
+                            icon: "success",
+                            buttons: {
+                                confirm: {
+                                    className: 'btn btn-success'
+                                }
+                            },
+                        }).then(function() {
+                            location.reload()
+                        });
+                    }
+                }
+            })
+        });
+
+        $(document).on('click', '.btn-update', function(e) {
+            $('#e_id').val($(this).data('id'))
+            $('#e_no_nota_dinas').val($(this).data('no_nota_dinas'))
+            $('#e_tgl_nota_dinas').val($(this).data('tgl_nota_dinas'))
+            $('#e_nomor_kontrak').val($(this).data('nomor_kontrak'))
+            $('#e_tgl_kontrak').val($(this).data('tgl_kontrak'))
+            $('#e_penyedia_barang_jasa').val($(this).data('penyedia_barang_jasa'))
+            $('#e_tgl_efektif').val($(this).data('tgl_efektif'))
+            $('#e_tgl_akhir').val($(this).data('tgl_akhir'))
+            $('#e_nilai_kontrak').val($(this).data('nilai_kontrak'))
+            $('#update-pelaksanaan').modal('show')
+        })
+
+        $('#form_pelaksanaan_update').on('submit', function(e) {
+            e.preventDefault()
+            $.ajax({
+                type: 'post',
+                url: "{!! url('pelaksanaan/update') !!}",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(r) {
+                    console.log(r)
+                    if (r == 'success') {
+                        swal("Good job!", "Simpan data berhasil !", {
+                            icon: "success",
+                            buttons: {
+                                confirm: {
+                                    className: 'btn btn-success'
+                                }
+                            },
+                        }).then(function() {
+                            location.reload()
+                        });
+                    }
+                }
+            })
+        });
+
     </script>
 @endsection

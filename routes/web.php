@@ -30,10 +30,16 @@ Route::get('pengadaan/detail', [App\Http\Controllers\PengadaanController::class,
 Route::post('pengadaan/detail/create', [App\Http\Controllers\PengadaanController::class, 'pengadaanDetailCreate']);
 Route::get('pengadaan-file/delete', [App\Http\Controllers\PengadaanController::class, 'deleteFile']);
 
-// Route::get('usulan', [App\Http\Controllers\UsulanController::class, 'view']);
-// Route::post('usulan/create', [App\Http\Controllers\UsulanController::class, 'create']);
-// Route::post('usulan/update', [App\Http\Controllers\UsulanController::class, 'update']);
-// Route::get('usulan/delete', [App\Http\Controllers\UsulanController::class, 'delete']);
-// Route::get('usulan/file', [App\Http\Controllers\UsulanController::class, 'usulanFile']);
+Route::post('perencanaan/create', [App\Http\Controllers\PerencanaanController::class, 'create']);
+Route::post('perencanaan/update', [App\Http\Controllers\PerencanaanController::class, 'update']);
+Route::get('perencanaan/delete', [App\Http\Controllers\PerencanaanController::class, 'delete']);
+Route::post('perencanaan/file', [App\Http\Controllers\PerencanaanController::class, 'perencanaanFile']);
+Route::get('perencanaan-file/delete', [App\Http\Controllers\PerencanaanController::class, 'deleteFile']);
+
+Route::post('pelaksanaan/create', [App\Http\Controllers\PelaksanaanController::class, 'create']);
+Route::post('pelaksanaan/update', [App\Http\Controllers\PelaksanaanController::class, 'update']);
+Route::get('pelaksanaan/delete', [App\Http\Controllers\PelaksanaanController::class, 'delete']);
+Route::post('pelaksanaan/file', [App\Http\Controllers\PelaksanaanController::class, 'perencanaanFile']);
+Route::get('pelaksanaan-file/delete', [App\Http\Controllers\PelaksanaanController::class, 'deleteFile']);
 
 
