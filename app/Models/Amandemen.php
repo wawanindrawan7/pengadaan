@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pelaksanaan extends Model
+class Amandemen extends Model
 {
     use HasFactory;
-    protected $table = 'pelaksanaan';
+    protected $table = 'amandemen';
     public $timestamps = false;
 
     public function pengadaan()
@@ -16,8 +16,8 @@ class Pelaksanaan extends Model
         return $this->belongsTo(Pengadaan::class);
     }
 
-    public function pelaksanaanFile()
+    public function amandemenFile()
     {
-        return $this->hasMany(PelaksanaanFile::class);
+        return $this->hasMany(AmandemenFile::class);
     }
 }

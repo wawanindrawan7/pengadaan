@@ -13,6 +13,8 @@
                                     role="tab" aria-selected="false">Perencanaan</a> </li>
                             <li class="nav-item submenu"> <a class="nav-link" data-toggle="tab" href="#pelaksanaan"
                                     role="tab" aria-selected="false">Pelaksanaan</a> </li>
+                            <li class="nav-item submenu"> <a class="nav-link" data-toggle="tab" href="#amandemen"
+                                    role="tab" aria-selected="false">Amandemen</a> </li>
                         </ul>
                     </div>
                 </div>
@@ -176,6 +178,9 @@
                         <div class="tab-pane fade" id="pelaksanaan" role="tabpanel" aria-labelledby="pills-home-tab">
                             @include('pengadaan.pelaksanaan')
                         </div>
+                        <div class="tab-pane fade" id="amandemen" role="tabpanel" aria-labelledby="pills-home-tab">
+                            @include('pengadaan.amandemen')
+                        </div>
                     </div>
                 </div>
             </div>
@@ -325,7 +330,7 @@
             })
         });
 
-        $(document).on('click', '.btn-delete', function(e) {
+        $(document).on('click', '.btn-delete-perencanaan', function(e) {
             var id = $(this).data('id')
             e.preventDefault()
             swal({
@@ -437,6 +442,211 @@
                 }
             })
         });
+
+        $('#pelaksanaan_file').on('submit', function(e) {
+            e.preventDefault()
+            $.ajax({
+                type: 'POST',
+                url: "{!! url('pelaksanaan/file') !!}",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(r) {
+                    console.log(r)
+                    if (r == 'success') {
+                        swal("Good job!", "Simpan data berhasil !", {
+                            icon: "success",
+                            buttons: {
+                                confirm: {
+                                    className: 'btn btn-success'
+                                }
+                            },
+                        }).then(function() {
+                            location.reload()
+                        });
+                    }
+                }
+            })
+        });
+
+        $(document).on('click', '.btn-delete-pelaksanaan', function(e) {
+            var id = $(this).data('id')
+            e.preventDefault()
+            swal({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                buttons: {
+                    confirm: {
+                        text: 'Yes, delete it!',
+                        className: 'btn btn-success'
+                    },
+                    cancel: {
+                        visible: true,
+                        className: 'btn btn-danger'
+                    }
+                }
+            }).then((Delete) => {
+                if (Delete) {
+                    $.ajax({
+                        type: 'GET',
+                        url: "{{ url('pelaksanaan-file/delete?id=') }}" + id,
+                        success: function(r) {
+                            if (r == 'success') {
+                                swal({
+                                    title: 'Deleted!',
+                                    text: 'Your file has been deleted.',
+                                    type: 'success',
+                                    buttons: {
+                                        confirm: {
+                                            className: 'btn btn-success'
+                                        }
+                                    }
+                                }).then(function() {
+                                    location.reload()
+                                });
+                            }
+                        }
+                    })
+
+                } else {
+                    swal.close();
+                }
+            });
+        })
+
+        $('#form_amandemen').on('submit', function(e) {
+            e.preventDefault()
+            $.ajax({
+                type: 'POST',
+                url: "{!! url('amandemen/create') !!}",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(r) {
+                    console.log(r)
+                    if (r == 'success') {
+                        swal("Good job!", "Simpan data berhasil !", {
+                            icon: "success",
+                            buttons: {
+                                confirm: {
+                                    className: 'btn btn-success'
+                                }
+                            },
+                        }).then(function() {
+                            location.reload()
+                        });
+                    }
+                }
+            })
+        });
+
+        $('#amandemen_file').on('submit', function(e) {
+            e.preventDefault()
+            $.ajax({
+                type: 'POST',
+                url: "{!! url('amandemen/file') !!}",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(r) {
+                    console.log(r)
+                    if (r == 'success') {
+                        swal("Good job!", "Simpan data berhasil !", {
+                            icon: "success",
+                            buttons: {
+                                confirm: {
+                                    className: 'btn btn-success'
+                                }
+                            },
+                        }).then(function() {
+                            location.reload()
+                        });
+                    }
+                }
+            })
+        });
+
+        $(document).on('click', '.btn-update-amandemen', function(e) {
+            $('#e_id').val($(this).data('id'))
+            $('#update-amandemen').modal('show')
+        })
+
+        $('#form_amandemen_update').on('submit', function(e) {
+            e.preventDefault()
+            $.ajax({
+                type: 'post',
+                url: "{!! url('amandemen/update') !!}",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(r) {
+                    console.log(r)
+                    if (r == 'success') {
+                        swal("Good job!", "Simpan data berhasil !", {
+                            icon: "success",
+                            buttons: {
+                                confirm: {
+                                    className: 'btn btn-success'
+                                }
+                            },
+                        }).then(function() {
+                            location.reload()
+                        });
+                    }
+                }
+            })
+        });
+
+        $(document).on('click', '.btn-delete-amandemen', function(e) {
+            var id = $(this).data('id')
+            e.preventDefault()
+            swal({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                buttons: {
+                    confirm: {
+                        text: 'Yes, delete it!',
+                        className: 'btn btn-success'
+                    },
+                    cancel: {
+                        visible: true,
+                        className: 'btn btn-danger'
+                    }
+                }
+            }).then((Delete) => {
+                if (Delete) {
+                    $.ajax({
+                        type: 'GET',
+                        url: "{{ url('amandemen-file/delete?id=') }}" + id,
+                        success: function(r) {
+                            if (r == 'success') {
+                                swal({
+                                    title: 'Deleted!',
+                                    text: 'Your file has been deleted.',
+                                    type: 'success',
+                                    buttons: {
+                                        confirm: {
+                                            className: 'btn btn-success'
+                                        }
+                                    }
+                                }).then(function() {
+                                    location.reload()
+                                });
+                            }
+                        }
+                    })
+
+                } else {
+                    swal.close();
+                }
+            });
+        })
 
     </script>
 @endsection

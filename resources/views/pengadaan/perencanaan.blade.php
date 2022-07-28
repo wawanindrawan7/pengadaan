@@ -269,7 +269,7 @@
                         <td align="center" width="1%">
 
 
-                            <a title="Delete" href="#" class="btn btn-danger btn-round btn-xs mr-2 btn-delete"
+                            <a title="Delete" href="#" class="btn btn-danger btn-round btn-xs mr-2 btn-delete-perencanaan"
                                 data-id="{{ $u->id }}">
                                 <i class="fa fa-trash"></i>
                             </a>

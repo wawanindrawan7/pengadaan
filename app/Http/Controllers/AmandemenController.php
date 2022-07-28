@@ -2,20 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pelaksanaan;
-use App\Models\PelaksanaanFile;
+use App\Models\Amandemen;
+use App\Models\AmandemenFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class PelaksanaanController extends Controller
+class AmandemenController extends Controller
 {
     public function create(Request $r)
     {
         DB::beginTransaction();
         try {
-            $p = new Pelaksanaan();
+            $p = new Amandemen();
             $p->no_nota_dinas = $r->no_nota_dinas;
             $p->tgl_nota_dinas = date('Y-m-d', strtotime($r->tgl_nota_dinas));
+            $p->nomor_amandemen = $r->nomor_amandemen;
+            $p->tgl_amandemen = date('Y-m-d', strtotime($r->tgl_amandemen));
+            $p->tgl_akhir = date('Y-m-d', strtotime($r->tgl_akhir));
+            $p->tgl_selesai_pekerjaan = date('Y-m-d', strtotime($r->tgl_selesai_pekerjaan));
             $p->pengadaan_id = $r->pengadaan_id;
             $p->save();
             DB::commit();
@@ -26,19 +30,12 @@ class PelaksanaanController extends Controller
         }
     }
 
-
-
     public function update(Request $r)
     {
         DB::beginTransaction();
         try {
-            $p = Pelaksanaan::find($r->id);
-            $p->nomor_kontrak = $r->nomor_kontrak;
-            $p->tgl_kontrak = date('Y-m-d', strtotime($r->tgl_kontrak));
-            $p->penyedia_barang_jasa = $r->penyedia_barang_jasa;
-            $p->tgl_efektif = date('Y-m-d', strtotime($r->tgl_efektif));
-            $p->tgl_akhir = date('Y-m-d', strtotime($r->tgl_akhir));
-            $p->nilai_kontrak = $r->nilai_kontrak;
+            $p = Amandemen::find($r->id);
+            $p->tgl_selesai_pekerjaan = date('Y-m-d', strtotime($r->tgl_selesai_pekerjaan));
             $p->save();
             DB::commit();
             return 'success';
@@ -48,17 +45,16 @@ class PelaksanaanController extends Controller
         }
     }
 
-
-    public function pelaksanaanFile(Request $r){
+    public function amandemenFile(Request $r){
         // return $r->all();
         DB::beginTransaction();
         try {
             $file = $r->file('file');
             foreach ($file as $f) {
-                $p = new PelaksanaanFile();
+                $p = new AmandemenFile();
                 $p->kategori = $r->kategori;
                 $p->file = 'file/' . date('YmdHis') . '-' . $f->getClientOriginalName();
-                $p->pelaksanaan_id = $r->pelaksanaan_id;
+                $p->amandemen_id = $r->amandemen_id;
                 $p->save();
 
                 $f->move('file', $p->file);
@@ -76,7 +72,7 @@ class PelaksanaanController extends Controller
     {
         DB::beginTransaction();
         try {
-            $p = PelaksanaanFile::find($r->id);
+            $p = AmandemenFile::find($r->id);
             $p->delete();
             DB::commit();
             return 'success';

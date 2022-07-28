@@ -27,6 +27,12 @@ class Pengadaan extends Model
     }
 
 
+    public function amandemen()
+    {
+        return $this->hasOne(Amandemen::class);
+    }
+
+
 
 
 }

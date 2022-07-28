@@ -39,7 +39,13 @@ Route::get('perencanaan-file/delete', [App\Http\Controllers\PerencanaanControlle
 Route::post('pelaksanaan/create', [App\Http\Controllers\PelaksanaanController::class, 'create']);
 Route::post('pelaksanaan/update', [App\Http\Controllers\PelaksanaanController::class, 'update']);
 Route::get('pelaksanaan/delete', [App\Http\Controllers\PelaksanaanController::class, 'delete']);
-Route::post('pelaksanaan/file', [App\Http\Controllers\PelaksanaanController::class, 'perencanaanFile']);
+Route::post('pelaksanaan/file', [App\Http\Controllers\PelaksanaanController::class, 'pelaksanaanFile']);
 Route::get('pelaksanaan-file/delete', [App\Http\Controllers\PelaksanaanController::class, 'deleteFile']);
+
+Route::post('amandemen/create', [App\Http\Controllers\AmandemenController::class, 'create']);
+Route::post('amandemen/update', [App\Http\Controllers\AmandemenController::class, 'update']);
+Route::get('amandemen/delete', [App\Http\Controllers\AmandemenController::class, 'delete']);
+Route::post('amandemen/file', [App\Http\Controllers\AmandemenController::class, 'amandemenFile']);
+Route::get('amandemen-file/delete', [App\Http\Controllers\AmandemenController::class, 'deleteFile']);
 
 
