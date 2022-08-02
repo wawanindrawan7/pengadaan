@@ -33,10 +33,7 @@
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <label for="exampleFormControlInput1">Kategori Kebutuhan</label>
-                        <input type="text" class="form-control" name="kategori_kebutuhan" required>
-                    </div>
+                 
 
                     <div class="form-group">
                         <label>Tanggal Penggunaan</label>

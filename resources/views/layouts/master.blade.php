@@ -30,7 +30,8 @@
     <link rel="stylesheet" href="{!! asset('public/atlantis/assets/css/bootstrap.min.css') !!}">
     <link rel="stylesheet" href="{!! asset('public/atlantis/assets/css/atlantis.css') !!}">
     <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link rel="stylesheet" href="{!! asset('public/atlantis/assets/css/demo.css') !!}">
+    {{-- <link rel="stylesheet" href="{!! asset('public/atlantis/assets/css/demo.css') !!}"> --}}
+  
     @yield('css')
 </head>
 
@@ -370,7 +371,7 @@
                         </div>
                     </div>
                     <ul class="nav nav-primary">
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a data-toggle="collapse" href="#base">
                                 <i class="fas fa-layer-group"></i>
                                 <p>Master</p>
@@ -385,8 +386,14 @@
                                     </li>
                                 </ul>
                             </div>
-                        </li>
+                        </li> --}}
 
+                        <li class="nav-item">
+                            <a href="{{ url('pengadaan') }}">
+                                <i class="fas fa-book"></i>
+                                <p>Penngadaan</p>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="{{ url('users') }}">
                                 <i class="fas fa-users"></i>

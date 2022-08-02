@@ -197,18 +197,13 @@
         <input type="text" class="form-control" value="{{ $pengadaan->amandemen->tgl_akhir }}" readonly />
     </div>
 
-    {{-- <a title="Update" href="#" class="btn btn-warning btn-round btn-xs mr-2 btn-update"
-            data-id="{{ $pengadaan->pelaksanaan->id }}"
-            data-no_nota_dinas="{{ $pengadaan->pelaksanaan->no_nota_dinas }}"
-            data-tgl_nota_dinas="{{ $pengadaan->pelaksanaan->tgl_nota_dinas }}">
-            <i class="fa fa-edit"></i> Create
-        </a> --}}
+    <a title="Update" href="#" class="btn btn-warning btn-round btn-xs mr-2 btn-update-amandemen"
+        data-id="{{ $pengadaan->amandemen->id }}">
+        <i class="fa fa-edit"></i> Update
+    </a>
+ 
 @endif
 
-<a title="Update" href="#" class="btn btn-warning btn-round btn-xs mr-2 btn-update-amandemen"
-    data-id="{{ $pengadaan->amandemen->id }}">
-    <i class="fa fa-edit"></i> Create
-</a>
 
 @if ($pengadaan->amandemen != null && $pengadaan->amandemen->amandemenFile != null)
     <div class="table-responsive">

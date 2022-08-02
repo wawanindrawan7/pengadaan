@@ -110,7 +110,7 @@
                     <div class="form-group">
                         <label>Tanggal Akhir</label>
                         <div class="input-group">
-                            <input type="text" class="form-control datepicker" name="tanggal_akhir"
+                            <input type="text" class="form-control datepicker" name="tgl_akhir"
                                 id="e_tanggal_akhir">
                             <div class="input-group-append">
                                 <span class="input-group-text">
@@ -200,12 +200,57 @@
         </div>
     </div>
 
-        <a title="Update" href="#" class="btn btn-warning btn-round btn-xs mr-2 btn-update"
-            data-id="{{ $pengadaan->pelaksanaan->id }}"
-            data-no_nota_dinas="{{ $pengadaan->pelaksanaan->no_nota_dinas }}"
-            data-tgl_nota_dinas="{{ $pengadaan->pelaksanaan->tgl_nota_dinas }}">
-            <i class="fa fa-edit"></i> Create
-        </a>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group form-group-default">
+                <label>Nomor Kontak</label>
+                <input type="text" class="form-control" value="{{ $pengadaan->pelaksanaan->nomor_kontrak }}"
+                    readonly />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group form-group-default">
+                <label>Tgl. Kontrak</label>
+                <input type="text" class="form-control" value="{{ $pengadaan->pelaksanaan->tgl_kontrak }}"
+                    readonly />
+            </div>
+        </div>
+    </div>
+    <div class="form-group form-group-default">
+        <label>Penyedia Barang / Jasa</label>
+        <input type="text" class="form-control" value="{{ $pengadaan->pelaksanaan->penyedia_barang_jasa }}"
+            readonly />
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group form-group-default">
+                <label>Tgl. Efektif</label>
+                <input type="text" class="form-control" value="{{ $pengadaan->pelaksanaan->tgl_efektif }}"
+                    readonly />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group form-group-default">
+                <label>Tgl. Akhir</label>
+                <input type="text" class="form-control" value="{{ $pengadaan->pelaksanaan->tgl_akhir }}"
+                    readonly />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group form-group-default">
+        <label>Nilai Kontrak</label>
+        <input type="text" class="form-control" value="{{ $pengadaan->pelaksanaan->nilai_kontrak }}"
+            readonly />
+    </div>
+    
+    <a title="Update" href="#" class="btn btn-warning btn-round btn-xs mr-2 btn-update"
+        data-id="{{ $pengadaan->pelaksanaan->id }}"
+        data-no_nota_dinas="{{ $pengadaan->pelaksanaan->no_nota_dinas }}"
+        data-tgl_nota_dinas="{{ $pengadaan->pelaksanaan->tgl_nota_dinas }}">
+        <i class="fa fa-edit"></i> Update
+    </a>
 @endif
 
 @if ($pengadaan->pelaksanaan != null && $pengadaan->pelaksanaan->pelaksanaanFile != null)

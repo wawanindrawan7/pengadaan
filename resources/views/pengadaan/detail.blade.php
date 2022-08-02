@@ -1,4 +1,9 @@
 @extends('layouts.master')
+@section('css')
+    <style>
+        
+    </style>
+@endsection
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -65,15 +70,15 @@
                                 <div class="col-md-6">
                                     <div class="form-group form-group-default">
                                         <label>Nama</label>
-                                        <input type="text" class="form-control" value="{{ $pengadaan->nama }}"
-                                            readonly />
+                                        <input disabled type="text" class="form-control" value="{{ $pengadaan->nama }}"
+                                             />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group form-group-default">
-                                        <label>Nama</label>
+                                        <label>Lokasi</label>
                                         <input type="text" class="form-control" value="{{ $pengadaan->lokasi }}"
-                                            readonly />
+                                            disabled />
                                     </div>
                                 </div>
                             </div>
@@ -82,14 +87,14 @@
                                     <div class="form-group form-group-default">
                                         <label>Sumber Anggaran</label>
                                         <input type="text" class="form-control" value="{{ $pengadaan->sumber_anggaran }}"
-                                            readonly />
+                                            disabled />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group form-group-default">
                                         <label>Nilai</label>
                                         <input type="text" class="form-control" value="{{ $pengadaan->nilai_anggaran }}"
-                                            readonly />
+                                            disabled />
                                     </div>
                                 </div>
                             </div>
@@ -98,14 +103,14 @@
                                     <div class="form-group form-group-default">
                                         <label>Jenis</label>
                                         <input type="text" class="form-control" value="{{ $pengadaan->jenis }}"
-                                            readonly />
+                                            disabled />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group form-group-default">
                                         <label>Volume</label>
                                         <input type="text" class="form-control" value="{{ $pengadaan->volume }}"
-                                            readonly />
+                                            disabled />
                                     </div>
                                 </div>
                             </div>
@@ -114,21 +119,20 @@
                                     <div class="form-group form-group-default">
                                         <label>Metode Pengadaan</label>
                                         <input type="text" class="form-control"
-                                            value="{{ $pengadaan->metode_pengadaan }}" readonly />
+                                            value="{{ $pengadaan->metode_pengadaan }}" disabled />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group form-group-default">
                                         <label>Nomor Nota Dinas</label>
                                         <input type="text" class="form-control"
-                                            value="{{ $pengadaan->no_nota_dinas }}" readonly />
+                                            value="{{ $pengadaan->no_nota_dinas }}" disabled />
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group form-group-default">
                                 <label>Tanggal Nota Dinas</label>
-                                <input type="text" class="form-control" value="{{ $pengadaan->tgl_nota_dinas }}"
-                                    readonly />
+                                <input type="text" class="form-control" value="{{ $pengadaan->tgl_nota_dinas }}"  disabled/>
                             </div>
 
                             <div class="form-group">
@@ -190,14 +194,12 @@
 
 
 @section('js')
-    <script src="{{ asset('public/atlantis/assets/js/plugin/datatables/datatables.min.js') }}"></script>
+    
     <script src="{{ asset('public/atlantis/assets/js/plugin/sweetalert/sweetalert.min.js') }}"></script>
     <script src="{{ asset('public/atlantis/assets/js/plugin/moment/moment.min.js') }}"></script>
     <script src="{{ asset('public/atlantis/assets/js/plugin/datepicker/bootstrap-datetimepicker.min.js') }}"></script>
     <script>
-        $(document).ready(function() {
-            $('#basic-datatables').DataTable({});
-        });
+        
 
         $('.datepicker').datetimepicker({
             format: 'MM/DD/YYYY',

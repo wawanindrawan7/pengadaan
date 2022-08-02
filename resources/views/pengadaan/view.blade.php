@@ -1,5 +1,10 @@
 @extends('layouts.master')
-
+@section('css')
+    <style>
+        th { font-size: 11px; }
+        td { font-size: 11px; }
+    </style>
+@endsection
 @section('content')
     <div class="modal fade" id="create-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -350,6 +355,52 @@
                 }
             })
         });
+
+        $(document).on('click', '.btn-delete', function(e) {
+            var id = $(this).data('id')
+            e.preventDefault()
+            swal({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                buttons: {
+                    confirm: {
+                        text: 'Yes, delete it!',
+                        className: 'btn btn-success'
+                    },
+                    cancel: {
+                        visible: true,
+                        className: 'btn btn-danger'
+                    }
+                }
+            }).then((Delete) => {
+                if (Delete) {
+                    $.ajax({
+                        type: 'GET',
+                        url: "{{ url('pengadaan/delete?id=') }}" + id,
+                        success: function(r) {
+                            if (r == 'success') {
+                                swal({
+                                    title: 'Deleted!',
+                                    text: 'Your file has been deleted.',
+                                    type: 'success',
+                                    buttons: {
+                                        confirm: {
+                                            className: 'btn btn-success'
+                                        }
+                                    }
+                                }).then(function() {
+                                    location.reload()
+                                });
+                            }
+                        }
+                    })
+
+                } else {
+                    swal.close();
+                }
+            });
+        })
 
 
 
