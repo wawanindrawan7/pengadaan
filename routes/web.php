@@ -48,4 +48,8 @@ Route::get('amandemen/delete', [App\Http\Controllers\AmandemenController::class,
 Route::post('amandemen/file', [App\Http\Controllers\AmandemenController::class, 'amandemenFile']);
 Route::get('amandemen-file/delete', [App\Http\Controllers\AmandemenController::class, 'deleteFile']);
 
+Route::get('users', [App\Http\Controllers\UserController::class, 'view']);
+Route::post('users/create', [App\Http\Controllers\UserController::class, 'create']);
+Route::get('users/delete', [App\Http\Controllers\UserController::class, 'delete']);
+
 
