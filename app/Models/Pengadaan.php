@@ -32,6 +32,20 @@ class Pengadaan extends Model
         return $this->hasOne(Amandemen::class);
     }
 
+    public function direksiPk()
+    {
+        return $this->hasOne(DireksiPk::class);
+    }
+
+    public function pengawasPk()
+    {
+        return $this->hasOne(PengawasPk::class);
+    }
+    public function pengawasK3()
+    {
+        return $this->hasOne(PengawasK3::class);
+    }
+
 
 
 

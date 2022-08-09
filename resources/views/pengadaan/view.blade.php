@@ -13,7 +13,7 @@
                 <form id="form-create" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Create Pengadaan</h5>
+                        <h3 class="modal-title" id="exampleModalLabel">Create Pengadaan</h3>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -21,159 +21,124 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Nama Pengadaan</label>
-                            <input type="text" class="form-control" name="nama" id="exampleFormControlInput1"
-                                required>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Lokasi</label>
-                            <input type="text" class="form-control" name="lokasi" id="exampleFormControlInput1"
-                                required>
+                            <textarea class="form-control" name="nama" rows="3" required></textarea>
                         </div>
 
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Sumber Anggaran</label>
-                            <select name="sumber_anggaran" class="form-control">
-                                <option>Operasi</option>
-                                <option>Investasi</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Nilai Anggaran</label>
-                            <input type="text" class="form-control" name="nilai_anggaran" id="exampleFormControlInput1"
-                                required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Jenis</label>
-                            <select name="jenis" class="form-control">
-                                <option>Barang</option>
-                                <option>Jasa</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Volume</label>
-                            <input type="text" class="form-control" name="volume" id="exampleFormControlInput1"
-                                required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Metode Pengadaan</label>
-                            <select name="metode_pengadaan" class="form-control">
-                                <option>Pengadaan Langsung</option>
-                                <option>Penunjukan Langsung</option>
-                                <option>Tender Terbatas</option>
-                                <option>Tender Terbuka</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Nomor Nota Dinas</label>
-                            <input type="text" class="form-control" name="no_nota_dinas" id="exampleFormControlInput1"
-                                required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Tanggal Nota Dinas</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control datepicker" name="tgl_nota_dinas">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">
-                                        <i class="fa fa-calendar-check"></i>
-                                    </span>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleFormControlInput1">Lokasi</label>
+                                    <input type="text" class="form-control" name="lokasi" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleFormControlInput1">Sumber Anggaran</label>
+                                    <select name="sumber_anggaran" class="form-control">
+                                        <option>Operasi</option>
+                                        <option>Investasi</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 
-    <div class="modal fade" id="update-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <form id="form-update" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Update Pengadaan</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-
-                    <input type="hidden" name="id" id="e_id">
-                    <div class="modal-body">
-
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Nama Pengadaan</label>
-                            <input type="text" class="form-control" name="nama" id="e_nama" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Lokasi</label>
-                            <input type="text" class="form-control" name="lokasi" id="e_lokasi" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Sumber Anggaran</label>
-                            <select name="sumber_anggaran" class="form-control" id="e_sumber_anggaran">
-                                <option>Operasi</option>
-                                <option>Investasi</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Nilai Anggaran</label>
-                            <input type="text" class="form-control" name="nilai_anggaran" id="e_nilai_anggaran"
-                                required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Jenis</label>
-                            <select name="jenis" class="form-control" id="e_jenis">
-                                <option>Barang</option>
-                                <option>Jasa</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Volume</label>
-                            <input type="text" class="form-control" name="volume" id="e_volume" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Metode Pengadaan</label>
-                            <select name="metode_pengadaan" class="form-control" id="e_metode_pembayaran">
-                                <option>Pengadaan Langsung</option>
-                                <option>Penunjukan Langsung</option>
-                                <option>Tender Terbatas</option>
-                                <option>Tender Terbuka</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Nomor Nota Dinas</label>
-                            <input type="text" class="form-control" name="no_nota_dinas" id="e_no_nota_dinas"
-                                required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Tanggal Nota Dinas</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control datepicker" id="e_datepicker"
-                                    name="tgl_nota_dinas">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">
-                                        <i class="fa fa-calendar-check"></i>
-                                    </span>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleFormControlInput1">Nilai Anggaran (RAB)</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Rp.</span>
+                                        </div>
+                                        <input type="number" id="nilai_anggaran" autocomplete="off" name="nilai_anggaran" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text f_nilai_anggaran"></span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleFormControlInput1">Jenis</label>
+                                    <select name="jenis" class="form-control">
+                                        <option>Barang</option>
+                                        <option>Jasa</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleFormControlInput1">Volume</label>
+                                    <input type="text" class="form-control" name="volume" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleFormControlInput1">Metode Pengadaan</label>
+                                    <select name="metode_pengadaan" class="form-control">
+                                        <option>Pengadaan Langsung</option>
+                                        <option>Penunjukan Langsung</option>
+                                        <option>Tender Terbatas</option>
+                                        <option>Tender Terbuka</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleFormControlInput1">Nomor Nota Dinas</label>
+                                    <input type="text" class="form-control" name="no_nota_dinas" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Tanggal Nota Dinas</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control datepicker" name="tgl_nota_dinas">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="fa fa-calendar-check"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Direaksi Pekerjaan</label>
+                            <select name="direksi_pk_id" class="form-control">
+                                <option value=""></option>
+                                @foreach ($user as $u)
+                                    <option value="{{ $u->id }}">{{ $u->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Pengawas Pekerjaan</label>
+                            <select name="pengawas_pk_id" class="form-control">
+                                <option value=""></option>
+                                @foreach ($user as $u)
+                                    <option value="{{ $u->id }}">{{ $u->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Pengawas K3</label>
+                            <select name="pengawas_k3_id" class="form-control">
+                                <option value=""></option>
+                                @foreach ($user as $u)
+                                    <option value="{{ $u->id }}">{{ $u->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                     </div>
@@ -185,6 +150,8 @@
             </div>
         </div>
     </div>
+
+  
 
     <div class="col-md-12">
         <div class="card">
@@ -215,8 +182,8 @@
                                 <th>Jenis</th>
                                 <th>Volume</th>
                                 <th>Metode Pengadaan</th>
-                                <th>Nomor Nota Dinas</th>
-                                <th>Tanggal Nota Dinas</th>
+                                {{-- <th>Nomor Nota Dinas</th>
+                                <th>Tanggal Nota Dinas</th> --}}
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -234,8 +201,8 @@
                                     <td>{{ $u->jenis }}</td>
                                     <td>{{ $u->volume }}</td>
                                     <td>{{ $u->metode_pengadaan }}</td>
-                                    <td>{{ $u->no_nota_dinas }}</td>
-                                    <td>{{ $u->tgl_nota_dinas }}</td>
+                                    {{-- <td>{{ $u->no_nota_dinas }}</td>
+                                    <td>{{ $u->tgl_nota_dinas }}</td> --}}
                                     <td align="center">
                                         <a title="Update" href="#"
                                             class="btn btn-warning btn-round btn-xs mr-2 btn-update"
@@ -274,7 +241,9 @@
 
     <script>
         $(document).ready(function() {
-            $('#basic-datatables').DataTable({});
+            $('#basic-datatables').DataTable({
+                pageLength:100
+            });
         });
 
         $('.datepicker').datetimepicker({
@@ -285,6 +254,11 @@
         $('#e_datepicker').datetimepicker({
             format: 'MM/DD/YYYY',
         });
+
+        $(document).on('input','#nilai_anggaran', function(){
+            var nilai_anggaran = $('#nilai_anggaran').val()
+            $('.f_nilai_anggaran').text(nf.format(nilai_anggaran))
+        })
 
 
         $('#form-create').on('submit', function(e) {

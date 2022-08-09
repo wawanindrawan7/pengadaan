@@ -1,5 +1,11 @@
 <?php
 
+use App\Http\Controllers\AmandemenController;
+use App\Http\Controllers\HpeItemController;
+use App\Http\Controllers\PelaksanaanController;
+use App\Http\Controllers\PengadaanController;
+use App\Http\Controllers\PerencanaanController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -22,34 +28,36 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('pengadaan', [App\Http\Controllers\PengadaanController::class, 'view']);
-Route::post('pengadaan/create', [App\Http\Controllers\PengadaanController::class, 'create']);
-Route::post('pengadaan/update', [App\Http\Controllers\PengadaanController::class, 'update']);
-Route::get('pengadaan/delete', [App\Http\Controllers\PengadaanController::class, 'delete']);
-Route::get('pengadaan/detail', [App\Http\Controllers\PengadaanController::class, 'pengadaanDetail']);
-Route::post('pengadaan/detail/create', [App\Http\Controllers\PengadaanController::class, 'pengadaanDetailCreate']);
-Route::get('pengadaan-file/delete', [App\Http\Controllers\PengadaanController::class, 'deleteFile']);
+Route::get('pengadaan', [PengadaanController::class, 'view']);
+Route::post('pengadaan/create', [PengadaanController::class, 'create']);
+Route::post('pengadaan/update', [PengadaanController::class, 'update']);
+Route::get('pengadaan/delete', [PengadaanController::class, 'delete']);
+Route::get('pengadaan/detail', [PengadaanController::class, 'pengadaanDetail']);
+Route::post('pengadaan/detail/create', [PengadaanController::class, 'pengadaanDetailCreate']);
+Route::get('pengadaan-file/delete', [PengadaanController::class, 'deleteFile']);
 
-Route::post('perencanaan/create', [App\Http\Controllers\PerencanaanController::class, 'create']);
-Route::post('perencanaan/update', [App\Http\Controllers\PerencanaanController::class, 'update']);
-Route::get('perencanaan/delete', [App\Http\Controllers\PerencanaanController::class, 'delete']);
-Route::post('perencanaan/file', [App\Http\Controllers\PerencanaanController::class, 'perencanaanFile']);
-Route::get('perencanaan-file/delete', [App\Http\Controllers\PerencanaanController::class, 'deleteFile']);
+Route::post('perencanaan/create', [PerencanaanController::class, 'create']);
+Route::post('perencanaan/update', [PerencanaanController::class, 'update']);
+Route::get('perencanaan/delete', [PerencanaanController::class, 'delete']);
+Route::post('perencanaan/file', [PerencanaanController::class, 'perencanaanFile']);
+Route::get('perencanaan-file/delete', [PerencanaanController::class, 'deleteFile']);
 
-Route::post('pelaksanaan/create', [App\Http\Controllers\PelaksanaanController::class, 'create']);
-Route::post('pelaksanaan/update', [App\Http\Controllers\PelaksanaanController::class, 'update']);
-Route::get('pelaksanaan/delete', [App\Http\Controllers\PelaksanaanController::class, 'delete']);
-Route::post('pelaksanaan/file', [App\Http\Controllers\PelaksanaanController::class, 'pelaksanaanFile']);
-Route::get('pelaksanaan-file/delete', [App\Http\Controllers\PelaksanaanController::class, 'deleteFile']);
+Route::post('hpe/add-item',[HpeItemController::class,'addItem']);
 
-Route::post('amandemen/create', [App\Http\Controllers\AmandemenController::class, 'create']);
-Route::post('amandemen/update', [App\Http\Controllers\AmandemenController::class, 'update']);
-Route::get('amandemen/delete', [App\Http\Controllers\AmandemenController::class, 'delete']);
-Route::post('amandemen/file', [App\Http\Controllers\AmandemenController::class, 'amandemenFile']);
-Route::get('amandemen-file/delete', [App\Http\Controllers\AmandemenController::class, 'deleteFile']);
+Route::post('pelaksanaan/create', [PelaksanaanController::class, 'create']);
+Route::post('pelaksanaan/update', [PelaksanaanController::class, 'update']);
+Route::get('pelaksanaan/delete', [PelaksanaanController::class, 'delete']);
+Route::post('pelaksanaan/file', [PelaksanaanController::class, 'pelaksanaanFile']);
+Route::get('pelaksanaan-file/delete', [PelaksanaanController::class, 'deleteFile']);
 
-Route::get('users', [App\Http\Controllers\UserController::class, 'view']);
-Route::post('users/create', [App\Http\Controllers\UserController::class, 'create']);
-Route::get('users/delete', [App\Http\Controllers\UserController::class, 'delete']);
+Route::post('amandemen/create', [AmandemenController::class, 'create']);
+Route::post('amandemen/update', [AmandemenController::class, 'update']);
+Route::get('amandemen/delete', [AmandemenController::class, 'delete']);
+Route::post('amandemen/file', [AmandemenController::class, 'amandemenFile']);
+Route::get('amandemen-file/delete', [AmandemenController::class, 'deleteFile']);
+
+Route::get('users', [UserController::class, 'view']);
+Route::post('users/create', [UserController::class, 'create']);
+Route::get('users/delete', [UserController::class, 'delete']);
 
 

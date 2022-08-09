@@ -74,7 +74,7 @@
                     <div class="form-group">
                         <label>Tanggal HPE</label>
                         <div class="input-group">
-                            <input type="text" class="form-control datepicker" name="tgl_penggunaan">
+                            <input type="text" class="form-control datepicker" name="tgl_hpe">
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                     <i class="fa fa-calendar-check"></i>
