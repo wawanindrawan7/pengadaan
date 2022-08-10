@@ -197,20 +197,32 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('perencana-pengadaan') }}">
-                                <i class="fas fa-book"></i>
+                                <i class="fas fa-calendar-check"></i>
                                 <p>Perencana Pengadaan</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('pelaksana-pengadaan') }}">
-                                <i class="fas fa-book"></i>
+                                <i class="fas fas fa-cogs"></i>
                                 <p>Pelaksana Pengadaan</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('pengadaan') }}">
-                                <i class="fas fa-book"></i>
+                                <i class="fas fa-edit"></i>
                                 <p>Manajemen Kontrak</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('unit') }}">
+                                <i class="fas  fa-building"></i>
+                                <p>Unit</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('mitra') }}">
+                                <i class="fas  fa-users-cog"></i>
+                                <p>Mitra</p>
                             </a>
                         </li>
                         <li class="nav-item">

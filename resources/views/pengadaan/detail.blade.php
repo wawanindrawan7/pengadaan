@@ -15,11 +15,11 @@
                             <li class="nav-item submenu"> <a class="nav-link active show" data-toggle="tab" href="#profile"
                                     role="tab" aria-selected="false">Pengadaan</a> </li>
                             <li class="nav-item submenu"> <a class="nav-link" data-toggle="tab" href="#settings"
-                                    role="tab" aria-selected="false">Perencanaan</a> </li>
+                                    role="tab" aria-selected="false">Perencana Pengadaan</a> </li>
                             <li class="nav-item submenu"> <a class="nav-link" data-toggle="tab" href="#pelaksanaan"
-                                    role="tab" aria-selected="false">Pelaksanaan</a> </li>
+                                    role="tab" aria-selected="false">Pelaksana Pengadaan</a> </li>
                             <li class="nav-item submenu"> <a class="nav-link" data-toggle="tab" href="#amandemen"
-                                    role="tab" aria-selected="false">Amandemen</a> </li>
+                                    role="tab" aria-selected="false">Manajemen Kontrak</a> </li>
                         </ul>
                     </div>
                 </div>
@@ -46,7 +46,14 @@
 
                                                 <div class="form-group">
                                                     <label for="exampleFormControlInput1">Kategori</label>
-                                                    <input type="text" class="form-control" name="kategori" required>
+                                                    <select class="form-control" name="kategori" required>
+                                                        <option value=""></option>
+                                                        <option>KKP</option>
+                                                        <option>TOR/KAK</option>
+                                                        <option>Referensi</option>
+                                                        <option>RAB/PA</option>
+                                                        <option>Nota Dinas GM ke Rendan</option>
+                                                    </select>
                                                 </div>
 
                                                 <div class="form-group">
@@ -77,7 +84,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group form-group-default">
                                         <label>Lokasi</label>
-                                        <input type="text" class="form-control" value="{{ $pengadaan->lokasi }}"
+                                        <input type="text" class="form-control" value="{{ $pengadaan->unit->nama }}"
                                             disabled />
                                     </div>
                                 </div>
@@ -92,8 +99,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group form-group-default">
-                                        <label>Nilai</label>
-                                        <input type="text" class="form-control" value="{{ $pengadaan->nilai_anggaran }}"
+                                        <label>Nilai Anggaran (RAB)</label>
+                                        <input type="text" class="form-control" value="{{ number_format($pengadaan->nilai_anggaran) }}"
                                             disabled />
                                     </div>
                                 </div>
@@ -132,7 +139,31 @@
                             </div>
                             <div class="form-group form-group-default">
                                 <label>Tanggal Nota Dinas</label>
-                                <input type="text" class="form-control" value="{{ $pengadaan->tgl_nota_dinas }}"  disabled/>
+                                <input type="text" class="form-control" value="{{ date('d-m-Y', strtotime($pengadaan->tgl_nota_dinas)) }}"  disabled/>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group form-group-default">
+                                        <label>Direksi Pekerjaan</label>
+                                        <input type="text" class="form-control"
+                                            value="{{ $pengadaan->direksiPk->users->name }}" disabled />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-group-default">
+                                        <label>Pengawas Pekerjaan</label>
+                                        <input type="text" class="form-control"
+                                            value="{{ $pengadaan->pengawasPk->users->name }}" disabled />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-group-default">
+                                        <label>Pengawas K3</label>
+                                        <input type="text" class="form-control"
+                                            value="{{ $pengadaan->pengawasK3->users->name }}" disabled />
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="form-group">
@@ -147,7 +178,7 @@
 
                             @if ($pengadaan != null && $pengadaan->pengadaanFile != null)
                             <div class="table-responsive mt-2">
-                                <table class="display table table-bordered table-hover">
+                                <table class="table table-bordered table-bordered-bd-info">
                                     <tbody>
                                         @php
                                         $no = 1;
@@ -204,6 +235,22 @@
         $('.datepicker').datetimepicker({
             format: 'MM/DD/YYYY',
         });
+
+        loadMitra()
+
+        function loadMitra(){
+            $.ajax({
+                type : 'GET',
+                url : "{{ url('mitra/get-data') }}",
+                success : function(r){
+                    $('#mitra_id').empty()
+                    $('#mitra_id').append('<option value=""></option>')
+                    $.each(r.mitra, function(i, d){
+                        $('#mitra_id').append('<option value="'+d.id+'">'+d.nama+'</option>')
+                    })
+                }
+            })
+        }
 
         $(document).on('input','#nilai_kontrak', function(){
             var nilai_kontrak = $('#nilai_kontrak').val()

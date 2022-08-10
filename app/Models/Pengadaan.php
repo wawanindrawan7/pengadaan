@@ -41,9 +41,14 @@ class Pengadaan extends Model
     {
         return $this->hasOne(PengawasPk::class);
     }
+
     public function pengawasK3()
     {
         return $this->hasOne(PengawasK3::class);
+    }
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class);
     }
 
 

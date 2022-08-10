@@ -28,7 +28,12 @@
                             <div class="col-md-6">
                                 <div class="form-group form-group-default">
                                     <label for="exampleFormControlInput1">Lokasi</label>
-                                    <input type="text" class="form-control" name="lokasi" required>
+                                    <select name="unit_id" class="form-control">
+                                        <option value=""></option>
+                                        @foreach ($unit as $un)
+                                            <option value="{{ $un->id }}">{{ $un->nama }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -187,7 +192,7 @@
                                     <td><a href="{{ url('pengadaan/detail?id=' . $u->id) }}">{{ $u->nama }}</a></td>
                                     <td>{{ $u->lokasi }}</td>
                                     <td>{{ $u->sumber_anggaran }}</td>
-                                    <td>{{ $u->nilai_anggaran }}</td>
+                                    <td>{{ number_format($u->nilai_anggaran) }}</td>
                                     <td>{{ $u->jenis }}</td>
                                     <td>{{ $u->volume }}</td>
                                     <td>{{ $u->metode_pengadaan }}</td>

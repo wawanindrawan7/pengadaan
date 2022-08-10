@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\AmandemenController;
 use App\Http\Controllers\HpeItemController;
+use App\Http\Controllers\MitraController;
 use App\Http\Controllers\PelaksanaanController;
 use App\Http\Controllers\PengadaanController;
 use App\Http\Controllers\PerencanaanController;
+use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +41,9 @@ Route::get('pengadaan-file/delete', [PengadaanController::class, 'deleteFile']);
 Route::get('perencana-pengadaan', [PerencanaanController::class, 'view']);
 Route::get('perencana-pengadaan/form', [PerencanaanController::class, 'form']);
 Route::post('perencana-pengadaan/create', [PerencanaanController::class, 'create']);
+Route::get('perencana-pengadaan/drp-export', [PerencanaanController::class, 'exportDrp']);
+
+
 Route::post('perencanaan/update', [PerencanaanController::class, 'update']);
 Route::get('perencanaan/delete', [PerencanaanController::class, 'delete']);
 Route::post('perencanaan/file', [PerencanaanController::class, 'perencanaanFile']);
@@ -63,5 +68,16 @@ Route::get('amandemen-file/delete', [AmandemenController::class, 'deleteFile']);
 Route::get('users', [UserController::class, 'view']);
 Route::post('users/create', [UserController::class, 'create']);
 Route::get('users/delete', [UserController::class, 'delete']);
+
+Route::get('unit', [UnitController::class, 'view']);
+Route::post('unit/create', [UnitController::class, 'create']);
+Route::post('unit/update', [UnitController::class, 'update']);
+Route::get('unit/delete', [UnitController::class, 'delete']);
+
+Route::get('mitra', [MitraController::class, 'view']);
+Route::get('mitra/get-data', [MitraController::class, 'getData']);
+Route::post('mitra/create', [MitraController::class, 'create']);
+Route::post('mitra/update', [MitraController::class, 'update']);
+Route::get('mitra/delete', [MitraController::class, 'delete']);
 
 

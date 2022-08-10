@@ -35,8 +35,9 @@
 
                     <div class="form-group form-group-default">
                         <label for="exampleFormControlInput1">Penyedia Barang Jasa</label>
-                        <input type="text" class="form-control" name="penyedia_barang_jasa"
-                            id="e_penyedia_barang_jasa">
+                        <select class="form-control" name="mitra_id" id="mitra_id" required>
+
+                        </select>
                     </div>
 
                     <div class="row">
@@ -99,7 +100,13 @@
 
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Kategori</label>
-                        <input type="text" class="form-control" name="kategori" required>
+                        <select class="form-control" name="kategori" required>
+                            <option value=""></option>
+                            <option>Jadwal Pengadaan</option>
+                            <option>HPS</option>
+                            <option>Kontrak</option>
+                            <option>Jaminan Pelaksanaan</option>
+                        </select>
                     </div>
 
                     <div class="form-group">
@@ -149,7 +156,7 @@
         <div class="col-md-4">
             <div class="form-group form-group-default">
                 <label>Penyedia Barang / Jasa</label>
-                <input type="text" class="form-control" value="{{ $pengadaan->pelaksanaan->penyedia_barang_jasa }}"
+                <input type="text" class="form-control" value="{{ $pengadaan->pelaksanaan->mitra->nama }}"
                     readonly />
             </div>
         </div>
@@ -194,14 +201,14 @@
             </span>
             Upload Files Pelaksanaan
         </a>
-        <table id="basic-datatables" class="display table table-bordered table-hover mt-2">
+        <table class="table table-bordered table-bordered-bd-info mt-2">
             <tbody>
                 @php
                     $no = 1;
                 @endphp
                 @foreach ($pengadaan->pelaksanaan->pelaksanaanFile as $u)
                     <tr>
-                        <td width="1%">{{ $no++ }}</td>
+                        {{-- <td width="1%">{{ $no++ }}</td> --}}
                         <td width="30%">
                             <a href="{{ url($u->file) }}">{{ $u->kategori }}
                             </a>

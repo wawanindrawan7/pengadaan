@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\DireksiPk;
+use App\Models\Mitra;
 use App\Models\Pengadaan;
 use App\Models\PengadaanFile;
 use App\Models\PengawasK3;
 use App\Models\PengawasPk;
+use App\Models\Unit;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +20,8 @@ class PengadaanController extends Controller
     {
         $user = User::all();
         $pengadaan = Pengadaan::all();
-        return view('pengadaan.view', compact('pengadaan','user'));
+        $unit = Unit::all();
+        return view('pengadaan.view', compact('pengadaan','user','unit'));
     }
 
     public function create(Request $r){
@@ -36,6 +39,7 @@ class PengadaanController extends Controller
             $p->no_nota_dinas = $r->no_nota_dinas;
             $p->tgl_nota_dinas = date('Y-m-d', strtotime($r->tgl_nota_dinas));
             $p->users_id = Auth::id();
+            $p->unit_id = $r->unit_id;
             $p->save();
 
             $direaksi_pk = new DireksiPk();
@@ -105,7 +109,8 @@ class PengadaanController extends Controller
     public function pengadaanDetail(Request $r){
         $pengadaan = Pengadaan::find($r->id);
         $pengadaan_file = PengadaanFile::where('pengadaan_id',$pengadaan->id)->get();
-        return view('pengadaan.detail', compact('pengadaan','pengadaan_file'));
+        $mitra = Mitra::all();
+        return view('pengadaan.detail', compact('pengadaan','pengadaan_file','mitra'));
     }
 
 

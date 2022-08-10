@@ -16,10 +16,10 @@ class PelaksanaanController extends Controller
             $p = new Pelaksanaan();
             $p->nomor_kontrak = $r->nomor_kontrak;
             $p->tgl_kontrak = date('Y-m-d', strtotime($r->tgl_kontrak));
-            $p->penyedia_barang_jasa = $r->penyedia_barang_jasa;
             $p->tgl_efektif = date('Y-m-d', strtotime($r->tgl_efektif));
             $p->tgl_akhir = date('Y-m-d', strtotime($r->tgl_akhir));
             $p->nilai_kontrak = $r->nilai_kontrak;
+            $p->mitra_id = $r->mitra_id;
             $p->pengadaan_id = $r->pengadaan_id;
             $p->save();
             DB::commit();

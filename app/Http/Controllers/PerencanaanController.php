@@ -10,6 +10,8 @@ use App\Models\PerencanaanFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use PDF;
+
 
 class PerencanaanController extends Controller
 {
@@ -109,6 +111,13 @@ class PerencanaanController extends Controller
             DB::rollBack();
             return $th->getMessage();
         }
+    }
+
+    public function exportDrp(Request $r)
+    {
+        $pengadaan = Pengadaan::find($r->id);
+        $pdf = PDF::loadView('perencana-pengadaan.drp-pdf', compact('pengadaan'));
+        return $pdf->stream();
     }
 
 }

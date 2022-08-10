@@ -15,6 +15,10 @@ class Pelaksanaan extends Model
     {
         return $this->belongsTo(Pengadaan::class);
     }
+    public function mitra()
+    {
+        return $this->belongsTo(Mitra::class);
+    }
 
     public function pelaksanaanFile()
     {

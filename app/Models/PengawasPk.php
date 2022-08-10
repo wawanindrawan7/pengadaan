@@ -16,4 +16,9 @@ class PengawasPk extends Model
     {
         return $this->belongsTo(Pengadaan::class);
     }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

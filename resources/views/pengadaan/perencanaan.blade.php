@@ -17,7 +17,14 @@
 
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Kategori</label>
-                        <input type="text" class="form-control" name="kategori" required>
+                        <select class="form-control" name="kategori" required>
+                            <option value=""></option>
+                            <option>RKS</option>
+                            <option>HPE</option>
+                            <option>Pakta Integritas</option>
+                            <option>DRP</option>
+                            <option>Nota Dinas GM ke Laksda</option>
+                        </select>
                     </div>
 
                     <div class="form-group">
@@ -80,7 +87,7 @@
         <div class="col-md-6">
             <div class="form-group form-group-default">
                 <label>Strategi Pengadaan</label>
-                <input type="text" class="form-control" value="{{ $pengadaan->perencanaan->kategori_kebutuhan }}"
+                <input type="text" class="form-control" value="{{ $pengadaan->perencanaan->strategi_pengadaan }}"
                     readonly />
             </div>
         </div>
@@ -123,7 +130,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="row">
         <div class="col-md-6">
             <div class="form-group form-group-default">
@@ -192,6 +199,13 @@
             </table>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <a href="{{ url('perencana-pengadaan/drp-export?id='.$pengadaan->id) }}">Export DRP</a>
+        </div>
+    </div>
+    <br>
 @endif
 
 @if ($pengadaan->perencanaan != null && $pengadaan->perencanaan->perencanaanFile != null)
@@ -203,14 +217,14 @@
             </span>
             Upload Files Perencanaan
         </a>
-        <table id="basic-datatables" class="display table table-bordered table-hover mt-2">
+        <table class="table table-bordered table-bordered-bd-info mt-2">
             <tbody>
                 @php
                     $no = 1;
                 @endphp
                 @foreach ($pengadaan->perencanaan->perencanaanFile as $u)
                     <tr>
-                        <td width="1%">{{ $no++ }}</td>
+                        {{-- <td width="1%">{{ $no++ }}</td> --}}
                         <td width="30%">
                             <a href="{{ url($u->file) }}">{{ $u->kategori }}
                             </a>
