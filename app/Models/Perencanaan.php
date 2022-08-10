@@ -26,5 +26,10 @@ class Perencanaan extends Model
         return $this->hasMany(PerencanaanFile::class);
     }
 
+    public function hpeItem()
+    {
+        return $this->hasMany(HpeItem::class);
+    }
+
 
 }

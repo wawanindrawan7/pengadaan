@@ -9,6 +9,7 @@ use App\Models\PengawasK3;
 use App\Models\PengawasPk;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PengadaanController extends Controller
@@ -21,6 +22,7 @@ class PengadaanController extends Controller
     }
 
     public function create(Request $r){
+        
         DB::beginTransaction();
         try {
             $p = new Pengadaan();
@@ -33,11 +35,12 @@ class PengadaanController extends Controller
             $p->metode_pengadaan = $r->metode_pengadaan;
             $p->no_nota_dinas = $r->no_nota_dinas;
             $p->tgl_nota_dinas = date('Y-m-d', strtotime($r->tgl_nota_dinas));
+            $p->users_id = Auth::id();
             $p->save();
 
             $direaksi_pk = new DireksiPk();
             $direaksi_pk->pengadaan_id = $p->id;
-            $direaksi_pk->users_id = $r->direaksi_pk_id;
+            $direaksi_pk->users_id = $r->direksi_pk_id;
             $direaksi_pk->save();
 
             $pengawas_pk = new PengawasPk();

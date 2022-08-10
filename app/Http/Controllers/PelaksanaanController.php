@@ -14,8 +14,12 @@ class PelaksanaanController extends Controller
         DB::beginTransaction();
         try {
             $p = new Pelaksanaan();
-            $p->no_nota_dinas = $r->no_nota_dinas;
-            $p->tgl_nota_dinas = date('Y-m-d', strtotime($r->tgl_nota_dinas));
+            $p->nomor_kontrak = $r->nomor_kontrak;
+            $p->tgl_kontrak = date('Y-m-d', strtotime($r->tgl_kontrak));
+            $p->penyedia_barang_jasa = $r->penyedia_barang_jasa;
+            $p->tgl_efektif = date('Y-m-d', strtotime($r->tgl_efektif));
+            $p->tgl_akhir = date('Y-m-d', strtotime($r->tgl_akhir));
+            $p->nilai_kontrak = $r->nilai_kontrak;
             $p->pengadaan_id = $r->pengadaan_id;
             $p->save();
             DB::commit();

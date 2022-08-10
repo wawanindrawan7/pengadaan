@@ -3,7 +3,8 @@
 
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Tables - Atlantis Bootstrap 4 Admin Dashboard</title>
+    <title>Master Pengadaan</title>
+    <meta charset = "UTF-8" />
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
     <link rel="icon" href="{!! asset('public/atlantis/assets/img/icon.ico') !!}" type="image/x-icon" />
 
@@ -18,7 +19,7 @@
                 "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands",
                     "simple-line-icons"
                 ],
-                urls: ['{!! asset('public/atlantis/assets/css/fonts.min.css') !!}']
+                urls: ["{!! asset('public/atlantis/assets/css/fonts.min.css') !!}"]
             },
             active: function() {
                 sessionStorage.fonts = true;
@@ -195,13 +196,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('pengadaan') }}">
+                            <a href="{{ url('perencana-pengadaan') }}">
                                 <i class="fas fa-book"></i>
                                 <p>Perencana Pengadaan</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('pengadaan') }}">
+                            <a href="{{ url('pelaksana-pengadaan') }}">
                                 <i class="fas fa-book"></i>
                                 <p>Pelaksana Pengadaan</p>
                             </a>

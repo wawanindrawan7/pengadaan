@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class HpeItem extends Model
+class HpeItemTemp extends Model
 {
     use HasFactory;
 
-    protected $table = 'hpe_item';
+    protected $table = 'hpe_item_temp';
     public $timestamps = false;
 
-    public function perencanaan()
+    public function pengadaan()
     {
-        return $this->belongsTo(Perencanaan::class);
+        return $this->belongsTo(Pengadaan::class);
     }
 }

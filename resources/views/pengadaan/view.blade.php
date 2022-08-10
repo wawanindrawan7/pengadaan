@@ -19,20 +19,20 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div class="form-group">
+                        <div class="form-group form-group-default">
                             <label for="exampleFormControlInput1">Nama Pengadaan</label>
                             <textarea class="form-control" name="nama" rows="3" required></textarea>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group form-group-default">
                                     <label for="exampleFormControlInput1">Lokasi</label>
                                     <input type="text" class="form-control" name="lokasi" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group form-group-default">
                                     <label for="exampleFormControlInput1">Sumber Anggaran</label>
                                     <select name="sumber_anggaran" class="form-control">
                                         <option>Operasi</option>
@@ -44,12 +44,9 @@
 
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group form-group-default">
                                     <label for="exampleFormControlInput1">Nilai Anggaran (RAB)</label>
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Rp.</span>
-                                        </div>
+                                    <div class="input-group">
                                         <input type="number" id="nilai_anggaran" autocomplete="off" name="nilai_anggaran" class="form-control" aria-label="Amount (to the nearest dollar)">
                                         <div class="input-group-append">
                                             <span class="input-group-text f_nilai_anggaran"></span>
@@ -58,7 +55,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group form-group-default">
                                     <label for="exampleFormControlInput1">Jenis</label>
                                     <select name="jenis" class="form-control">
                                         <option>Barang</option>
@@ -71,13 +68,13 @@
 
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group form-group-default">
                                     <label for="exampleFormControlInput1">Volume</label>
                                     <input type="text" class="form-control" name="volume" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group form-group-default">
                                     <label for="exampleFormControlInput1">Metode Pengadaan</label>
                                     <select name="metode_pengadaan" class="form-control">
                                         <option>Pengadaan Langsung</option>
@@ -91,27 +88,20 @@
 
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group form-group-default">
                                     <label for="exampleFormControlInput1">Nomor Nota Dinas</label>
                                     <input type="text" class="form-control" name="no_nota_dinas" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group form-group-default">
                                     <label>Tanggal Nota Dinas</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control datepicker" name="tgl_nota_dinas">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">
-                                                <i class="fa fa-calendar-check"></i>
-                                            </span>
-                                        </div>
-                                    </div>
+                                    <input type="text" class="form-control date"  name="tgl_nota_dinas" required>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group form-group-default">
                             <label for="exampleFormControlInput1">Direaksi Pekerjaan</label>
                             <select name="direksi_pk_id" class="form-control">
                                 <option value=""></option>
@@ -121,7 +111,7 @@
                             </select>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group form-group-default">
                             <label for="exampleFormControlInput1">Pengawas Pekerjaan</label>
                             <select name="pengawas_pk_id" class="form-control">
                                 <option value=""></option>
@@ -131,7 +121,7 @@
                             </select>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group form-group-default">
                             <label for="exampleFormControlInput1">Pengawas K3</label>
                             <select name="pengawas_k3_id" class="form-control">
                                 <option value=""></option>
@@ -234,26 +224,26 @@
     </div>
 @endsection
 @section('js')
-    <script src="{{ asset('public/atlantis/assets/js/plugin/datatables/datatables.min.js') }}"></script>
-    <script src="{{ asset('public/atlantis/assets/js/plugin/sweetalert/sweetalert.min.js') }}"></script>
     <script src="{{ asset('public/atlantis/assets/js/plugin/moment/moment.min.js') }}"></script>
     <script src="{{ asset('public/atlantis/assets/js/plugin/datepicker/bootstrap-datetimepicker.min.js') }}"></script>
+    <script src="{{ asset('public/atlantis/assets/js/plugin/datatables/datatables.min.js') }}"></script>
+    <script src="{{ asset('public/atlantis/assets/js/plugin/sweetalert/sweetalert.min.js') }}"></script>
 
     <script>
+        $('.date').datetimepicker({
+            format: 'MM/DD/YYYY',
+        });
+
         $(document).ready(function() {
             $('#basic-datatables').DataTable({
                 pageLength:100
             });
         });
 
-        $('.datepicker').datetimepicker({
-            format: 'MM/DD/YYYY',
-        });
+        
 
 
-        $('#e_datepicker').datetimepicker({
-            format: 'MM/DD/YYYY',
-        });
+        
 
         $(document).on('input','#nilai_anggaran', function(){
             var nilai_anggaran = $('#nilai_anggaran').val()

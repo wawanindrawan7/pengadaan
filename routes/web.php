@@ -36,13 +36,17 @@ Route::get('pengadaan/detail', [PengadaanController::class, 'pengadaanDetail']);
 Route::post('pengadaan/detail/create', [PengadaanController::class, 'pengadaanDetailCreate']);
 Route::get('pengadaan-file/delete', [PengadaanController::class, 'deleteFile']);
 
-Route::post('perencanaan/create', [PerencanaanController::class, 'create']);
+Route::get('perencana-pengadaan', [PerencanaanController::class, 'view']);
+Route::get('perencana-pengadaan/form', [PerencanaanController::class, 'form']);
+Route::post('perencana-pengadaan/create', [PerencanaanController::class, 'create']);
 Route::post('perencanaan/update', [PerencanaanController::class, 'update']);
 Route::get('perencanaan/delete', [PerencanaanController::class, 'delete']);
 Route::post('perencanaan/file', [PerencanaanController::class, 'perencanaanFile']);
 Route::get('perencanaan-file/delete', [PerencanaanController::class, 'deleteFile']);
 
+Route::get('hpe/load-item',[HpeItemController::class,'loadItem']);
 Route::post('hpe/add-item',[HpeItemController::class,'addItem']);
+Route::get('hpe/delete-item',[HpeItemController::class,'deleteItem']);
 
 Route::post('pelaksanaan/create', [PelaksanaanController::class, 'create']);
 Route::post('pelaksanaan/update', [PelaksanaanController::class, 'update']);

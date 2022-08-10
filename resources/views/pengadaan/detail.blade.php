@@ -205,6 +205,11 @@
             format: 'MM/DD/YYYY',
         });
 
+        $(document).on('input','#nilai_kontrak', function(){
+            var nilai_kontrak = $('#nilai_kontrak').val()
+            $('.f_nilai_kontrak').text(nf.format(nilai_kontrak))
+        })
+
         $('#pengadaan_file').on('submit', function(e) {
             e.preventDefault()
             $.ajax({
@@ -417,33 +422,6 @@
             $('#e_nilai_kontrak').val($(this).data('nilai_kontrak'))
             $('#update-pelaksanaan').modal('show')
         })
-
-        $('#form_pelaksanaan_update').on('submit', function(e) {
-            e.preventDefault()
-            $.ajax({
-                type: 'post',
-                url: "{!! url('pelaksanaan/update') !!}",
-                data: new FormData(this),
-                contentType: false,
-                cache: false,
-                processData: false,
-                success: function(r) {
-                    console.log(r)
-                    if (r == 'success') {
-                        swal("Good job!", "Simpan data berhasil !", {
-                            icon: "success",
-                            buttons: {
-                                confirm: {
-                                    className: 'btn btn-success'
-                                }
-                            },
-                        }).then(function() {
-                            location.reload()
-                        });
-                    }
-                }
-            })
-        });
 
         $('#pelaksanaan_file').on('submit', function(e) {
             e.preventDefault()
