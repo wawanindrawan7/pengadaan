@@ -5,6 +5,7 @@ use App\Http\Controllers\HpeItemController;
 use App\Http\Controllers\MitraController;
 use App\Http\Controllers\PelaksanaanController;
 use App\Http\Controllers\PengadaanController;
+use App\Http\Controllers\PenilaianVendorController;
 use App\Http\Controllers\PerencanaanController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
@@ -79,5 +80,10 @@ Route::get('mitra/get-data', [MitraController::class, 'getData']);
 Route::post('mitra/create', [MitraController::class, 'create']);
 Route::post('mitra/update', [MitraController::class, 'update']);
 Route::get('mitra/delete', [MitraController::class, 'delete']);
+
+Route::get('penilaian/form-errect', [PenilaianVendorController::class, 'formErrect']);
+Route::get('penilaian/form-supply-only', [PenilaianVendorController::class, 'formSupplyOnly']);
+Route::get('penilaian/form-supply-errect', [PenilaianVendorController::class, 'formSupplyErrect']);
+Route::get('penilaian/form-khs_distribusi_niaga', [PenilaianVendorController::class, 'formKhsDistribusiNiaga']);
 
 

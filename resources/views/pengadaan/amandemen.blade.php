@@ -201,8 +201,8 @@
         data-id="{{ $pengadaan->amandemen->id }}">
         <i class="fa fa-edit"></i> Update
     </a>
- 
 @endif
+
 
 
 @if ($pengadaan->amandemen != null && $pengadaan->amandemen->amandemenFile != null)
@@ -241,3 +241,22 @@
         </table>
     </div>
 @endif
+
+<div class="form-group form-group-default bg-info text-white mt-3">
+    <label for=""><b class="text-white">PENILAIAN KINERJA VENDOR</b></label>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <a href="{{ url('penilaian/form-errect') }}" class="btn btn-primary btn-round form-control">Form Errect</a>
+    </div>
+    <div class="col-md-3">
+        <a href="{{ url('penilaian/form-supply-only') }}" class="btn btn-primary btn-round form-control">Form Supply Only</a>
+    </div>
+    <div class="col-md-3">
+        <a href="{{ url('penilaian/form-supply-errect') }}" class="btn btn-primary btn-round form-control">Form Supply Errect</a>
+    </div>
+    <div class="col-md-3">
+        <a href="{{ url('penilaian/form-khs_distribusi_niaga') }}" class="btn btn-primary btn-round form-control">Form KHS Distribusi & Niaga</a>
+    </div>
+</div>

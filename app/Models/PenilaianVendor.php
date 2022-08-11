@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Mitra extends Model
+class PenilaianVendor extends Model
 {
     use HasFactory;
-    protected $table = 'mitra';
+    protected $table = 'penilaian_vendor';
     public $timestamps = false;
 
-    public function penilaian_vendor()
+    public function mitra()
     {
-        return $this->hasMany('App\Models\PenilaianVendor');
+        return $this->belongsTo('App\Models\Mitra');
     }
 }
