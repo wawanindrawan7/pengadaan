@@ -24,4 +24,8 @@ class Pelaksanaan extends Model
     {
         return $this->hasMany(PelaksanaanFile::class);
     }
+
+    public function penilaianVendor(){
+        return $this->hasOne(PenilaianVendor::class);
+    }
 }

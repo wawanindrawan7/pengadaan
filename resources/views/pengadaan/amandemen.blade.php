@@ -248,15 +248,134 @@
 
 <div class="row">
     <div class="col-md-3">
-        <a href="{{ url('penilaian/form-errect') }}" class="btn btn-primary btn-round form-control">Form Errect</a>
+        <a href="{{ url('penilaian/form-errect?id=' . $pengadaan->id) }}"
+            class="btn btn-primary btn-round form-control">Form Errect</a>
     </div>
     <div class="col-md-3">
-        <a href="{{ url('penilaian/form-supply-only') }}" class="btn btn-primary btn-round form-control">Form Supply Only</a>
+        <a href="{{ url('penilaian/form-supply-only?id=' . $pengadaan->id) }}"
+            class="btn btn-primary btn-round form-control">Form Supply Only</a>
     </div>
     <div class="col-md-3">
-        <a href="{{ url('penilaian/form-supply-errect') }}" class="btn btn-primary btn-round form-control">Form Supply Errect</a>
+        <a href="{{ url('penilaian/form-supply-errect?id=' . $pengadaan->id) }}"
+            class="btn btn-primary btn-round form-control">Form Supply Errect</a>
     </div>
     <div class="col-md-3">
-        <a href="{{ url('penilaian/form-khs_distribusi_niaga') }}" class="btn btn-primary btn-round form-control">Form KHS Distribusi & Niaga</a>
+        <a href="{{ url('penilaian/form-khs_distribusi_niaga?id=' . $pengadaan->id) }}"
+            class="btn btn-primary btn-round form-control">Form KHS Distribusi & Niaga</a>
     </div>
 </div>
+@if ($pengadaan->pelaksanaan != null && $pengadaan->pelaksanaan->penilaianVendor != null)
+    @if ($pengadaan->pelaksanaan->penilaianVendor->form == 'Errect' ||
+        $pengadaan->pelaksanaan->penilaianVendor->form == 'Supply Only' ||
+        $pengadaan->pelaksanaan->penilaianVendor->form == 'Supply Errect')
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-head-row">
+                            <div class="card-title">Form Penilaian Vendor ({{$pengadaan->pelaksanaan->penilaianVendor->form}})</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="basic-datatables" class="display table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th width="1%">No.</th>
+                                        <th width="60%">Kriteria Penilaian</th>
+                                        <th width="10%">Bobot</th>
+                                        <th width="10%">Nilai</th>
+                                        <th width="9%">Nilai X Bobot</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $no = 1;
+                                    @endphp
+                                    @foreach ($pengadaan->pelaksanaan->penilaianVendor->formPenilaian as $u)
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $u->kriteria }}</td>
+                                            <td>{{ $u->bobot . '%' }} </td>
+                                            <td>{{ $u->nilai }}</td>
+                                            <td>{{ $u->nilai_bobot }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th colspan="4">Total</th>
+                                        <td>{{$pengadaan->pelaksanaan->penilaianVendor->total}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4">Kategori</th>
+                                        <td>{{$pengadaan->pelaksanaan->penilaianVendor->kategori}}</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @else
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-head-row">
+                            <div class="card-title">Form Penilaian Vendor ({{$pengadaan->pelaksanaan->penilaianVendor->form}})</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="basic-datatables" class="display table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th width="1%">No.</th>
+                                        <th width="60%">Kriteria Penilaian</th>
+                                        <th width="10%">Bobot</th>
+                                        <th width="10%">Nilai</th>
+                                        <th width="9%">Nilai X Bobot</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $no = 1;
+                                    @endphp
+                                    @foreach ($pengadaan->pelaksanaan->penilaianVendor->formKhs as $khs)
+                                        <tr>
+                                            <td>{{ $no++}}</td>
+                                            <td colspan="4">{{ $khs->nama }}</td>
+                                        </tr>
+                                        @foreach ($khs->formKhsDetail as $khsDetail)
+                                        <tr>
+                                            <td></td>
+                                            <td>{{ $khsDetail->kriteria }}</td>
+                                            <td>{{ $khsDetail->bobot . '%' }} </td>
+                                            <td>{{ $khsDetail->nilai }}</td>
+                                            <td>{{ $khsDetail->nilai_bobot }}</td>
+                                        </tr>
+                                        @endforeach
+                                    @endforeach
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th colspan="4">Total</th>
+                                        <td>{{$pengadaan->pelaksanaan->penilaianVendor->total}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4">Kategori</th>
+                                        <td>{{$pengadaan->pelaksanaan->penilaianVendor->kategori}}</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+@endif

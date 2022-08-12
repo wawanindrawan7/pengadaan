@@ -82,6 +82,9 @@ Route::post('mitra/update', [MitraController::class, 'update']);
 Route::get('mitra/delete', [MitraController::class, 'delete']);
 
 Route::get('penilaian/form-errect', [PenilaianVendorController::class, 'formErrect']);
+Route::post('penilaian-form-errect/create', [PenilaianVendorController::class, 'createForm1']);
+Route::post('penilaian-form-khs/create', [PenilaianVendorController::class, 'createForm2']);
+
 Route::get('penilaian/form-supply-only', [PenilaianVendorController::class, 'formSupplyOnly']);
 Route::get('penilaian/form-supply-errect', [PenilaianVendorController::class, 'formSupplyErrect']);
 Route::get('penilaian/form-khs_distribusi_niaga', [PenilaianVendorController::class, 'formKhsDistribusiNiaga']);
