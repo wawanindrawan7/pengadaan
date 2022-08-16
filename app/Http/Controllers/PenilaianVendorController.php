@@ -88,8 +88,67 @@ class PenilaianVendorController extends Controller
             // ----------------------------------------
 
             // SOP/INSTRUKSI KERJA
+            $form_khs = new FormKhs();
+            $form_khs->penilaian_vendor_id = $p->id;
+            $form_khs->nama = $r->sop;
+            $form_khs->save();
+            for ($i=0; $i < count($r->sop_kriteria); $i++) {
+                # code...
+                $form_khs_detail = new FormKhsDetail();
+                $form_khs_detail->kriteria = $r->sop_kriteria[$i];
+                $form_khs_detail->bobot = $r->sop_bobot[$i];
+                $form_khs_detail->nilai = $r->sop_nilai[$i];
+                $form_khs_detail->nilai_bobot = $r->sop_nilai_bobot[$i];
+                $form_khs_detail->form_khs_id = $form_khs->id;
+                $form_khs_detail->save();
+            }
 
+            //3. SISTEM MANAJEMEN KERJA
+            $form_khs = new FormKhs();
+            $form_khs->penilaian_vendor_id = $p->id;
+            $form_khs->nama = $r->smk;
+            $form_khs->save();
+            for ($i=0; $i < count($r->smk_kriteria); $i++) {
+                # code...
+                $form_khs_detail = new FormKhsDetail();
+                $form_khs_detail->kriteria = $r->smk_kriteria[$i];
+                $form_khs_detail->bobot = $r->smk_bobot[$i];
+                $form_khs_detail->nilai = $r->smk_nilai[$i];
+                $form_khs_detail->nilai_bobot = $r->smk_nilai_bobot[$i];
+                $form_khs_detail->form_khs_id = $form_khs->id;
+                $form_khs_detail->save();
+            }
 
+             //4. Penggunaan Alat Pelindung Diri (APD)
+             $form_khs = new FormKhs();
+             $form_khs->penilaian_vendor_id = $p->id;
+             $form_khs->nama = $r->papd;
+             $form_khs->save();
+             for ($i=0; $i < count($r->phpd_kriteria); $i++) {
+                 # code...
+                 $form_khs_detail = new FormKhsDetail();
+                 $form_khs_detail->kriteria = $r->phpd_kriteria[$i];
+                 $form_khs_detail->bobot = $r->phpd_bobot[$i];
+                 $form_khs_detail->nilai = $r->phpd_nilai[$i];
+                 $form_khs_detail->nilai_bobot = $r->phpd_nilai_bobot[$i];
+                 $form_khs_detail->form_khs_id = $form_khs->id;
+                 $form_khs_detail->save();
+             }
+             //5. Peralatan Kerja
+             $form_khs = new FormKhs();
+             $form_khs->penilaian_vendor_id = $p->id;
+             $form_khs->nama = $r->pk;
+             $form_khs->save();
+             for ($i=0; $i < count($r->pk_kriteria); $i++) {
+                 # code...
+                 $form_khs_detail = new FormKhsDetail();
+                 $form_khs_detail->kriteria = $r->pk_kriteria[$i];
+                 $form_khs_detail->bobot = $r->pk_bobot[$i];
+                 $form_khs_detail->nilai = $r->pk_nilai[$i];
+                 $form_khs_detail->nilai_bobot = $r->pk_nilai_bobot[$i];
+                 $form_khs_detail->form_khs_id = $form_khs->id;
+                 $form_khs_detail->save();
+             }
 
 
             DB::commit();

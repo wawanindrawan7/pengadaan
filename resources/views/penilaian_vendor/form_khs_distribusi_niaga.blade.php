@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="card-head-row">
-                    <div class="card-title">Form Errect</div>
+                    <div class="card-title">Form KHS Distribusi Niaga</div>
                 </div>
             </div>
             <div class="card-body">
@@ -36,7 +36,7 @@
                         </div>
                     </div>
                     <div class="form-group form-group-default bg-info text-white mt-3">
-                        <label for=""><b class="text-white">1. TENAGA KERJA</b></label>
+                        <label for=""><b class="text-white">TENAGA KERJA</b></label>
                         <input type="hidden" name="tenaga_kerja" value="1. Tenaga Kerja">
                     </div>
                     <div class="row">
@@ -120,7 +120,7 @@
                     </div>
 
                     <div class="form-group form-group-default bg-info text-white mt-3">
-                        <label for=""><b class="text-white">2. SOP/Instruksi Kerja</b></label>
+                        <label for=""><b class="text-white">SOP/Instruksi Kerja</b></label>
                         <input type="hidden" name="sop" value="2. SOP/Instruksi Kerja">
                     </div>
 
@@ -152,7 +152,7 @@
                     </div>
 
                     <div class="form-group form-group-default bg-info text-white mt-3">
-                        <label for=""><b class="text-white">3. Sistem Manajemen Kerja</b></label>
+                        <label for=""><b class="text-white">Sistem Manajemen Kerja</b></label>
                         <input type="hidden" name="smk" value="3. Sistem Manajemen Kerja">
                     </div>
 
@@ -265,7 +265,7 @@
                     </div>
 
                     <div class="form-group form-group-default bg-info text-white mt-3">
-                        <label for=""><b class="text-white">4. Penggunaan Alat Pelindung Diri (APD)</b></label>
+                        <label for=""><b class="text-white">Penggunaan Alat Pelindung Diri (APD)</b></label>
                         <input type="hidden" name="papd" value="4. Penggunaan Alat Pelindung Diri (APD)">
                     </div>
 
@@ -456,7 +456,7 @@
                     </div>
 
                     <div class="form-group form-group-default bg-info text-white mt-3">
-                        <label for=""><b class="text-white">5. Peralatan Kerja</b></label>
+                        <label for=""><b class="text-white">Peralatan Kerja</b></label>
                         <input type="hidden" name="pk" value="5. Peralatan Kerja">
                     </div>
 
