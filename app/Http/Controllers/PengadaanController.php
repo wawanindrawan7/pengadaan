@@ -10,6 +10,7 @@ use App\Models\PengawasK3;
 use App\Models\PengawasPk;
 use App\Models\Unit;
 use App\Models\User;
+use App\Models\UsersReviewer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -57,6 +58,13 @@ class PengadaanController extends Controller
             $pengawas_k3->users_id = $r->pengawas_k3_id;
             $pengawas_k3->save();
 
+            foreach ($r->users_komite_id as $uk_id) {
+                $ur = new UsersReviewer();
+                $ur->pengadaan_id = $p->id;
+                $ur->users_id = $uk_id;
+                $ur->save();
+            }
+
 
             DB::commit();
             return 'success';
@@ -80,6 +88,24 @@ class PengadaanController extends Controller
             $p->no_nota_dinas = $r->no_nota_dinas;
             $p->tgl_nota_dinas = date('Y-m-d', strtotime($r->tgl_nota_dinas));
             $p->save();
+            DB::commit();
+            return 'success';
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $th->getMessage();
+        }
+    }
+
+    public function submit(Request $r)
+    {
+        DB::beginTransaction();
+        try {
+
+            $p = Pengadaan::find($r->id);
+            $p->submit = 1;
+            $p->state = 1;
+            $p->save();
+
             DB::commit();
             return 'success';
         } catch (\Throwable $th) {
@@ -115,7 +141,7 @@ class PengadaanController extends Controller
 
 
 
-    public function pengadaanDetailCreate(Request $r){
+    public function pengadaanFileCreate(Request $r){
         // return $r->all();
         DB::beginTransaction();
         try {

@@ -86,6 +86,7 @@
                                         <option>Penunjukan Langsung</option>
                                         <option>Tender Terbatas</option>
                                         <option>Tender Terbuka</option>
+                                        <option>Kontrak Rinci</option>
                                     </select>
                                 </div>
                             </div>
@@ -136,6 +137,20 @@
                             </select>
                         </div>
 
+                        <div class="form-group form-group-default">
+                            <label for="exampleFormControlInput1">User Komite Value For Money</label>
+                            <div class="select2-input select2-warning mt-2">
+                                <select name="users_komite_id[]" id="users_komite" multiple="multiple" class="form-control" style="width: 100%" required>
+                                    <option value=""></option>
+                                    @foreach ($user as $u)
+                                    <option value="{{ $u->id }}">{{ $u->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -152,7 +167,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="card-head-row">
-                    {{-- <div class="card-title">Vendors List</div> --}}
+                    <div class="card-title">Inisiasi Pengadaan</div>
                     <div class="card-tools">
                         <a href="#" class="btn btn-info btn-border btn-round btn-sm mr-2" data-toggle="modal"
                             data-target="#create-modal">
@@ -190,7 +205,7 @@
                                 <tr>
                                     <td>{{ $no++ }}</td>
                                     <td><a href="{{ url('pengadaan/detail?id=' . $u->id) }}">{{ $u->nama }}</a></td>
-                                    <td>{{ $u->lokasi }}</td>
+                                    <td>{{ $u->unit->nama }}</td>
                                     <td>{{ $u->sumber_anggaran }}</td>
                                     <td>{{ number_format($u->nilai_anggaran) }}</td>
                                     <td>{{ $u->jenis }}</td>
@@ -233,8 +248,12 @@
     <script src="{{ asset('public/atlantis/assets/js/plugin/datepicker/bootstrap-datetimepicker.min.js') }}"></script>
     <script src="{{ asset('public/atlantis/assets/js/plugin/datatables/datatables.min.js') }}"></script>
     <script src="{{ asset('public/atlantis/assets/js/plugin/sweetalert/sweetalert.min.js') }}"></script>
+    <script src="public/atlantis/assets/js/plugin/select2/select2.full.min.js"></script>
 
     <script>
+        $('#users_komite').select2({
+            theme: "bootstrap"
+        });
         $('.date').datetimepicker({
             format: 'MM/DD/YYYY',
         });
@@ -348,6 +367,7 @@
                         type: 'GET',
                         url: "{{ url('pengadaan/delete?id=') }}" + id,
                         success: function(r) {
+                            console.log(r)
                             if (r == 'success') {
                                 swal({
                                     title: 'Deleted!',

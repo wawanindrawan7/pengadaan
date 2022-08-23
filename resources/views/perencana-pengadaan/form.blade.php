@@ -6,10 +6,9 @@
             <div class="card-head-row">
                 <div class="card-title">Form Perencana Pengadaan</div>
                 <div class="card-tools">
-                    <a href="#" class="btn btn-info btn-border btn-round btn-sm mr-2" data-toggle="modal"
-                        data-target="#create-modal">
+                    <a href="{{ url('perencana-pengadaan/detail?id='.$pengadaan->id) }}" class="btn btn-info btn-round btn-sm mr-2">
                         <span class="btn-label">
-                            <i class="fa fa-plus"></i>
+                            <i class="fa fa-arrow-left"></i>
                         </span>
                         Kembali
                     </a>
@@ -237,7 +236,13 @@
         var vol_2 = $('#vol_2').val()
         var harga_satuan = $('#harga_satuan').val()
 
-        var jumlah = (+vol_1 + +vol_2) * harga_satuan
+        var jumlah = 0
+
+        if(vol_2 == ''){
+            jumlah = vol_1 * harga_satuan
+        }else{
+            jumlah = vol_1 * vol_2 * harga_satuan
+        }
         $('#jumlah').val(jumlah)
         $('#f_jumlah').val(nf.format(jumlah))
 
@@ -250,6 +255,7 @@
         $('#vol_2').val('')
         $('#harga_satuan').val('')
         $('#jumlah').val('')
+        $('#f_jumlah').val('')
     }
 
     $(document).on('input','#vol_1', function(){
@@ -297,6 +303,7 @@
                 })
 
                 $('#total_hpe').text(nf.format(total))
+                resetForm()
                 
             }
         })
@@ -310,7 +317,7 @@
         var vol_2 = $('#vol_2').val()
         var harga_satuan = $('#harga_satuan').val()
         var jumlah = $('#jumlah').val()
-        if(item === '' || satuan === '' || harga_satuan == ''){
+        if(item === '' || satuan === '' || vol_1 === '' || harga_satuan == ''){
             swal({
                 title: 'Ops!',
                 text: 'Inputan tidak lengkap',
@@ -391,7 +398,7 @@
                                 }
                             },
                         }).then(function() {
-                            window.location = "{{ url('pengadaan/detail?id='.$pengadaan->id) }}"
+                            window.location = "{{ url('perencana-pengadaan/detail?id='.$pengadaan->id) }}"
                         });
                     }
                 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\HpeItem;
 use App\Models\HpeItemTemp;
 use App\Models\Pengadaan;
+use App\Models\PengadaanFile;
 use App\Models\Perencanaan;
 use App\Models\PerencanaanFile;
 use Illuminate\Http\Request;
@@ -19,10 +20,17 @@ class PerencanaanController extends Controller
     {
         return $this->middleware('auth');
     }
+
     public function view(Request $r)
     {
-        $pengadaan = Pengadaan::all();
+        $pengadaan = Pengadaan::where('state', 1)->get();
         return view('perencana-pengadaan.view', compact('pengadaan'));
+    }
+
+    public function detail(Request $r){
+        $pengadaan = Pengadaan::find($r->id);
+        $pengadaan_file = PengadaanFile::where('pengadaan_id',$pengadaan->id)->get();
+        return view('perencana-pengadaan.detail', compact('pengadaan','pengadaan_file'));
     }
 
     public function form(Request $r)
@@ -67,6 +75,27 @@ class PerencanaanController extends Controller
             }
 
 
+
+            DB::commit();
+            return 'success';
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $th->getMessage();
+        }
+    }
+
+    public function submit(Request $r)
+    {
+        DB::beginTransaction();
+        try {
+
+            $pp = Perencanaan::find($r->id);
+            $pp->submit = 1;
+            $pp->save();
+
+            $p = Pengadaan::find($pp->pengadaan_id);
+            $p->state = 2;
+            $p->save();
 
             DB::commit();
             return 'success';

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-    <div class="col-md-12">
+    <div class="col-md-8">
         <div class="card">
             <div class="card-header">
                 <div class="card-head-row">
@@ -22,7 +22,7 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="">Bobot (%)</label>
-                                <input type="number" class="form-control" value="30" name="bobot[]" id="bobot_kualitas"
+                                <input type="number" class="form-control" value="40" name="bobot[]" id="bobot_kualitas"
                                     readonly>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="30" name="bobot[]" id="bobot_delivery"
+                                <input type="number" class="form-control" value="40" name="bobot[]" id="bobot_delivery"
                                     readonly>
                             </div>
                         </div>
@@ -75,7 +75,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="10" name="bobot[]"
+                                <input type="number" class="form-control" value="20" name="bobot[]"
                                     id="bobot_responsiveness" readonly>
                             </div>
                         </div>

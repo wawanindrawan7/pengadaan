@@ -246,6 +246,7 @@
     <label for=""><b class="text-white">PENILAIAN KINERJA VENDOR</b></label>
 </div>
 
+@if ($pengadaan->pelaksanaan != null && $pengadaan->pelaksanaan->penilaianVendor == null)
 <div class="row">
     <div class="col-md-3">
         <a href="{{ url('penilaian/form-errect?id=' . $pengadaan->id) }}"
@@ -264,6 +265,9 @@
             class="btn btn-primary btn-round form-control">Form KHS Distribusi & Niaga</a>
     </div>
 </div>
+@endif
+
+
 @if ($pengadaan->pelaksanaan != null && $pengadaan->pelaksanaan->penilaianVendor != null)
     @if ($pengadaan->pelaksanaan->penilaianVendor->form == 'Errect' ||
         $pengadaan->pelaksanaan->penilaianVendor->form == 'Supply Only' ||
@@ -348,13 +352,13 @@
                                     @foreach ($pengadaan->pelaksanaan->penilaianVendor->formKhs as $khs)
                                         <tr>
                                             <td>{{ $no++}}</td>
-                                            <td colspan="4">{{ $khs->nama }}</td>
+                                            <td colspan="4"><b>{{ $khs->nama }}</b></td>
                                         </tr>
                                         @foreach ($khs->formKhsDetail as $khsDetail)
                                         <tr>
                                             <td></td>
-                                            <td>{{ $khsDetail->kriteria }}</td>
-                                            <td>{{ $khsDetail->bobot . '%' }} </td>
+                                            <td><i>{{ $khsDetail->kriteria }}</</td>
+                                            <td>{{ $khsDetail->bobot }} </td>
                                             <td>{{ $khsDetail->nilai }}</td>
                                             <td>{{ $khsDetail->nilai_bobot }}</td>
                                         </tr>

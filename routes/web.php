@@ -36,10 +36,13 @@ Route::post('pengadaan/create', [PengadaanController::class, 'create']);
 Route::post('pengadaan/update', [PengadaanController::class, 'update']);
 Route::get('pengadaan/delete', [PengadaanController::class, 'delete']);
 Route::get('pengadaan/detail', [PengadaanController::class, 'pengadaanDetail']);
-Route::post('pengadaan/detail/create', [PengadaanController::class, 'pengadaanDetailCreate']);
+Route::get('pengadaan/submit', [PengadaanController::class, 'submit']);
+Route::post('pengadaan/file/create', [PengadaanController::class, 'pengadaanFileCreate']);
 Route::get('pengadaan-file/delete', [PengadaanController::class, 'deleteFile']);
 
 Route::get('perencana-pengadaan', [PerencanaanController::class, 'view']);
+Route::get('perencana-pengadaan/submit', [PerencanaanController::class, 'submit']);
+Route::get('perencana-pengadaan/detail', [PerencanaanController::class, 'detail']);
 Route::get('perencana-pengadaan/form', [PerencanaanController::class, 'form']);
 Route::post('perencana-pengadaan/create', [PerencanaanController::class, 'create']);
 Route::get('perencana-pengadaan/drp-export', [PerencanaanController::class, 'exportDrp']);

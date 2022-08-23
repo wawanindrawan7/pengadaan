@@ -101,7 +101,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="20" name="tk_bobot[]"
+                                <input type="number" class="form-control" value="5" name="tk_bobot[]"
                                     id="b_pengawas_k3" readonly>
                             </div>
                         </div>
@@ -528,7 +528,7 @@
         $(document).on('input', '#n_kom_res', function() {
             var nilai = $(this).val();
             var bobot = $('#b_kom_res').val();
-            var hasil = nilai * bobot / 100;
+            var hasil = nilai * bobot / 10;
             $('#nb_kom_res').val(hasil);
             recountTotal();
         });
@@ -536,7 +536,7 @@
         $(document).on('input', '#n_min_1_tim', function() {
             var nilai = $(this).val();
             var bobot = $('#b_min_1_tim').val();
-            var hasil = nilai * bobot / 100;
+            var hasil = nilai * bobot / 10;
             $('#nb_min_1_tim').val(hasil);
             recountTotal();
         });
@@ -544,7 +544,7 @@
         $(document).on('input', '#n_pengawas_k3', function() {
             var nilai = $(this).val();
             var bobot = $('#b_pengawas_k3').val();
-            var hasil = nilai * bobot / 100;
+            var hasil = nilai * bobot / 10;
             $('#nb_pengawas_k3').val(hasil);
             recountTotal();
         });
@@ -552,7 +552,7 @@
         $(document).on('input', '#n_kepatuhan_k2_k3', function() {
             var nilai = $(this).val();
             var bobot = $('#b_kepatuhan_k2_k3').val();
-            var hasil = nilai * bobot / 100;
+            var hasil = nilai * bobot / 10;
             $('#nb_kepatuhan_k2_k3').val(hasil);
             recountTotal();
         });
@@ -560,7 +560,7 @@
         $(document).on('input', '#n_safety_briefing_sk', function() {
             var nilai = $(this).val();
             var bobot = $('#b_safety_briefing_sk').val();
-            var hasil = nilai * bobot / 100;
+            var hasil = nilai * bobot / 10;
             $('#nb_safety_briefing_sk').val(hasil);
             recountTotal();
         });
@@ -568,7 +568,7 @@
         $(document).on('input', '#n_kualitas_pekerjaan', function() {
             var nilai = $(this).val();
             var bobot = $('#b_kualitas_pekerjaan').val();
-            var hasil = nilai * bobot / 100;
+            var hasil = nilai * bobot / 10;
             $('#nb_kualitas_pekerjaan').val(hasil);
             recountTotal();
         });
@@ -577,7 +577,7 @@
         $(document).on('input', '#n_kecepatan_penyelesaian_pekerjaan', function() {
             var nilai = $(this).val();
             var bobot = $('#b_kecepatan_penyelesaian_pekerjaan').val();
-            var hasil = nilai * bobot / 100;
+            var hasil = nilai * bobot / 10;
             $('#nb_kecepatan_penyelesaian_pekerjaan').val(hasil);
             recountTotal();
         });
@@ -585,7 +585,7 @@
         $(document).on('input', '#n_kesiapan_adm_penagihan', function() {
             var nilai = $(this).val();
             var bobot = $('#b_kesiapan_adm_penagihan').val();
-            var hasil = nilai * bobot / 100;
+            var hasil = nilai * bobot / 10;
             $('#nb_kesiapan_adm_penagihan').val(hasil);
             recountTotal();
         });
@@ -593,7 +593,7 @@
         $(document).on('input', '#n_helm_safety', function() {
             var nilai = $(this).val();
             var bobot = $('#b_helm_safety').val();
-            var hasil = nilai * bobot / 100;
+            var hasil = nilai * bobot / 10;
             $('#nb_helm_safety').val(hasil);
             recountTotal();
         });
@@ -601,7 +601,7 @@
         $(document).on('input', '#n_sarung_tangan', function() {
             var nilai = $(this).val();
             var bobot = $('#b_sarung_tangan').val();
-            var hasil = nilai * bobot / 100;
+            var hasil = nilai * bobot / 10;
             $('#nb_sarung_tangan').val(hasil);
             recountTotal();
         });
@@ -610,7 +610,7 @@
         $(document).on('input', '#n_kaca_mata_safety', function() {
             var nilai = $(this).val();
             var bobot = $('#b_kaca_mata_safety').val();
-            var hasil = nilai * bobot / 100;
+            var hasil = nilai * bobot / 10;
             $('#nb_kaca_mata_safety').val(hasil);
             recountTotal();
         });
@@ -618,7 +618,7 @@
         $(document).on('input', '#n_pengaman_penjat', function() {
             var nilai = $(this).val();
             var bobot = $('#b_pengaman_penjat').val();
-            var hasil = nilai * bobot / 100;
+            var hasil = nilai * bobot / 10;
             $('#nb_pengaman_penjat').val(hasil);
             recountTotal();
         });
@@ -626,7 +626,7 @@
         $(document).on('input', '#n_p3k', function() {
             var nilai = $(this).val();
             var bobot = $('#b_p3k').val();
-            var hasil = nilai * bobot / 100;
+            var hasil = nilai * bobot / 10;
             $('#nb_p3k').val(hasil);
             recountTotal();
         });
@@ -634,7 +634,7 @@
         $(document).on('input', '#n_baju_kerja', function() {
             var nilai = $(this).val();
             var bobot = $('#b_baju_kerja').val();
-            var hasil = nilai * bobot / 100;
+            var hasil = nilai * bobot / 10;
             $('#nb_baju_kerja').val(hasil);
             recountTotal();
         });
@@ -642,7 +642,7 @@
         $(document).on('input', '#n_sepatu_safety', function() {
             var nilai = $(this).val();
             var bobot = $('#b_sepatu_safety').val();
-            var hasil = nilai * bobot / 100;
+            var hasil = nilai * bobot / 10;
             $('#nb_sepatu_safety').val(hasil);
             recountTotal();
         });
@@ -652,7 +652,7 @@
         $(document).on('input', '#n_kelengkapan_per_kerja', function() {
             var nilai = $(this).val();
             var bobot = $('#b_kelengkapan_per_kerja').val();
-            var hasil = nilai * bobot / 100;
+            var hasil = nilai * bobot / 10;
             $('#nb_kelengkapan_per_kerja').val(hasil);
             recountTotal();
         });

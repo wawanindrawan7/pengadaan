@@ -34,6 +34,35 @@
                         <input type="text" class="form-control" name="nama" id="exampleFormControlInput1" required>
                     </div>
 
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Kategori</label>
+                        <select class="form-control" name="kategori" id="kategori" required>
+                            <option value=""></option>
+                            <option>DPT</option>
+                            <option>Non DPT</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Alamat</label>
+                        <textarea class="form-control" name="npwp" id="exampleFormControlInput1" rows="3" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">No. HP (Whatsapp)</label>
+                        <input type="text" class="form-control" name="no_hp" id="exampleFormControlInput1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Email</label>
+                        <input type="text" class="form-control" name="email" id="exampleFormControlInput1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">NPWP</label>
+                        <input type="text" class="form-control" name="npwp" id="exampleFormControlInput1" required>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -63,6 +92,10 @@
                         <label for="exampleFormControlInput1">Nama</label>
                         <input type="text" class="form-control" name="nama" id="e_nama" required>
                     </div>
+
+                   
+                    
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
