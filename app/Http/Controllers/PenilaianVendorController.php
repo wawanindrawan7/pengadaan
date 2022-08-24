@@ -9,27 +9,33 @@ use App\Models\Pengadaan;
 use App\Models\PenilaianVendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 
 class PenilaianVendorController extends Controller
 {
-    public function formErrect(Request $r){
+    public function formErrect(Request $r)
+    {
         $pengadaan = Pengadaan::find($r->id);
         return view('penilaian_vendor.form_errect', compact('pengadaan'));
     }
-    public function formSupplyOnly(Request $r){
+    public function formSupplyOnly(Request $r)
+    {
         $pengadaan = Pengadaan::find($r->id);
         return view('penilaian_vendor.form_supply_only', compact('pengadaan'));
     }
-    public function formSupplyErrect(Request $r){
+    public function formSupplyErrect(Request $r)
+    {
         $pengadaan = Pengadaan::find($r->id);
         return view('penilaian_vendor.form_supply_errect', compact('pengadaan'));
     }
-    public function formKhsDistribusiNiaga(Request $r){
+    public function formKhsDistribusiNiaga(Request $r)
+    {
         $pengadaan = Pengadaan::find($r->id);
         return view('penilaian_vendor.form_khs_distribusi_niaga', compact('pengadaan'));
     }
 
-    public function createForm1(Request $r){
+    public function createForm1(Request $r)
+    {
         // return $r->all();
         DB::beginTransaction();
         try {
@@ -40,7 +46,7 @@ class PenilaianVendorController extends Controller
             $p->kategori = $r->kategori;
             $p->save();
 
-            for ($i=0; $i < count($r->kriteria); $i++) {
+            for ($i = 0; $i < count($r->kriteria); $i++) {
                 $fp = new FormPenilaian();
                 $fp->kriteria = $r->kriteria[$i];
                 $fp->bobot = $r->bobot[$i];
@@ -58,7 +64,8 @@ class PenilaianVendorController extends Controller
         }
     }
 
-    public function createForm2(Request $r){
+    public function createForm2(Request $r)
+    {
         // return $r->all();
         DB::beginTransaction();
         try {
@@ -75,7 +82,7 @@ class PenilaianVendorController extends Controller
             $form_khs->nama = $r->tenaga_kerja;
             $form_khs->save();
 
-            for ($i=0; $i < count($r->tk_kriteria); $i++) {
+            for ($i = 0; $i < count($r->tk_kriteria); $i++) {
                 # code...
                 $form_khs_detail = new FormKhsDetail();
                 $form_khs_detail->kriteria = $r->tk_kriteria[$i];
@@ -92,7 +99,7 @@ class PenilaianVendorController extends Controller
             $form_khs->penilaian_vendor_id = $p->id;
             $form_khs->nama = $r->sop;
             $form_khs->save();
-            for ($i=0; $i < count($r->sop_kriteria); $i++) {
+            for ($i = 0; $i < count($r->sop_kriteria); $i++) {
                 # code...
                 $form_khs_detail = new FormKhsDetail();
                 $form_khs_detail->kriteria = $r->sop_kriteria[$i];
@@ -108,7 +115,7 @@ class PenilaianVendorController extends Controller
             $form_khs->penilaian_vendor_id = $p->id;
             $form_khs->nama = $r->smk;
             $form_khs->save();
-            for ($i=0; $i < count($r->smk_kriteria); $i++) {
+            for ($i = 0; $i < count($r->smk_kriteria); $i++) {
                 # code...
                 $form_khs_detail = new FormKhsDetail();
                 $form_khs_detail->kriteria = $r->smk_kriteria[$i];
@@ -119,36 +126,36 @@ class PenilaianVendorController extends Controller
                 $form_khs_detail->save();
             }
 
-             //4. Penggunaan Alat Pelindung Diri (APD)
-             $form_khs = new FormKhs();
-             $form_khs->penilaian_vendor_id = $p->id;
-             $form_khs->nama = $r->papd;
-             $form_khs->save();
-             for ($i=0; $i < count($r->phpd_kriteria); $i++) {
-                 # code...
-                 $form_khs_detail = new FormKhsDetail();
-                 $form_khs_detail->kriteria = $r->phpd_kriteria[$i];
-                 $form_khs_detail->bobot = $r->phpd_bobot[$i];
-                 $form_khs_detail->nilai = $r->phpd_nilai[$i];
-                 $form_khs_detail->nilai_bobot = $r->phpd_nilai_bobot[$i];
-                 $form_khs_detail->form_khs_id = $form_khs->id;
-                 $form_khs_detail->save();
-             }
-             //5. Peralatan Kerja
-             $form_khs = new FormKhs();
-             $form_khs->penilaian_vendor_id = $p->id;
-             $form_khs->nama = $r->pk;
-             $form_khs->save();
-             for ($i=0; $i < count($r->pk_kriteria); $i++) {
-                 # code...
-                 $form_khs_detail = new FormKhsDetail();
-                 $form_khs_detail->kriteria = $r->pk_kriteria[$i];
-                 $form_khs_detail->bobot = $r->pk_bobot[$i];
-                 $form_khs_detail->nilai = $r->pk_nilai[$i];
-                 $form_khs_detail->nilai_bobot = $r->pk_nilai_bobot[$i];
-                 $form_khs_detail->form_khs_id = $form_khs->id;
-                 $form_khs_detail->save();
-             }
+            //4. Penggunaan Alat Pelindung Diri (APD)
+            $form_khs = new FormKhs();
+            $form_khs->penilaian_vendor_id = $p->id;
+            $form_khs->nama = $r->papd;
+            $form_khs->save();
+            for ($i = 0; $i < count($r->phpd_kriteria); $i++) {
+                # code...
+                $form_khs_detail = new FormKhsDetail();
+                $form_khs_detail->kriteria = $r->phpd_kriteria[$i];
+                $form_khs_detail->bobot = $r->phpd_bobot[$i];
+                $form_khs_detail->nilai = $r->phpd_nilai[$i];
+                $form_khs_detail->nilai_bobot = $r->phpd_nilai_bobot[$i];
+                $form_khs_detail->form_khs_id = $form_khs->id;
+                $form_khs_detail->save();
+            }
+            //5. Peralatan Kerja
+            $form_khs = new FormKhs();
+            $form_khs->penilaian_vendor_id = $p->id;
+            $form_khs->nama = $r->pk;
+            $form_khs->save();
+            for ($i = 0; $i < count($r->pk_kriteria); $i++) {
+                # code...
+                $form_khs_detail = new FormKhsDetail();
+                $form_khs_detail->kriteria = $r->pk_kriteria[$i];
+                $form_khs_detail->bobot = $r->pk_bobot[$i];
+                $form_khs_detail->nilai = $r->pk_nilai[$i];
+                $form_khs_detail->nilai_bobot = $r->pk_nilai_bobot[$i];
+                $form_khs_detail->form_khs_id = $form_khs->id;
+                $form_khs_detail->save();
+            }
 
 
             DB::commit();
@@ -158,6 +165,22 @@ class PenilaianVendorController extends Controller
             return $th->getMessage();
         }
     }
+
+    public function exportDrp(Request $r)
+    {
+        $pengadaan = Pengadaan::find($r->id);
+        // return $pengadaan->pelaksanaan->penilaianVendor;
+        if (
+            $pengadaan->pelaksanaan->penilaianVendor->form == 'Errect' ||
+            $pengadaan->pelaksanaan->penilaianVendor->form == 'Supply Only' ||
+            $pengadaan->pelaksanaan->penilaianVendor->form == 'Supply Errect'
+        ) {
+
+            $pdf = FacadePdf::loadView('penilaian_vendor.form1', compact('pengadaan'));
+            return $pdf->stream();
+        } else {
+            $pdf = FacadePdf::loadView('penilaian_vendor.form2', compact('pengadaan'));
+            return $pdf->stream();
+        }
+    }
 }
-
-

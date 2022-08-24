@@ -161,7 +161,7 @@
         </div>
     </div>
 
-  
+
 
     <div class="col-md-12">
         <div class="card">
@@ -254,6 +254,7 @@
         $('#users_komite').select2({
             theme: "bootstrap"
         });
+
         $('.date').datetimepicker({
             format: 'MM/DD/YYYY',
         });
@@ -264,10 +265,10 @@
             });
         });
 
-        
 
 
-        
+
+
 
         $(document).on('input','#nilai_anggaran', function(){
             var nilai_anggaran = $('#nilai_anggaran').val()

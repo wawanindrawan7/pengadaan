@@ -2,13 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Mitra;
 use App\Models\Pelaksanaan;
 use App\Models\PelaksanaanFile;
+use App\Models\Pengadaan;
+use App\Models\PengadaanFile;
+use Barryvdh\DomPDF\PDF;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class PelaksanaanController extends Controller
 {
+
+    public function __construct()
+    {
+        return $this->middleware('auth');
+    }
+
+    public function view(Request $r)
+    {
+        $pengadaan = Pengadaan::where('state', '>=', 2)->get();
+        return view('pelaksana-pengadaan.view', compact('pengadaan'));
+    }
+
     public function create(Request $r)
     {
         DB::beginTransaction();
@@ -52,8 +69,40 @@ class PelaksanaanController extends Controller
         }
     }
 
+    public function detail(Request $r)
+    {
+        $pengadaan = Pengadaan::find($r->id);
+        $pengadaan_file = PengadaanFile::where('pengadaan_id', $pengadaan->id)->get();
+        $mitra = Mitra::all();
+        return view('pelaksana-pengadaan.detail', compact('pengadaan', 'pengadaan_file','mitra'));
+    }
 
-    public function pelaksanaanFile(Request $r){
+
+    public function submit(Request $r)
+    {
+        DB::beginTransaction();
+        try {
+
+            $pp = Pelaksanaan::find($r->id);
+            $pp->submit = 1;
+            $pp->save();
+
+            $p = Pengadaan::find($pp->pengadaan_id);
+            $p->state = 4;
+            $p->save();
+
+            DB::commit();
+            return 'success';
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $th->getMessage();
+        }
+    }
+
+
+
+    public function pelaksanaanFile(Request $r)
+    {
         // return $r->all();
         DB::beginTransaction();
         try {

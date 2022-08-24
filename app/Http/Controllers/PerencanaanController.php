@@ -8,6 +8,7 @@ use App\Models\Pengadaan;
 use App\Models\PengadaanFile;
 use App\Models\Perencanaan;
 use App\Models\PerencanaanFile;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -23,14 +24,15 @@ class PerencanaanController extends Controller
 
     public function view(Request $r)
     {
-        $pengadaan = Pengadaan::where('state', 1)->get();
+        $pengadaan = Pengadaan::where('state', '>=', 1)->get();
         return view('perencana-pengadaan.view', compact('pengadaan'));
     }
 
-    public function detail(Request $r){
+    public function detail(Request $r)
+    {
         $pengadaan = Pengadaan::find($r->id);
-        $pengadaan_file = PengadaanFile::where('pengadaan_id',$pengadaan->id)->get();
-        return view('perencana-pengadaan.detail', compact('pengadaan','pengadaan_file'));
+        $pengadaan_file = PengadaanFile::where('pengadaan_id', $pengadaan->id)->get();
+        return view('perencana-pengadaan.detail', compact('pengadaan', 'pengadaan_file'));
     }
 
     public function form(Request $r)
@@ -38,8 +40,9 @@ class PerencanaanController extends Controller
         $pengadaan = Pengadaan::find($r->pengadaan_id);
         return view('perencana-pengadaan.form', compact('pengadaan'));
     }
-    
-    public function create(Request $r){
+
+    public function create(Request $r)
+    {
         // return $r->all();
         DB::beginTransaction();
         try {
@@ -105,7 +108,8 @@ class PerencanaanController extends Controller
         }
     }
 
-    public function perencanaanFile(Request $r){
+    public function perencanaanFile(Request $r)
+    {
         // return $r->all();
         DB::beginTransaction();
         try {
@@ -145,8 +149,7 @@ class PerencanaanController extends Controller
     public function exportDrp(Request $r)
     {
         $pengadaan = Pengadaan::find($r->id);
-        $pdf = PDF::loadView('perencana-pengadaan.drp-pdf', compact('pengadaan'));
+        $pdf = FacadePdf::loadView('perencana-pengadaan.drp-pdf', compact('pengadaan'));
         return $pdf->stream();
     }
-
 }

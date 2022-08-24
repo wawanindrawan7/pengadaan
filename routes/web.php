@@ -57,9 +57,12 @@ Route::get('hpe/load-item',[HpeItemController::class,'loadItem']);
 Route::post('hpe/add-item',[HpeItemController::class,'addItem']);
 Route::get('hpe/delete-item',[HpeItemController::class,'deleteItem']);
 
+Route::get('pelaksana-pengadaan', [PelaksanaanController::class, 'view']);
+Route::get('pelaksana-pengadaan/submit', [PelaksanaanController::class, 'submit']);
 Route::post('pelaksanaan/create', [PelaksanaanController::class, 'create']);
 Route::post('pelaksanaan/update', [PelaksanaanController::class, 'update']);
 Route::get('pelaksanaan/delete', [PelaksanaanController::class, 'delete']);
+Route::get('pelaksana-pengadaan/detail', [PelaksanaanController::class, 'detail']);
 Route::post('pelaksanaan/file', [PelaksanaanController::class, 'pelaksanaanFile']);
 Route::get('pelaksanaan-file/delete', [PelaksanaanController::class, 'deleteFile']);
 
@@ -91,5 +94,6 @@ Route::post('penilaian-form-khs/create', [PenilaianVendorController::class, 'cre
 Route::get('penilaian/form-supply-only', [PenilaianVendorController::class, 'formSupplyOnly']);
 Route::get('penilaian/form-supply-errect', [PenilaianVendorController::class, 'formSupplyErrect']);
 Route::get('penilaian/form-khs_distribusi_niaga', [PenilaianVendorController::class, 'formKhsDistribusiNiaga']);
+Route::get('penilaian-pengadaan/drp-export', [PenilaianVendorController::class, 'exportDrp']);
 
 
