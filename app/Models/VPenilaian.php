@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class VPenilaian extends Model
 {
     use HasFactory;
+    protected $table = 'v_penilaian';
+    public $timestamps = false;
 }

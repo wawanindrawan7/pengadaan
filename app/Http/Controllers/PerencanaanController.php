@@ -152,4 +152,11 @@ class PerencanaanController extends Controller
         $pdf = FacadePdf::loadView('perencana-pengadaan.drp-pdf', compact('pengadaan'));
         return $pdf->stream();
     }
+
+    public function exportPaktaIntegritas(Request $r)
+    {
+        $pengadaan = Pengadaan::find($r->id);
+        $pdf = FacadePdf::loadView('perencana-pengadaan.pakta_integritas_pdf', compact('pengadaan'));
+        return $pdf->stream();
+    }
 }

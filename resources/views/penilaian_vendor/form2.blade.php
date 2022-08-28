@@ -37,15 +37,77 @@
 
 <body style="margin: 0">
     <div class="container">
-        <table id="basic-datatables" class="display table table-bordered table-hover">
+        <center>
+            <h5>FORMULIR PENILAIAN KINERJA PENYEDIA JASA (PENILAIAN VENDOR) <br> DI LINGKUNGAN PT PLN (PERSERO)</h5>
+        </center>
+        <table id="basic-datatables" class="display table table-bordered table-hover mt-3">
+            <tr>
+                <th width="1%">a.</th>
+                <th colspan="3">IDENTITAS PENYEDIA</th>
+            </tr>
+            <tr>
+                <th width="1%">i</th>
+                <th width="10%">NAMA PENYEDIA</th>
+                <th>:</th>
+                <th>{{ $pengadaan->pelaksanaan->mitra->nama }}</th>
+            </tr>
+            <tr>
+                <th width="1%">ii</th>
+                <th width="10%">ALAMAT PENYEDIA</th>
+                <th>:</th>
+                <th>{{ $pengadaan->pelaksanaan->mitra->alamat }}</th>
+            </tr>
+            <tr>
+                <th width="1%">iii</th>
+                <th width="10%">NPWP</th>
+                <th>:</th>
+                <th>{{ $pengadaan->pelaksanaan->mitra->npwp }}</th>
+            </tr>
 
-                <tr>
-                    <th width="1%">No.</th>
-                    <th width="60%">Kriteria Penilaian</th>
-                    <th width="10%">Bobot</th>
-                    <th width="10%">Nilai</th>
-                    <th width="9%">Nilai X Bobot</th>
-                </tr>
+            <tr>
+                <th width="1%">b.</th>
+                <th colspan="3">DATA PENGADAAN</th>
+            </tr>
+            <tr>
+                <th width="1%">i</th>
+                <th width="10%">NAMA PEKERJAAN</th>
+                <th>:</th>
+                <th>{{ $pengadaan->nama }}</th>
+            </tr>
+            <tr>
+                <th width="1%">ii</th>
+                <th width="10%">NOMOR KONTRAK</th>
+                <th>:</th>
+                <th>{{ $pengadaan->pelaksanaan->nomor_kontrak }}</th>
+            </tr>
+            <tr>
+                <th width="1%">iii</th>
+                <th width="10%">NILAI KONTRAK</th>
+                <th>:</th>
+                <th>{{ $pengadaan->pelaksanaan->nilai_kontrak }}</th>
+            </tr>
+            <tr>
+                <th width="1%">iv</th>
+                <th width="10%">TAHUN KONTRAK</th>
+                <th>:</th>
+                <th>{{ $pengadaan->pelaksanaan->tgl_kontrak }}</th>
+            </tr>
+            <tr>
+                <th width="1%">c.</th>
+                <th colspan="3">INFORMASI KINERJA</th>
+            </tr>
+
+        </table>
+
+
+        <table id="basic-datatables" class="display table table-bordered table-hover">
+            <tr>
+                <th width="1%">No.</th>
+                <th width="60%">Kriteria Penilaian</th>
+                <th width="10%">Bobot</th>
+                <th width="10%">Nilai</th>
+                <th width="9%">Nilai X Bobot</th>
+            </tr>
 
             <tbody>
                 @php

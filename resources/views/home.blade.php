@@ -95,7 +95,7 @@
                             </span>
                             Create
                         </a>
-                    
+
                     </div> --}}
                 </div>
             </div>
@@ -107,34 +107,31 @@
                                 <th width="1%">No.</th>
                                 <th width="10%">Nama Vendor</th>
                                 <th width="10%">Deskrispi Pengadaan</th>
+                                <th width="5%">Kategori</th>
                                 <th width="5%">No.Kontrak</th>
                                 <th width="5%">Nilai Kontrak</th>
+                                <th width="5%">Total</th>
                                 <th width="5%">Tgl.Kontrak</th>
                                 <th width="5%">Tgl.Selesai</th>
-                                <th width="5%">Option</th>
                             </tr>
                         </thead>
                         <tbody>
                             @php
                                 $no = 1;
                             @endphp
-                            @foreach ($unit as $u)
+                            @foreach ($penilaian as $u)
                             <tr>
                                 <td>{{ $no ++ }}</td>
                                 <td>{{ $u->nama }}</td>
-                                <td align="center">
-                                    <a title="Update" href="#" class="btn btn-warning btn-round btn-xs mr-2 btn-update" data-id="{{ $u->id }}"
-                                        data-nama="{{ $u->nama }}">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-    
-                                    <a title="Delete" href="#" class="btn btn-danger btn-round btn-xs mr-2 btn-delete" data-id="{{ $u->id }}">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                </td>
-    
+                                <td>{{ $u->peng_nama }}</td>
+                                <td>{{ $u->kategori }}</td>
+                                <td>{{ $u->nomor_kontrak }}</td>
+                                <td>{{ $u->nilai_kontrak }}</td>
+                                <td>{{ $u->total }}</td>
+                                <td>{{ $u->tgl_kontrak }}</td>
+                                <td>{{ $u->tgl_selesai }}</td>
                             </tr>
-    
+
                             @endforeach
                         </tbody>
                     </table>

@@ -225,8 +225,10 @@
 
     <div class="row">
         <div class="col-md-12">
-            <a href="{{ url('perencana-pengadaan/drp-export?id='.$pengadaan->id) }}">Export
+            <a href="{{ url('perencana-pengadaan/drp-export?id='.$pengadaan->id) }}" class="btn btn-primary">Export
                 DRP</a>
+            <a href="{{ url('perencana-pengadaan/pakta_integritas-export?id='.$pengadaan->id) }}" class="btn btn-primary">Export
+                Pakta Integritas</a>
         </div>
     </div>
     <br>
