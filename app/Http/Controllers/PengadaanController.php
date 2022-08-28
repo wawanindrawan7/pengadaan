@@ -133,10 +133,11 @@ class PengadaanController extends Controller
 
 
     public function pengadaanDetail(Request $r){
+        $tab = $r->has('tab') ? $r->tab : 'inisiasi';
         $pengadaan = Pengadaan::find($r->id);
         $pengadaan_file = PengadaanFile::where('pengadaan_id',$pengadaan->id)->get();
         $mitra = Mitra::all();
-        return view('pengadaan.detail', compact('pengadaan','pengadaan_file','mitra'));
+        return view('pengadaan.detail', compact('pengadaan','pengadaan_file','mitra','tab'));
     }
 
 

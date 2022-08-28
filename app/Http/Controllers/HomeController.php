@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pengadaan;
+use App\Models\VPenilaian;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +25,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $inisiasi = Pengadaan::where('state', 0)->get();
+        $perencana = Pengadaan::where('state', 1)->get();
+        $pelaksana = Pengadaan::where('state', 2)->get();
+        $kontrak = Pengadaan::where('state', 3)->get();
+
+        $penilaian = VPenilaian::orderBy('nama','asc')->get();
+
+        return view('home', compact('inisiasi','perencana','pelaksana','kontrak','penilaian'));
     }
 }

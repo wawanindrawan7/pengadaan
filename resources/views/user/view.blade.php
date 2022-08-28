@@ -7,7 +7,7 @@
                 <form id="form_user">
                     @csrf
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Create User</h5>
+                        <h3 class="modal-title" id="exampleModalLabel">Create User</h3>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -19,6 +19,11 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="exampleFormControlInput1">NIP</label>
+                            <input type="text" class="form-control" name="nip" required>
+                        </div>
+
+                        <div class="form-group">
                             <label for="exampleFormControlInput1">Email</label>
                             <input type="email" class="form-control" name="email" required>
                         </div>
@@ -27,6 +32,171 @@
                             <label for="exampleFormControlInput1">Password</label>
                             <input type="password" class="form-control" name="password" required>
                         </div>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">No. Whatsapp</label>
+                            <input type="text" class="form-control" name="no_wa" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Jabatan</label>
+                            <select class="form-control" name="status" required>
+                                <option value=""></option>
+                                <option>Pengadaan</option>
+                            </select>
+                        </div> 
+
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Unit</label>
+                            <select class="form-control" name="unit_id" required>
+                                <option value=""></option>
+                                @foreach ($unit as $un)
+                                    <option value="{{ $un->id }}">{{ $un->nama }}</option>
+                                @endforeach
+                            </select>
+                        </div> 
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="update-user" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <form id="form_user_update">
+                    @csrf
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="exampleModalLabel">Update User</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="id" id="e_id">
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Nama</label>
+                            <input type="text" class="form-control" name="name" id="e_name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">NIP</label>
+                            <input type="text" class="form-control" name="nip" id="e_nip" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Email</label>
+                            <input type="email" class="form-control" name="email" id="e_email" required>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">No. Whatsapp</label>
+                            <input type="text" class="form-control" name="no_wa" id="e_no_wa" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Jabatan</label>
+                            <select class="form-control" name="status" id="e_status" required>
+                                <option value=""></option>
+                                <option>Pengadaan</option>
+                            </select>
+                        </div> 
+
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Unit</label>
+                            <select class="form-control" name="unit_id" id="e_unit_id" required>
+                                <option value=""></option>
+                                @foreach ($unit as $un)
+                                    <option value="{{ $un->id }}">{{ $un->nama }}</option>
+                                @endforeach
+                            </select>
+                        </div> 
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="pointing-unit-create-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <form id="form_pointing_unit_create">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Pointing Unit</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <input type="hidden" name="users_id" id="u_id">
+
+                        <div class="form-group form-group-default">
+                            <label for="exampleFormControlInput1">Nama</label>
+                            <input type="text" class="form-control" name="name" id="u_name" readonly>
+                        </div>
+
+                        <div class="form-group form-group-default">
+                            <label for="exampleFormControlInput1">Unit</label>
+                            <select class="form-control" name="unit_id" required>
+                                <option value=""></option>
+                                @foreach ($unit as $un)
+                                    <option value="{{ $un->id }}">{{ $un->nama }}</option>
+                                @endforeach
+                            </select>
+                        </div>  
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="pointing-unit-update-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <form id="form_pointing_unit_update">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Pointing Unit</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <input type="hidden" name="id" id="pu_id">
+
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Nama</label>
+                            <input type="text" class="form-control" id="pu_name" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Unit</label>
+                            <select class="form-control" name="unit_id" id="pu_unit_id" required>
+                                <option value=""></option>
+                                @foreach ($unit as $un)
+                                    <option value="{{ $un->id }}">{{ $un->nama }}</option>
+                                @endforeach
+                            </select>
+                        </div>  
 
                     </div>
                     <div class="modal-footer">
@@ -61,7 +231,11 @@
                             <tr>
                                 <th width="1%">No.</th>
                                 <th>Nama</th>
+                                <th>NIP</th>
                                 <th>Email</th>
+                                <th>Jabatan</th>
+                                <th>No. Whatsap</th>
+                                <th>Unit</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -73,12 +247,35 @@
                                 <tr>
                                     <td>{{ $no++ }}</td>
                                     <td>{{ $u->name }}</td>
+                                    <td>{{ $u->nip }}</td>
                                     <td>{{ $u->email }}</td>
+                                    <td>{{ $u->status }}</td>
+                                    <td>{{ $u->no_wa }}</td>
+                                    <td>
+                                        @if ($u->usersUnit != null)
+                                        <a title="Unit" href="#"
+                                            class="btn btn-info btn-round btn-xs mr-2 btn-unit-update"
+                                            data-id="{{ $u->usersUnit->id }}" data-unit_id="{{ $u->usersUnit->unit_id }}" data-name="{{ $u->name }}">{{ $u->usersUnit->unit->nama }}
+                                        </a>
+                                        @else
+                                        <a title="Unit" href="#"
+                                            class="btn btn-success btn-round btn-xs mr-2 btn-unit-create"
+                                            data-id="{{ $u->id }}" data-name="{{ $u->name }}">Pointing Unit
+                                        </a>
+                                        @endif
+                                    </td>
                                     <td align="center">
                                         <a title="Update" href="#"
                                             class="btn btn-warning btn-round btn-xs mr-2 btn-update"
-                                            data-id="{{ $u->id }}">
+                                            data-id="{{ $u->id }}" data-name="{{ $u->name }}" data-email="{{ $u->email }}" data-status="{{ $u->status }}" data-nip="{{ $u->nip }}" data-no_wa="{{ $u->no_wa }}"
+                                            data-unit_id="{{ $u->usersUnit != null ? $u->usersUnit->unit_id : '' }}">
                                             <i class="fa fa-edit"></i>
+                                        </a>
+
+                                        <a title="Update Password" href="#"
+                                            class="btn btn-info btn-round btn-xs mr-2 btn-update-password"
+                                            data-id="{{ $u->id }}">
+                                            <i class="fa fa-key"></i>
                                         </a>
 
                                         <a title="Delete" href="#"
@@ -108,11 +305,122 @@
             $('#basic-datatables').DataTable({});
         });
 
+        $(document).on('click','.btn-unit-create', function(e){
+            e.preventDefault()
+            $('#u_id').val($(this).data('id'))
+            $('#u_name').val($(this).data('name'))
+
+            $('#pointing-unit-create-modal').modal('show')
+        })
+
+        $(document).on('click','.btn-unit-update', function(e){
+            e.preventDefault()
+            $('#pu_id').val($(this).data('id'))
+            $('#pu_name').val($(this).data('name'))
+            $('#pu_unit_id').val($(this).data('unit_id'))
+
+            $('#pointing-unit-update-modal').modal('show')
+        })
+
+        $('#form_pointing_unit_create').on('submit', function(e) {
+            e.preventDefault()
+            $.ajax({
+                type: 'POST',
+                url: "{!! url('users/pointing-unit/create') !!}",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(r) {
+                    console.log(r)
+                    if (r == 'success') {
+                        swal("Good job!", "Simpan data berhasil !", {
+                            icon: "success",
+                            buttons: {
+                                confirm: {
+                                    className: 'btn btn-success'
+                                }
+                            },
+                        }).then(function() {
+                            location.reload()
+                        });
+                    }
+                }
+            })
+        });
+
+        $('#form_pointing_unit_update').on('submit', function(e) {
+            e.preventDefault()
+            $.ajax({
+                type: 'POST',
+                url: "{!! url('users/pointing-unit/update') !!}",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(r) {
+                    console.log(r)
+                    if (r == 'success') {
+                        swal("Good job!", "Simpan data berhasil !", {
+                            icon: "success",
+                            buttons: {
+                                confirm: {
+                                    className: 'btn btn-success'
+                                }
+                            },
+                        }).then(function() {
+                            location.reload()
+                        });
+                    }
+                }
+            })
+        });
+
+        $(document).on('click','.btn-update', function(e){
+            e.preventDefault()
+            $('#e_id').val($(this).data('id'))
+            $('#e_name').val($(this).data('name'))
+            $('#e_email').val($(this).data('email'))
+            $('#e_unit_id').val($(this).data('unit_id'))
+            $('#e_nip').val($(this).data('nip'))
+            $('#e_no_wa').val($(this).data('no_wa'))
+            $('#e_status').val($(this).data('status'))
+
+            $('#update-user').modal('show')
+        })
+
         $('#form_user').on('submit', function(e) {
             e.preventDefault()
             $.ajax({
                 type: 'POST',
                 url: "{!! url('users/create') !!}",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(r) {
+                    console.log(r)
+                    if (r == 'success') {
+                        swal("Good job!", "Simpan data berhasil !", {
+                            icon: "success",
+                            buttons: {
+                                confirm: {
+                                    className: 'btn btn-success'
+                                }
+                            },
+                        }).then(function() {
+                            location.reload()
+                        });
+                    }
+                }
+            })
+        });
+
+        $('#form_user_update').on('submit', function(e) {
+            e.preventDefault()
+            $.ajax({
+                type: 'POST',
+                url: "{!! url('users/update') !!}",
                 data: new FormData(this),
                 contentType: false,
                 cache: false,

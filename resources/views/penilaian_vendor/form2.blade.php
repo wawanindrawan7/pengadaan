@@ -38,7 +38,7 @@
 <body style="margin: 0">
     <div class="container">
         <table id="basic-datatables" class="display table table-bordered table-hover">
-            <thead>
+
                 <tr>
                     <th width="1%">No.</th>
                     <th width="60%">Kriteria Penilaian</th>
@@ -46,7 +46,7 @@
                     <th width="10%">Nilai</th>
                     <th width="9%">Nilai X Bobot</th>
                 </tr>
-            </thead>
+
             <tbody>
                 @php
                     $no = 1;

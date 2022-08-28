@@ -108,7 +108,7 @@ class PerencanaanController extends Controller
         }
     }
 
-    public function perencanaanFile(Request $r)
+    public function uploadFile(Request $r)
     {
         // return $r->all();
         DB::beginTransaction();

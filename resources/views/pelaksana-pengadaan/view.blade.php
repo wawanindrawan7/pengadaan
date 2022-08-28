@@ -53,7 +53,7 @@
                                 <tr>
                                     <td>{{ $no++ }}</td>
                                     <td><a
-                                            href="{{ url('pelaksana-pengadaan/detail?id=' . $u->id) }}">{{ $u->nama }}</a>
+                                            href="{{ url('pengadaan/detail?id=' . $u->id.'&tab=pelaksana') }}">{{ $u->nama }}</a>
                                     </td>
                                     <td>{{ $u->lokasi }}</td>
                                     <td>{{ $u->sumber_anggaran }}</td>

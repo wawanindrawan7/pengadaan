@@ -13,15 +13,25 @@ class AmandemenController extends Controller
     {
         DB::beginTransaction();
         try {
-            $p = new Amandemen();
-            $p->no_nota_dinas = $r->no_nota_dinas;
-            $p->tgl_nota_dinas = date('Y-m-d', strtotime($r->tgl_nota_dinas));
-            $p->nomor_amandemen = $r->nomor_amandemen;
-            $p->tgl_amandemen = date('Y-m-d', strtotime($r->tgl_amandemen));
-            $p->tgl_akhir = date('Y-m-d', strtotime($r->tgl_akhir));
-            $p->tgl_selesai_pekerjaan = date('Y-m-d', strtotime($r->tgl_selesai_pekerjaan));
-            $p->pengadaan_id = $r->pengadaan_id;
-            $p->save();
+            $a = new Amandemen();
+            $a->no_nota_dinas = $r->no_nota_dinas;
+            $a->tgl_nota_dinas = date('Y-m-d', strtotime($r->tgl_nota_dinas));
+            $a->nomor_amandemen = $r->nomor_amandemen;
+            $a->tgl_amandemen = date('Y-m-d', strtotime($r->tgl_amandemen));
+            $a->tgl_akhir = date('Y-m-d', strtotime($r->tgl_akhir));
+            // $a->tgl_selesai_pekerjaan = date('Y-m-d', strtotime($r->tgl_selesai_pekerjaan));
+            $a->pengadaan_id = $r->pengadaan_id;
+            $a->save();
+
+            $file = $r->file('file');
+            foreach ($file as $f) {
+                $p = new AmandemenFile();
+                $p->file = 'file/' . date('YmdHis') . '-' . $f->getClientOriginalName();
+                $p->amandemen_id = $a->id;
+                $p->save();
+
+                $f->move('file', $p->file);
+            }
             DB::commit();
             return 'success';
         } catch (\Throwable $th) {
@@ -30,20 +40,7 @@ class AmandemenController extends Controller
         }
     }
 
-    public function update(Request $r)
-    {
-        DB::beginTransaction();
-        try {
-            $p = Amandemen::find($r->id);
-            $p->tgl_selesai_pekerjaan = date('Y-m-d', strtotime($r->tgl_selesai_pekerjaan));
-            $p->save();
-            DB::commit();
-            return 'success';
-        } catch (\Throwable $th) {
-            DB::rollBack();
-            return $th->getMessage();
-        }
-    }
+    
 
     public function amandemenFile(Request $r){
         // return $r->all();

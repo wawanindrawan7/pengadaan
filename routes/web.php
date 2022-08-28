@@ -48,9 +48,9 @@ Route::post('perencana-pengadaan/create', [PerencanaanController::class, 'create
 Route::get('perencana-pengadaan/drp-export', [PerencanaanController::class, 'exportDrp']);
 
 
-Route::post('perencanaan/update', [PerencanaanController::class, 'update']);
-Route::get('perencanaan/delete', [PerencanaanController::class, 'delete']);
-Route::post('perencanaan/file', [PerencanaanController::class, 'perencanaanFile']);
+// Route::post('perencanaan/update', [PerencanaanController::class, 'update']);
+// Route::get('perencanaan/delete', [PerencanaanController::class, 'delete']);
+Route::post('perencana-pengadaan/file/create', [PerencanaanController::class, 'uploadFile']);
 Route::get('perencanaan-file/delete', [PerencanaanController::class, 'deleteFile']);
 
 Route::get('hpe/load-item',[HpeItemController::class,'loadItem']);
@@ -60,10 +60,10 @@ Route::get('hpe/delete-item',[HpeItemController::class,'deleteItem']);
 Route::get('pelaksana-pengadaan', [PelaksanaanController::class, 'view']);
 Route::get('pelaksana-pengadaan/submit', [PelaksanaanController::class, 'submit']);
 Route::post('pelaksanaan/create', [PelaksanaanController::class, 'create']);
-Route::post('pelaksanaan/update', [PelaksanaanController::class, 'update']);
+Route::post('pelaksanaan/selesai', [PelaksanaanController::class, 'selesai']);
 Route::get('pelaksanaan/delete', [PelaksanaanController::class, 'delete']);
 Route::get('pelaksana-pengadaan/detail', [PelaksanaanController::class, 'detail']);
-Route::post('pelaksanaan/file', [PelaksanaanController::class, 'pelaksanaanFile']);
+Route::post('pelaksana-pengadaan/file/create', [PelaksanaanController::class, 'uploadFile']);
 Route::get('pelaksanaan-file/delete', [PelaksanaanController::class, 'deleteFile']);
 
 Route::post('amandemen/create', [AmandemenController::class, 'create']);
@@ -74,6 +74,9 @@ Route::get('amandemen-file/delete', [AmandemenController::class, 'deleteFile']);
 
 Route::get('users', [UserController::class, 'view']);
 Route::post('users/create', [UserController::class, 'create']);
+Route::post('users/update', [UserController::class, 'update']);
+Route::post('users/pointing-unit/create', [UserController::class, 'createUnit']);
+Route::post('users/pointing-unit/update', [UserController::class, 'updateUnit']);
 Route::get('users/delete', [UserController::class, 'delete']);
 
 Route::get('unit', [UnitController::class, 'view']);

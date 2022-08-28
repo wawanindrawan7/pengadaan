@@ -59,7 +59,7 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-6    ">
+                                <div class="col-md-12">
                                     <div class="form-group form-group-default">
                                         <label for="exampleFormControlInput1">Nilai Kontrak</label>
                                         <div class="input-group">
@@ -430,7 +430,7 @@
 
                                 <div class="form-group form-group-default">
                                     <label for="">FILE UPLOAD</label>
-                                    @foreach ($pengadaan->pelaksanaan as $p)
+                                    @foreach ($pengadaan->pelaksanaan->pelaksanaanFile as $file)
                                         <a href="{{ asset($file->file) }}"
                                             class="text-primary">{!! $file->kategori . ' (' . $file->file . ')' !!}</a><br>
                                     @endforeach
@@ -577,15 +577,14 @@
                                     </div>
                                 </div>
                             </div>
-                        @endif
-                    @endif
-                    <div class="row">
-                        <div class="col-md-12">
-                            <a href="{{ url('penilaian-pengadaan/drp-export?id=' . $pengadaan->id) }}">Export DRP</a>
-                        </div>
-                    </div>
-                    <br>
 
+                            @endif
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <a href="{{ url('penilaian-pengadaan/drp-export?id=' . $pengadaan->id) }}">Export Penilaian Kinerja Vendor</a>
+                                </div>
+                            </div>
+                    @endif
                 @endif
                 @if ($pengadaan->perencanaan != null && $pengadaan->perencanaan->submit == 0)
                     <a href="#" class="btn btn-success btn-round btn-sm btn-submit">
@@ -612,6 +611,11 @@
         $('.datepicker').datetimepicker({
             format: 'MM/DD/YYYY',
         });
+
+        $(document).on('input','#nilai_kontrak', function(){
+            var nilai_kontrak = $('#nilai_kontrak').val()
+            $('.f_nilai_kontrak').text(nf.format(nilai_kontrak))
+        })
 
         $('#form_pelaksanaan').on('submit', function(e) {
             e.preventDefault()

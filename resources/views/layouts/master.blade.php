@@ -190,6 +190,12 @@
                         </li> --}}
 
                         <li class="nav-item">
+                            <a href="{{ url('home') }}">
+                                <i class="fas fa-th"></i>
+                                <p>Dashboard</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ url('pengadaan') }}">
                                 <i class="fas fa-book"></i>
                                 <p>Inisiasi Pengadaan</p>

@@ -31,8 +31,9 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Nama</label>
-                        <input type="text" class="form-control" name="nama" id="exampleFormControlInput1" required>
+                        <input type="text" class="form-control" name="nama" required>
                     </div>
+
 
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Kategori</label>
@@ -45,22 +46,22 @@
 
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Alamat</label>
-                        <textarea class="form-control" name="npwp" id="exampleFormControlInput1" rows="3" required></textarea>
+                        <textarea class="form-control" name="alamat" rows="3" required></textarea>
                     </div>
 
                     <div class="form-group">
                         <label for="exampleFormControlInput1">No. HP (Whatsapp)</label>
-                        <input type="text" class="form-control" name="no_hp" id="exampleFormControlInput1" required>
+                        <input type="text" class="form-control" name="no_wa" required>
                     </div>
 
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Email</label>
-                        <input type="text" class="form-control" name="email" id="exampleFormControlInput1" required>
+                        <input type="text" class="form-control" name="email">
                     </div>
 
                     <div class="form-group">
                         <label for="exampleFormControlInput1">NPWP</label>
-                        <input type="text" class="form-control" name="npwp" id="exampleFormControlInput1" required>
+                        <input type="text" class="form-control" name="npwp">
                     </div>
 
                 </div>
@@ -92,6 +93,36 @@
                         <label for="exampleFormControlInput1">Nama</label>
                         <input type="text" class="form-control" name="nama" id="e_nama" required>
                     </div>
+
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Kategori</label>
+                        <select class="form-control" name="kategori" id="e_kategori" required>
+                            <option value=""></option>
+                            <option>DPT</option>
+                            <option>Non DPT</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Alamat</label>
+                        <textarea class="form-control" name="alamat" id="e_alamat" rows="3" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">No. HP (Whatsapp)</label>
+                        <input type="text" class="form-control" name="no_wa" id="e_no_wa" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Email</label>
+                        <input type="text" class="form-control" id="e_email" name="email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">NPWP</label>
+                        <input type="text" class="form-control" id="e_npwp" name="npwp">
+                    </div>
+
 
                    
                     
@@ -134,8 +165,12 @@
                     <thead>
                         <tr>
                             <th width="1%">No.</th>
-                            <th width="80%">Nama Unit</th>
-                            <th>Option</th>
+                            <th width="10%">Nama</th>
+                            <th width="5%">Kategori</th>
+                            <th width="5%">NPWP</th>
+                            <th width="5%">No.Whatsapp</th>
+                            <th width="10%">Alamat</th>
+                            <th width="5%">Option</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -146,9 +181,13 @@
                         <tr>
                             <td>{{ $no ++ }}</td>
                             <td>{{ $u->nama }}</td>
+                            <td>{{ $u->kategori }}</td>
+                            <td>{{ $u->npwp }}</td>
+                            <td>{{ $u->no_wa }}</td>
+                            <td>{{ $u->alamat }}</td>
                             <td align="center">
                                 <a title="Update" href="#" class="btn btn-warning btn-round btn-xs mr-2 btn-update" data-id="{{ $u->id }}"
-                                    data-nama="{{ $u->nama }}">
+                                    data-nama="{{ $u->nama }}" data-npwp="{{ $u->npwp }}" data-no_wa="{{ $u->no_wa }}" data-alamat="{{ $u->alamat }}" data-kategori="{{ $u->kategori }}" data-email="{{ $u->email }}">
                                     <i class="fa fa-edit"></i>
                                 </a>
 
@@ -176,6 +215,20 @@
         $('#basic-datatables').DataTable({
         });
     });
+
+    $(document).on('click','.btn-update', function(e){
+            e.preventDefault()
+            $('#e_id').val($(this).data('id'))
+            $('#e_nama').val($(this).data('nama'))
+            $('#e_email').val($(this).data('email'))
+            $('#e_npwp').val($(this).data('npwp'))
+            $('#e_alamat').val($(this).data('alamat'))
+            $('#e_no_wa').val($(this).data('no_wa'))
+            $('#e_kategori').val($(this).data('kategori'))
+
+            $('#update-modal').modal('show')
+        })
+
 
 
     $('#form-create').on('submit', function(e){

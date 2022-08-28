@@ -19,6 +19,8 @@
         * {
             font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif; 
         }
+
+        .page_break { page-break-before: always; }
 	</style>
 </head>
 <body style="margin: 0">
@@ -138,7 +140,16 @@
         <p style="text-align: center; margin-left: 400px;font-size: 10pt;">Mataram, {{ date('d F Y') }}<br>Pejabat Perencana Pengadaan</p>
         <p style="text-align: center; margin-left: 400px;margin-top: 100px;font-size: 10pt;">Doddy Hertanto</p>
         <br>
+        <div class="page_break"></div>
         <p style="font-size: 10pt;">Telah <i>Direview</i> Oleh;<br>Komite <i>Value For Money</i></p>
+        <table style="width: 100%">
+            @foreach ($pengadaan->usersReviewer as $item)
+                <tr>
+                    <th width="30%">{{ $item->users->name }}</th>
+                    <th width="15%">.......................</th>
+                </tr>
+            @endforeach
+        </table>
         
     </div>
 </body>

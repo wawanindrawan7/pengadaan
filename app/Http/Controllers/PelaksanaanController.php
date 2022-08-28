@@ -99,9 +99,24 @@ class PelaksanaanController extends Controller
         }
     }
 
+    public function selesai(Request $r)
+    {
+        DB::beginTransaction();
+        try {
+            $p = Pelaksanaan::find($r->id);
+            $p->tgl_selesai = date('Y-m-d', strtotime($r->tgl_selesai));
+            $p->save();
+            DB::commit();
+            return 'success';
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $th->getMessage();
+        }
+    }
 
 
-    public function pelaksanaanFile(Request $r)
+
+    public function uploadFile(Request $r)
     {
         // return $r->all();
         DB::beginTransaction();

@@ -26,6 +26,11 @@ class MitraController extends Controller
         try {
             $u = new Mitra();
             $u->nama = $r->nama;
+            $u->npwp = $r->npwp;
+            $u->alamat = $r->alamat;
+            $u->kategori = $r->kategori;
+            $u->email = $r->email;
+            $u->no_wa = $r->no_wa;
             $u->save();
             DB::commit();
             return 'success';
@@ -40,6 +45,11 @@ class MitraController extends Controller
         try {
             $u = Mitra::find($r->id);
             $u->nama = $r->nama;
+            $u->npwp = $r->npwp;
+            $u->alamat = $r->alamat;
+            $u->kategori = $r->kategori;
+            $u->email = $r->email;
+            $u->no_wa = $r->no_wa;
             $u->save();
             DB::commit();
             return 'success';

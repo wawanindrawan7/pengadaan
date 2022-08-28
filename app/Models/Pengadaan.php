@@ -34,7 +34,7 @@ class Pengadaan extends Model
 
     public function amandemen()
     {
-        return $this->hasOne(Amandemen::class);
+        return $this->hasMany(Amandemen::class);
     }
 
     public function direksiPk()

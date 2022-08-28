@@ -513,7 +513,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" id="btn-submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
 
@@ -693,6 +693,11 @@
             $('#kategori').val(kategori);
         }
 
+        $(document).on('click','#btn-submit', function(e){
+            console.log('click')
+            $('#create').submit()
+        })
+
         $('#create').on('submit', function(e) {
             e.preventDefault()
             $.ajax({
@@ -714,7 +719,7 @@
                             },
                         }).then(function() {
                             window.location =
-                                "{{ url('pengadaan/detail?id=' . $pengadaan->id) }}";
+                                "{!! url('pengadaan/detail?id=' . $pengadaan->id.'&tab=kontrak') !!}";
                         });
                     }
                 }

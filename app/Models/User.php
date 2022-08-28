@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Perencanaan::class);
     }
+
+    public function usersUnit()
+    {
+        return $this->hasOne(UsersUnit::class,'users_id');
+    }
 }
