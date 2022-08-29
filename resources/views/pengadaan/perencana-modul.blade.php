@@ -229,6 +229,8 @@
                 DRP</a>
             <a href="{{ url('perencana-pengadaan/pakta_integritas-export?id='.$pengadaan->id) }}" class="btn btn-primary">Export
                 Pakta Integritas</a>
+            <a href="{{ url('perencana-pengadaan/hpe-export?id='.$pengadaan->id) }}" class="btn btn-primary">Export
+                HPE</a>
         </div>
     </div>
     <br>

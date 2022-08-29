@@ -47,6 +47,7 @@ Route::get('perencana-pengadaan/form', [PerencanaanController::class, 'form']);
 Route::post('perencana-pengadaan/create', [PerencanaanController::class, 'create']);
 Route::get('perencana-pengadaan/drp-export', [PerencanaanController::class, 'exportDrp']);
 Route::get('perencana-pengadaan/pakta_integritas-export', [PerencanaanController::class, 'exportPaktaIntegritas']);
+Route::get('perencana-pengadaan/hpe-export', [PerencanaanController::class, 'exportHpe']);
 
 
 // Route::post('perencanaan/update', [PerencanaanController::class, 'update']);

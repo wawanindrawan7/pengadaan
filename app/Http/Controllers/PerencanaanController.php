@@ -159,4 +159,11 @@ class PerencanaanController extends Controller
         $pdf = FacadePdf::loadView('perencana-pengadaan.pakta_integritas_pdf', compact('pengadaan'));
         return $pdf->stream();
     }
+
+    public function exportHpe(Request $r)
+    {
+        $pengadaan = Pengadaan::find($r->id);
+        $pdf = FacadePdf::loadView('perencana-pengadaan.hpe_export', compact('pengadaan'));
+        return $pdf->stream();
+    }
 }
