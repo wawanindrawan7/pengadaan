@@ -169,11 +169,12 @@
 <hr>
 <div class="row">
     <div class="col-md-12">
+        @if($pengadaan->pelaksanaan != null && $pengadaan->pelaksanaan->tgl_selesai != null)
         <h3>Pekerjaan Selesai</h3>
-
         <div class="form-group">
             <input type="text" class="form-control" value="{{ $pengadaan->pelaksanaan->tgl_selesai }}" disabled />
         </div>
+        @endif
 
         @if($pengadaan->pelaksanaan != null && $pengadaan->pelaksanaan->tgl_selesai == null)
         <a href="#" class="btn btn-success btn-round btn-sm mr-2" data-toggle="modal"

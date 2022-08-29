@@ -151,14 +151,6 @@
 
 
 
-@if($pengadaan->submit == 0)
-    <a href="#" class="btn btn-success btn-round btn-sm btn-submit">
-        <span class="btn-label">
-            <i class="fa fa-check"></i>
-        </span>
-        Submit
-    </a>
-@endif
 
 
 
@@ -170,3 +162,12 @@
     <br>
     <a href="#" data-toggle="modal" data-target="#create-pengadaan-file-modal"><span class="badge badge-success">Upload File</span></a>
 </div>
+
+@if($pengadaan->submit == 0)
+    <a href="#" class="btn btn-success btn-round btn-submit">
+        <span class="btn-label">
+            <i class="fa fa-check"></i>
+        </span>
+        Submit
+    </a>
+@endif

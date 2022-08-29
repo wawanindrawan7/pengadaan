@@ -107,12 +107,12 @@
                                 <th width="1%">No.</th>
                                 <th width="10%">Nama Vendor</th>
                                 <th width="10%">Deskrispi Pengadaan</th>
-                                <th width="5%">Kategori</th>
                                 <th width="5%">No.Kontrak</th>
                                 <th width="5%">Nilai Kontrak</th>
-                                <th width="5%">Total</th>
                                 <th width="5%">Tgl.Kontrak</th>
                                 <th width="5%">Tgl.Selesai</th>
+                                <th width="5%">Total</th>
+                                <th width="5%">Kategori</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -124,12 +124,12 @@
                                 <td>{{ $no ++ }}</td>
                                 <td>{{ $u->nama }}</td>
                                 <td>{{ $u->peng_nama }}</td>
-                                <td>{{ $u->kategori }}</td>
                                 <td>{{ $u->nomor_kontrak }}</td>
-                                <td>{{ $u->nilai_kontrak }}</td>
-                                <td>{{ $u->total }}</td>
+                                <td>{{ number_format($u->nilai_kontrak) }}</td>
                                 <td>{{ $u->tgl_kontrak }}</td>
                                 <td>{{ $u->tgl_selesai }}</td>
+                                <td>{{ $u->total }}</td>
+                                <td>{{ $u->pv_kategori }}</td>
                             </tr>
 
                             @endforeach

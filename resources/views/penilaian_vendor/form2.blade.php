@@ -48,7 +48,7 @@
             <tr>
                 <th width="1%">i</th>
                 <th width="10%">NAMA PENYEDIA</th>
-                <th>:</th>
+                <th width="1%">:</th>
                 <th>{{ $pengadaan->pelaksanaan->mitra->nama }}</th>
             </tr>
             <tr>
