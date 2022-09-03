@@ -39,10 +39,10 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th style="text-align: center;" rowspan="2">#</th>
+                <th style="text-align: center;" rowspan="2">No.</th>
                 <th style="text-align: center;" rowspan="2">Nama Item</th>
-                <th style="text-align: center;" rowspan="2">Satuan</th>
                 <th style="text-align: center;" rowspan="2" colspan="2">Vol</th>
+                <th style="text-align: center;" rowspan="2">Satuan</th>
                 <th style="text-align: center;" colspan="2">Nilai Pekerjaan</th>
                 {{-- <th style="text-align: center;"  rowspan="2">Option</th> --}}
 
@@ -60,9 +60,9 @@
                 <tr>
                     <td align="center">{{ $no++ }}</td>
                     <td>{{ $item->item }}</td>
-                    <td align="center">{{ $item->satuan }}</td>
                     <td align="center" width="5%" align="center">{{ $item->vol_1 }}</td>
                     <td align="center" width="5%" align="center">{{ $item->vol_2 }}</td>
+                    <td align="center">{{ $item->satuan }}</td>
                     <td align="right">{{ number_format($item->harga_satuan) }}</td>
                     <td align="right">{{ number_format($item->jumlah) }}</td>
                 </tr>

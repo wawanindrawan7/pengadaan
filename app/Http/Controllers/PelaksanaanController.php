@@ -35,6 +35,7 @@ class PelaksanaanController extends Controller
             $p->tgl_kontrak = date('Y-m-d', strtotime($r->tgl_kontrak));
             $p->tgl_efektif = date('Y-m-d', strtotime($r->tgl_efektif));
             $p->tgl_akhir = date('Y-m-d', strtotime($r->tgl_akhir));
+            $p->tgl_idd = date('Y-m-d', strtotime($r->tgl_idd));
             $p->nilai_kontrak = $r->nilai_kontrak;
             $p->mitra_id = $r->mitra_id;
             $p->pengadaan_id = $r->pengadaan_id;

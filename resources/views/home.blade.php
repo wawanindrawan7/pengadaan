@@ -111,18 +111,21 @@
                                 <th width="5%">Nilai Kontrak</th>
                                 <th width="5%">Tgl.Kontrak</th>
                                 <th width="5%">Tgl.Selesai</th>
-                                <th width="5%">Total</th>
-                                <th width="5%">Kategori</th>
+                                <th width="5%">Total Nilai</th>
+                                <th width="5%">Kategori Penilaian</th>
+                                <th width="5%">DPT / Non DPT</th>
                             </tr>
                         </thead>
+                        
                         <tbody>
                             @php
                                 $no = 1;
+                                $id = 0;
                             @endphp
                             @foreach ($penilaian as $u)
                             <tr>
-                                <td>{{ $no ++ }}</td>
-                                <td>{{ $u->nama }}</td>
+                                <td>{{ ($u->id != $id) ? $no ++ : '' }}</td>
+                                <td>{{ ($u->id != $id) ? $u->nama : '' }}</td>
                                 <td>{{ $u->peng_nama }}</td>
                                 <td>{{ $u->nomor_kontrak }}</td>
                                 <td>{{ number_format($u->nilai_kontrak) }}</td>
@@ -130,7 +133,12 @@
                                 <td>{{ $u->tgl_selesai }}</td>
                                 <td>{{ $u->total }}</td>
                                 <td>{{ $u->pv_kategori }}</td>
+                                <td>{{ $u->dpt_non_dpt }}</td>
                             </tr>
+
+                            @php
+                                $id = $u->id;
+                            @endphp
 
                             @endforeach
                         </tbody>

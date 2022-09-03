@@ -49,7 +49,7 @@
                                 <tr>
                                     <td>{{ $no++ }}</td>
                                     <td><a href="{{ url('pengadaan/detail?id=' . $u->id.'&tab=perencana') }}">{{ $u->nama }}</a></td>
-                                    <td>{{ $u->lokasi }}</td>
+                                    <td>{{ $u->unit->nama }}</td>
                                     <td>{{ $u->sumber_anggaran }}</td>
                                     <td>{{ $u->nilai_anggaran }}</td>
                                     <td>{{ $u->jenis }}</td>

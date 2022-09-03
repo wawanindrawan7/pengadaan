@@ -7,7 +7,7 @@
                 <ul class="nav nav-tabs nav-line nav-color-secondary w-100 pl-4" role="tablist">
                     
                     <li class="nav-item submenu"> <a class="nav-link {{ ($tab == 'inisiasi') ? 'active show' : '' }}" data-tag="inisiasi" data-toggle="tab" href="#inisiasi" role="tab" aria-selected="false">Inisiasi Pengadaan</a> </li>
-                    @if($pengadaan->metode_pengadaan != 'Kontrak Rinci')
+                    @if($pengadaan->metode_pengadaan != 'Kontrak Rinci' || $pengadaan->metode_pengadaan != 'Pengadaan Langsung')
                     <li class="nav-item submenu"> <a class="nav-link {{ ($tab == 'perencana') ? 'active show' : '' }}" data-tag="perencana" data-toggle="tab" href="#perencana" role="tab" aria-selected="false">Perencana Pengadaan</a> </li>
                     @endif
                     <li class="nav-item submenu"> <a class="nav-link {{ ($tab == 'pelaksana') ? 'active show' : '' }}" data-tag="pelaksana" data-toggle="tab" href="#pelaksana" role="tab" aria-selected="false">Pelaksana Pengadaan</a> </li>
@@ -20,7 +20,7 @@
                 <div class="tab-pane fade {{ ($tab == 'inisiasi') ? 'active show' : '' }}" id="inisiasi" role="tabpanel" aria-labelledby="pills-home-tab">
                     @include('pengadaan.pengadaan-modul')
                 </div>
-                @if($pengadaan->metode_pengadaan != 'Kontrak Rinci')
+                @if($pengadaan->metode_pengadaan != 'Kontrak Rinci' || $pengadaan->metode_pengadaan != 'Pengadaan Langsung')
                 <div class="tab-pane fade {{ ($tab == 'perencana') ? 'active show' : '' }}" id="perencana" role="tabpanel" aria-labelledby="pills-home-tab">
                     @include('pengadaan.perencana-modul')
                 </div>

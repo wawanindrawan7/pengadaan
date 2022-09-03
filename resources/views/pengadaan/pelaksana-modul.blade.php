@@ -69,6 +69,11 @@
                         </div>
                     </div>
 
+                    <div class="form-group form-group-default">
+                        <label>Tanggal Pelaksanaan IDD</label>
+                        <input type="text" class="form-control datepicker" name="tgl_idd">
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -103,6 +108,9 @@
                             <option>HPS</option>
                             <option>Kontrak</option>
                             <option>Jaminan Pelaksanaan</option>
+                            <option>Dokumen Kuesioner IDD</option>
+                            <option>Dokumen Penilaian IDD</option>
+                            <option>Dokumen Pendukung IDD</option>
                         </select>
                     </div>
 
@@ -122,14 +130,24 @@
 </div>
 
 {{-- detail --}}
-@if($pengadaan->pelaksanaan == null)
+@if($pengadaan->pelaksanaan == null && ( (($pengadaan->metode_pengadaan == 'Pengadaan Langsung' || $pengadaan->metode_pengadaan == 'Kontrak Rinci') && $pengadaan->submit == 1) 
+|| ($pengadaan->perencanaa != null && $pengadaan->perencanaan->submit == 1)) )
     <a href="#" data-toggle="modal" data-target="#create-pelaksanaan" class="btn btn-success btn-round btn-sm">
         <span class="btn-label">
             <i class="fa fa-pencil"></i>
         </span>
         Create Data Pelaksana Pengadaan
     </a>
-@else
+@elseif($pengadaan->pelaksanaan == null && $pengadaan->state == 2)
+    <a href="#" data-toggle="modal" data-target="#create-pelaksanaan" class="btn btn-success btn-round btn-sm">
+        <span class="btn-label">
+            <i class="fa fa-pencil"></i>
+        </span>
+        Create Data Pelaksana Pengadaan
+    </a>
+@endif
+
+@if($pengadaan->pelaksanaan != null)
     <div class="row">
         <div class="col-md-4">
             <div class="form-group form-group-default">
@@ -176,6 +194,12 @@
                     value="{{ number_format($pengadaan->pelaksanaan->nilai_kontrak) }}" readonly />
             </div>
         </div>
+        
+    </div>
+
+    <div class="form-group form-group-default">
+        <label>Tgl. IDD</label>
+        <input type="text" class="form-control" value="{{ $pengadaan->pelaksanaan->tgl_idd }}" readonly />
     </div>
 
     <div class="form-group form-group-default">
@@ -187,4 +211,13 @@
         <br>
         <a href="#" data-toggle="modal" data-target="#create-pelaksanaan-file-modal"><span class="badge badge-success">Upload File</span></a>
     </div>
+@endif
+
+@if($pengadaan->state == 2 && $pengadaan->pelaksanaan != null)
+    <a href="#" class="btn btn-success btn-round btn-sm btn-submit-pelaksanaan">
+        <span class="btn-label">
+            <i class="fa fa-check"></i>
+        </span>
+        Submit Data Pelaksana Pengadaan
+    </a>
 @endif

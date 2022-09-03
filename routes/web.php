@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AmandemenController;
 use App\Http\Controllers\HpeItemController;
+use App\Http\Controllers\ManajemenKontrakController;
 use App\Http\Controllers\MitraController;
 use App\Http\Controllers\PelaksanaanController;
 use App\Http\Controllers\PengadaanController;
@@ -68,6 +69,7 @@ Route::get('pelaksana-pengadaan/detail', [PelaksanaanController::class, 'detail'
 Route::post('pelaksana-pengadaan/file/create', [PelaksanaanController::class, 'uploadFile']);
 Route::get('pelaksanaan-file/delete', [PelaksanaanController::class, 'deleteFile']);
 
+Route::get('manajemen-kontrak', [ManajemenKontrakController::class,'view']);
 Route::post('amandemen/create', [AmandemenController::class, 'create']);
 Route::post('amandemen/update', [AmandemenController::class, 'update']);
 Route::get('amandemen/delete', [AmandemenController::class, 'delete']);
@@ -99,6 +101,6 @@ Route::post('penilaian-form-khs/create', [PenilaianVendorController::class, 'cre
 Route::get('penilaian/form-supply-only', [PenilaianVendorController::class, 'formSupplyOnly']);
 Route::get('penilaian/form-supply-errect', [PenilaianVendorController::class, 'formSupplyErrect']);
 Route::get('penilaian/form-khs_distribusi_niaga', [PenilaianVendorController::class, 'formKhsDistribusiNiaga']);
-Route::get('penilaian-pengadaan/drp-export', [PenilaianVendorController::class, 'exportDrp']);
+Route::get('penilaian/export', [PenilaianVendorController::class, 'export']);
 
 

@@ -1,5 +1,6 @@
 @extends('layouts.master')
 @section('content')
+<div class="row">
     <div class="col-md-8">
         <div class="card">
             <div class="card-header">
@@ -12,6 +13,19 @@
                     @csrf
                     <input type="hidden" name="pelaksanaan_id" value="{{ $pengadaan->pelaksanaan->id }}">
                     <input type="hidden" name="form" value="Errect">
+
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">DPT / Non DPT</label>
+                        <select class="form-control" name="dpt_non_dpt" required>
+                            <option value=""></option>
+                            <option>DPT Jasa Konstruksi JTM, Gardu Distribusi dan JTR</option>
+                            <option>DPT Jasa Konstruksi SR dan APP</option>
+                            <option>DPT Jasa Grinding dan Polishing Crankshaft Mesin Diesel</option>
+                            <option>DPT Jasa Rekondisi Sparepart Mesin Diesel</option>
+                            <option>Non DPT</option>
+                        </select>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -124,6 +138,34 @@
             </div>
         </div>
     </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-head-row">
+                    <div class="card-title">Keterangan</div>
+                </div>
+            </div>
+            <div class="card-body">
+                <p>Kategori Penilaian sebagai berikut : </p>
+                <ul class="list-group list-group-bordered">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <b>BURUK</b>
+                        <span class="badge badge-primary badge-pill">10 sampai dengan < 60</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <b>CUKUP</b>
+                        <span class="badge badge-primary badge-pill">60 sampai dengan < 80</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <b>BAIK</b>
+                        <span class="badge badge-primary badge-pill">80 sampai dengan 100</span>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('js')
@@ -192,8 +234,7 @@
                                 }
                             },
                         }).then(function() {
-                            window.location =
-                            "{{ url('pelaksana-pengadaan/detail?id=' . $pengadaan->id) }}";
+                            window.location = "{{ url('pengadaan/detail?id=' . $pengadaan->id.'&tab=kontrak') }}";
                         });
                     }
                 }

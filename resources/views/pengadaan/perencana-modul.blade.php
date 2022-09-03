@@ -28,7 +28,15 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="exampleFormControlInput1">File</label>
+                        <label for="exampleFormControlInput1">File RKS</label>
+                        <input type="file" class="form-control" name="file[]" multiple="multiple" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">File HPE</label>
+                        <input type="file" class="form-control" name="file[]" multiple="multiple" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">File Pakta Integritas</label>
                         <input type="file" class="form-control" name="file[]" multiple="multiple" required>
                     </div>
 
@@ -62,7 +70,7 @@
 
 
 
-@if($pengadaan->perencanaan == null)
+@if($pengadaan->submit == 1 && $pengadaan->perencanaan == null)
     <a href="{{ url('perencana-pengadaan/form?pengadaan_id='.$pengadaan->id) }}"
         class="btn btn-success btn-round btn-sm">
         <span class="btn-label">

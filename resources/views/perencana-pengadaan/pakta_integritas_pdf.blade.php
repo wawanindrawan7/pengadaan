@@ -25,7 +25,7 @@
         Pekerjaan, Pejabat Perencana
         Pengadaan Barang/Jasa, Pejabat Pelaksana Pengadaan Barang/Jasa Serta Komite Value For Money PT PLN (Persero)
         Unit Induk Wilayah Nusa Tenggara Barat dengan ini menyatakan dengan sebenarnya, bahwa sehubungan dengan proses
-        pengadaan <b>Pekerjaan: Pengadaan AVR</b> menyatakan:
+        pengadaan <b>Pekerjaan: {{ $pengadaan->nama }}</b> menyatakan:
     </p>
 
     <p class="text">1. Kami akan melaksanakan dan memeriksa bahwa proses Pengadaan tersebut dilaksanakan sesuai dengan

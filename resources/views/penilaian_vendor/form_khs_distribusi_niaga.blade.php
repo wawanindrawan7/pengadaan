@@ -1,6 +1,7 @@
 @extends('layouts.master')
 @section('content')
-    <div class="col-md-12">
+<div class="row">
+    <div class="col-md-8">
         <div class="card">
             <div class="card-header">
                 <div class="card-head-row">
@@ -520,6 +521,36 @@
             </div>
         </div>
     </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-head-row">
+                    <div class="card-title">Keterangan</div>
+                </div>
+            </div>
+            <div class="card-body">
+                <p>Kategori Penilaian sebagai berikut : </p>
+                <ul class="list-group list-group-bordered">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <b>BURUK</b>
+                        <span class="badge badge-primary badge-pill">10 sampai dengan < 60</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <b>CUKUP</b>
+                        <span class="badge badge-primary badge-pill">60 sampai dengan < 80</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <b>BAIK</b>
+                        <span class="badge badge-primary badge-pill">80 sampai dengan 100</span>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
 @endsection
 
 @section('js')
@@ -718,8 +749,7 @@
                                 }
                             },
                         }).then(function() {
-                            window.location =
-                                "{!! url('pengadaan/detail?id=' . $pengadaan->id.'&tab=kontrak') !!}";
+                            window.location = "{{ url('pengadaan/detail?id=' . $pengadaan->id.'&tab=kontrak') }}";
                         });
                     }
                 }

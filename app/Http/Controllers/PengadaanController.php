@@ -103,7 +103,7 @@ class PengadaanController extends Controller
 
             $p = Pengadaan::find($r->id);
             $p->submit = 1;
-            $p->state =  1;
+            $p->state = ($p->metode_pengadaan == 'Kontrak Rinci' || $p->metode_pengadaan == 'Pengadaan Langsung') ? 2 : 1;
             $p->save();
 
             DB::commit();

@@ -156,7 +156,7 @@
         </table>
 
 
-
+        @if($pengadaan->pelaksanaan != null && $pengadaan->pelaksanaan->tgl_selesai == null)
         <a href="#" class="btn btn-info btn-round btn-sm mr-2" data-toggle="modal"
             data-target="#create-amandemen">
             <span class="btn-label">
@@ -164,6 +164,7 @@
             </span>
             Create Amandemen
         </a>
+        @endif
     </div>
 </div> 
 <hr>
@@ -193,12 +194,13 @@
 
 <hr>
 
-@if($pengadaan->perencanaan != null)
-@if($pengadaan->pelaksanaan != null && $pengadaan->pelaksanaan->penilaianVendor == null)
-    <div class="row">
+
+@if($pengadaan->pelaksanaan != null && $pengadaan->pelaksanaan->tgl_selesai != null && $pengadaan->pelaksanaan->penilaianVendor == null)
+<h3>Penilaian Kinerja Vendor</h3>
+    <div class="row mt-3">
         <div class="col-md-3">
             <a href="{{ url('penilaian/form-errect?id=' . $pengadaan->id) }}"
-                class="btn btn-primary btn-round form-control">Form Errect</a>
+                class="btn btn-primary btn-round form-control">Form Errect Only</a>
         </div>
         <div class="col-md-3">
             <a href="{{ url('penilaian/form-supply-only?id=' . $pengadaan->id) }}"
@@ -222,7 +224,7 @@
                     <div class="row mt-3">
 
                         <h3>Form Penilaian Vendor ({{ $pengadaan->pelaksanaan->penilaianVendor->form }})</h3>
-
+                        
                         <div class="table-responsive">
                             <table id="basic-datatables" class="display table table-bordered table-hover">
                                 <thead>
@@ -311,10 +313,8 @@
                             
                             @endif
 
-                            <div class="row">
+                            
                                 <div class="col-md-12">
-                                    <a href="{{ url('penilaian-pengadaan/drp-export?id=' . $pengadaan->id) }}">Export Penilaian Kinerja Vendor</a>
+                                    <a href="{{ url('penilaian/export?id=' . $pengadaan->id) }}" class="btn btn-rounded btn-info">Export Penilaian Kinerja Vendor</a>
                                 </div>
-                            </div>
                             @endif
-     @endif

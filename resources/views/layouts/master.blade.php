@@ -214,9 +214,15 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('pengadaan') }}">
+                            <a href="{{ url('manajemen-kontrak') }}">
                                 <i class="fas fa-edit"></i>
                                 <p>Manajemen Kontrak</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('manajemen-kontrak') }}">
+                                <i class="fas fa-chart-pie"></i>
+                                <p>Rekap Penilaian Kinerja</p>
                             </a>
                         </li>
                         <li class="nav-item">

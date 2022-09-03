@@ -84,13 +84,13 @@
                 <th width="1%">iii</th>
                 <th width="10%">NILAI KONTRAK</th>
                 <th>:</th>
-                <th>{{ $pengadaan->pelaksanaan->nilai_kontrak }}</th>
+                <th>{{ number_format($pengadaan->pelaksanaan->nilai_kontrak) }}</th>
             </tr>
             <tr>
                 <th width="1%">iv</th>
                 <th width="10%">TAHUN KONTRAK</th>
                 <th>:</th>
-                <th>{{ $pengadaan->pelaksanaan->tgl_kontrak }}</th>
+                <th>{{ date('Y', strtotime($pengadaan->pelaksanaan->tgl_kontrak)) }}</th>
             </tr>
             <tr>
                 <th width="1%">c.</th>

@@ -22,6 +22,8 @@
                             <option>TOR/KAK</option>
                             <option>Referensi</option>
                             <option>RAB/PA</option>
+                            <option>Justifikasi</option>
+
                             <option>Nota Dinas GM ke Rendan</option>
                         </select>
                     </div>

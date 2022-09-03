@@ -44,6 +44,7 @@ class PenilaianVendorController extends Controller
             $p->total = $r->total;
             $p->pelaksanaan_id = $r->pelaksanaan_id;
             $p->kategori = $r->kategori;
+            $p->dpt_non_dpt = $r->dpt_non_dpt;
             $p->save();
 
             for ($i = 0; $i < count($r->kriteria); $i++) {
@@ -166,7 +167,7 @@ class PenilaianVendorController extends Controller
         }
     }
 
-    public function exportDrp(Request $r)
+    public function export(Request $r)
     {
         $pengadaan = Pengadaan::find($r->id);
         // return $pengadaan->pelaksanaan->penilaianVendor;

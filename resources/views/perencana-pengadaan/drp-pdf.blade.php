@@ -38,7 +38,7 @@
 
         <p style="text-align: justify; font-size: 10pt;">
             Dokumen Rencana Pengadaan Pekerjaan: <b>{{ $pengadaan->nama }}</b> ini disusun berdasarkan analisis kebutuhan dengan sumber dari Anggaran {{ $pengadaan->sumber_anggaran }} 
-            Fungsi Distribusi {{ $pengadaan->pelaksanaan->waktu_pelaksanaan }} dengan nomor PRK 2022.WNTB.9.007.
+            Fungsi Distribusi {{ ($pengadaan->pelaksanaan != null) ? $pengadaan->pelaksanaan->waktu_pelaksanaan : '-' }} dengan nomor PRK 2022.WNTB.9.007.
         </p>
         
         <b>1. Analisa Kebutuhan</b>

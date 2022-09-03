@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Amandemen;
 use App\Models\AmandemenFile;
+use App\Models\Pelaksanaan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -22,6 +23,10 @@ class AmandemenController extends Controller
             // $a->tgl_selesai_pekerjaan = date('Y-m-d', strtotime($r->tgl_selesai_pekerjaan));
             $a->pengadaan_id = $r->pengadaan_id;
             $a->save();
+
+            $kontrak = Pelaksanaan::find($a->pengadaan->pelaksanaan->id);
+            $kontrak->tgl_akhir = $a->tgl_akhir;
+            $kontrak->save();
 
             $file = $r->file('file');
             foreach ($file as $f) {

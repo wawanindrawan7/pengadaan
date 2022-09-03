@@ -15,7 +15,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="card-head-row">
-                    <div class="card-title">Pelaksana Pengadaan</div>
+                    <div class="card-title">Manajemen Kontrak</div>
                 </div>
             </div>
             <div class="card-body">
@@ -44,7 +44,7 @@
                                 <tr>
                                     <td>{{ $no++ }}</td>
                                     <td><a
-                                            href="{{ url('pengadaan/detail?id=' . $u->id.'&tab=pelaksana') }}">{{ $u->nama }}</a>
+                                            href="{{ url('pengadaan/detail?id=' . $u->id.'&tab=kontrak') }}">{{ $u->nama }}</a>
                                     </td>
                                     <td>{{ $u->unit->nama }}</td>
                                     <td>{{ $u->sumber_anggaran }}</td>
@@ -104,37 +104,8 @@
 
 
 
-        $(document).on('input', '#nilai_anggaran', function() {
-            var nilai_anggaran = $('#nilai_anggaran').val()
-            $('.f_nilai_anggaran').text(nf.format(nilai_anggaran))
-        })
 
 
-        $('#form-create').on('submit', function(e) {
-            e.preventDefault()
-            $.ajax({
-                type: 'POST',
-                url: "{!! url('pengadaan/create') !!}",
-                data: new FormData(this),
-                contentType: false,
-                cache: false,
-                processData: false,
-                success: function(r) {
-                    console.log(r)
-                    if (r == 'success') {
-                        swal("Good job!", "Simpan data berhasil !", {
-                            icon: "success",
-                            buttons: {
-                                confirm: {
-                                    className: 'btn btn-success'
-                                }
-                            },
-                        }).then(function() {
-                            location.reload()
-                        });
-                    }
-                }
-            })
-        });
+      
     </script>
 @endsection
