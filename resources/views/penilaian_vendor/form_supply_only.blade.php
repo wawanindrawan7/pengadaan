@@ -1,6 +1,7 @@
 @extends('layouts.master')
 @section('content')
-    <div class="col-md-12">
+<div class="row">
+    <div class="col-md-8">
         <div class="card">
             <div class="card-header">
                 <div class="card-head-row">
@@ -123,79 +124,232 @@
             </div>
         </div>
     </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-head-row">
+                    <div class="card-title">Keterangan</div>
+                </div>
+            </div>
+            <div class="card-body">
+                <p>Kategori Penilaian sebagai berikut : </p>
+                <ul class="list-group list-group-bordered">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <b>BURUK</b>
+                        <span class="badge badge-primary badge-pill">10 sampai dengan < 60</span> </li> <li
+                                class="list-group-item d-flex justify-content-between align-items-center">
+                                <b>CUKUP</b>
+                                <span class="badge badge-primary badge-pill">60 sampai dengan < 80</span> </li> <li
+                                        class="list-group-item d-flex justify-content-between align-items-center">
+                                        <b>BAIK</b>
+                                        <span class="badge badge-primary badge-pill">80 sampai dengan 100</span>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-head-row">
+                    <div class="card-title">Kriteria Penilaian</div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table-responsive">
+                    <table class="table table-bordered table-bordered-bd-info mt-2">
+                        <thead>
+                            <tr>
+                                <th width="3%">No</th>
+                                <th>Kriteria Penilaian</th>
+                                <th>Nilai</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Kualitas</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Hasil pemeriksaan kualitas baik, pengemasan rapi dan aman, dokumen pendukung lengkap
+                                </td>
+                                <td>100</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Hasil pemeriksaan kualitas baik, kemasan rapi belum disertai dengan petunjuk aman
+                                    dari kerusakan, dokumen pendukung lengkap</td>
+                                <td>80</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Kemasan rapi, namun dikemas dengan bahan yang dapat menimbulkan potensi kerusakan
+                                    barang, tidak ada permasalahan pada saat pengujian kualitas (FAT dan/atau SAT),
+                                    dokumen pendukung lengkap</td>
+                                <td>40</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Barang tidak dikemas dengan rapi dan tidak dilengkapi prosedur handling sehingga
+                                    menimbulkan potensi kerusakan barang, ada permasalahan pada saat pengujian kualitas
+                                    (FAT dan/atau SAT) dokumen pendukung lengkap</td>
+                                <td>20</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Terjadi kerusakan pada barang, dokumen pendukung lengkap</td>
+                                <td>10</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Delivery</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Lebih awal dari perjanjian</td>
+                                <td>100</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Tepat waktu sesuai perjanjian</td>
+                                <td>80</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Berdasarkan kesepakatan perpanjangan waktu, pengiriman barang tepat waktu sesuai
+                                    jadwal kesepakatan</td>
+                                <td>40</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Pengiriman barang terlambat namun telah diinformasikan terlebih dahulu</td>
+                                <td>20</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Pengiriman barang terlambat tanpa informasi yang jelas</td>
+                                <td>10</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Responsiveness</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Proaktif dalam komunikasi</td>
+                                <td>100</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Mudah dihubungi dan responsif</td>
+                                <td>80</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Mudah dihubungi namun lambat merespon</td>
+                                <td>40</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Sulit untuk dihubungi</td>
+                                <td>20</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Tidak bisa dihubungi</td>
+                                <td>10</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('js')
-    <script src="{{ asset('public/atlantis/assets/js/plugin/sweetalert/sweetalert.min.js') }}"></script>
-    <script>
-        $(document).on('input', '#nilai_kualitas', function() {
-            var nilai = $(this).val();
-            var bobot = $('#bobot_kualitas').val();
-            var hasil = nilai * bobot / 100;
-            $('#nilai_bobot_kualitas').val(hasil);
-            recountTotal();
-        });
+<script src="{{ asset('public/atlantis/assets/js/plugin/sweetalert/sweetalert.min.js') }}"></script>
+<script>
+    $(document).on('input', '#nilai_kualitas', function () {
+        var nilai = $(this).val();
+        var bobot = $('#bobot_kualitas').val();
+        var hasil = nilai * bobot / 100;
+        $('#nilai_bobot_kualitas').val(hasil);
+        recountTotal();
+    });
 
-        $(document).on('input', '#nilai_delivery', function() {
-            var nilai = $(this).val();
-            var bobot = $('#bobot_delivery').val();
-            var hasil = nilai * bobot / 100;
-            $('#nilai_bobot_delivery').val(hasil);
-            recountTotal();
-        });
+    $(document).on('input', '#nilai_delivery', function () {
+        var nilai = $(this).val();
+        var bobot = $('#bobot_delivery').val();
+        var hasil = nilai * bobot / 100;
+        $('#nilai_bobot_delivery').val(hasil);
+        recountTotal();
+    });
 
-        $(document).on('input', '#nilai_responsiveness', function() {
-            var nilai = $(this).val();
-            var bobot = $('#bobot_responsiveness').val();
-            var hasil = nilai * bobot / 100;
-            $('#nilai_bobot_responsiveness').val(hasil);
-            recountTotal();
-        });
+    $(document).on('input', '#nilai_responsiveness', function () {
+        var nilai = $(this).val();
+        var bobot = $('#bobot_responsiveness').val();
+        var hasil = nilai * bobot / 100;
+        $('#nilai_bobot_responsiveness').val(hasil);
+        recountTotal();
+    });
 
-        function recountTotal() {
-            var kualitas = $('#nilai_bobot_kualitas').val();
-            var delivery = $('#nilai_bobot_delivery').val();
-            var responsiveness = $('#nilai_bobot_responsiveness').val();
-            var total = parseInt(kualitas) + parseInt(delivery) + parseInt(responsiveness);
-            $('#total').val(total);
+    function recountTotal() {
+        var kualitas = $('#nilai_bobot_kualitas').val();
+        var delivery = $('#nilai_bobot_delivery').val();
+        var responsiveness = $('#nilai_bobot_responsiveness').val();
+        var total = parseInt(kualitas) + parseInt(delivery) + parseInt(responsiveness);
+        $('#total').val(total);
 
-            var kategori;
-            if (total >= 80) {
-                kategori = 'Baik';
-            } else if (total >= 60 && total < 80) {
-                kategori = 'Cukup';
-            } else {
-                kategori = 'Buruk';
-            }
-
-            $('#kategori').val(kategori);
+        var kategori;
+        if (total >= 80) {
+            kategori = 'Baik';
+        } else if (total >= 60 && total < 80) {
+            kategori = 'Cukup';
+        } else {
+            kategori = 'Buruk';
         }
 
-        $('#create').on('submit', function(e) {
-            e.preventDefault()
-            $.ajax({
-                type: 'POST',
-                url: "{!! url('penilaian-form-errect/create') !!}",
-                data: new FormData(this),
-                contentType: false,
-                cache: false,
-                processData: false,
-                success: function(r) {
-                    console.log(r)
-                    if (r == 'success') {
-                        swal("Good job!", "Simpan data berhasil !", {
-                            icon: "success",
-                            buttons: {
-                                confirm: {
-                                    className: 'btn btn-success'
-                                }
-                            },
-                        }).then(function() {
-                            window.location = "{{ url('pengadaan/detail?id=' . $pengadaan->id.'&tab=kontrak') }}";
-                        });
-                    }
+        $('#kategori').val(kategori);
+    }
+
+    $('#create').on('submit', function (e) {
+        e.preventDefault()
+        $.ajax({
+            type: 'POST',
+            url: "{!! url('penilaian-form-errect/create') !!}",
+            data: new FormData(this),
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function (r) {
+                console.log(r)
+                if (r == 'success') {
+                    swal("Good job!", "Simpan data berhasil !", {
+                        icon: "success",
+                        buttons: {
+                            confirm: {
+                                className: 'btn btn-success'
+                            }
+                        },
+                    }).then(function () {
+                        window.location =
+                            "{{ url('pengadaan/detail?id=' . $pengadaan->id.'&tab=kontrak') }}";
+                    });
                 }
-            })
-        });
-    </script>
+            }
+        })
+    });
+
+</script>
 @endsection

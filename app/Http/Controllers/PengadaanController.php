@@ -26,7 +26,7 @@ class PengadaanController extends Controller
     }
 
     public function create(Request $r){
-        
+
         DB::beginTransaction();
         try {
             $p = new Pengadaan();
@@ -146,17 +146,48 @@ class PengadaanController extends Controller
         // return $r->all();
         DB::beginTransaction();
         try {
-            $file = $r->file('file');
-            foreach ($file as $f) {
-                $u = new PengadaanFile();
-                $u->kategori = $r->kategori;
-                $u->file = 'file/' . date('YmdHis') . '-' . $f->getClientOriginalName();
-                $u->pengadaan_id = $r->pengadaan_id;
-                $u->save();
+            $file_rks = ($r->hasFile('file_rks')) ? $r->file('file_rks') : null;
+            $file_pakta_integritas = ($r->hasFile('file_pakta_integritas')) ? $r->file('file_pakta_integritas') : null;
+            $file_drp = ($r->hasFile('file_drp')) ? $r->file('file_drp') : null;
+            $file_nota_dinas = ($r->hasFile('file_nota_dinas')) ? $r->file('file_nota_dinas') : null;
+            $file_hpe = ($r->hasFile('file_hpe')) ? $r->file('file_hpe') : null;
 
-                $f->move('file', $u->file);
+            $p = Pengadaan::find($r->pengadaan_id);
+
+
+            $u = ($p->pengadaanFile == null) ? new PengadaanFile() : PengadaanFile::find($p->pengadaanFile->id);
+            if ($file_rks != null) {
+                $u->file_rks = 'file/' . date('YmdHis') . '-' . $file_rks->getClientOriginalName();
             }
-
+            if ($file_pakta_integritas != null) {
+                $u->file_pakta_integritas = 'file/' . date('YmdHis') . '-' . $file_pakta_integritas->getClientOriginalName();
+            }
+            if ($file_drp != null) {
+                $u->file_drp = 'file/' . date('YmdHis') . '-' . $file_drp->getClientOriginalName();
+            }
+            if ($file_nota_dinas != null) {
+                $u->file_nota_dinas = 'file/' . date('YmdHis') . '-' . $file_nota_dinas->getClientOriginalName();
+            }
+            if ($file_hpe != null) {
+                $u->file_hpe = 'file/' . date('YmdHis') . '-' . $file_hpe->getClientOriginalName();
+            }
+            $u->pengadaan_id = $r->pengadaan_id;
+            $u->save();
+            if ($file_rks != null) {
+                $file_rks->move('file', $u->file_rks);
+            }
+            if ($file_pakta_integritas != null) {
+                $file_pakta_integritas->move('file', $u->file_pakta_integritas);
+            }
+            if ($file_drp != null) {
+                $file_drp->move('file', $u->file_drp);
+            }
+            if ($file_nota_dinas != null) {
+                $file_nota_dinas->move('file', $u->file_nota_dinas);
+            }
+            if ($file_hpe != null) {
+                $file_hpe->move('file', $u->file_hpe);
+            }
             DB::commit();
             return 'success';
         } catch (\Throwable $th) {

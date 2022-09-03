@@ -13,7 +13,7 @@ class Pengadaan extends Model
 
     public function pengadaanFile()
     {
-        return $this->hasMany(PengadaanFile::class);
+        return $this->hasOne(PengadaanFile::class);
     }
 
     public function usersReviewer()

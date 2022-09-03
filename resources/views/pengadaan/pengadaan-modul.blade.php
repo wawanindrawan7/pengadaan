@@ -13,24 +13,25 @@
                     </button>
                 </div>
                 <div class="modal-body">
-
                     <div class="form-group">
-                        <label for="exampleFormControlInput1">Kategori</label>
-                        <select class="form-control" name="kategori" required>
-                            <option value=""></option>
-                            <option>KKP</option>
-                            <option>TOR/KAK</option>
-                            <option>Referensi</option>
-                            <option>RAB/PA</option>
-                            <option>Justifikasi</option>
-
-                            <option>Nota Dinas GM ke Rendan</option>
-                        </select>
+                        <label for="exampleFormControlInput1">File RKS</label>
+                        <input type="file" class="form-control" name="file_rks">
                     </div>
-
                     <div class="form-group">
-                        <label for="exampleFormControlInput1">File</label>
-                        <input type="file" class="form-control" name="file[]" multiple="multiple" required>
+                        <label for="exampleFormControlInput1">File HPE</label>
+                        <input type="file" class="form-control" name="file_hpe">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">File Pakta Integritas</label>
+                        <input type="file" class="form-control" name="file_pakta_integritas">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">File DRP</label>
+                        <input type="file" class="form-control" name="file_drp">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">File Nota Dinas GM ke Laksda</label>
+                        <input type="file" class="form-control" name="file_nota_dinas">
                     </div>
 
                 </div>
@@ -158,10 +159,23 @@
 
 <div class="form-group form-group-default">
     <label for="">File Upload</label>
-    @foreach ($pengadaan->pengadaanFile as $file)
-    <a href="{{ asset($file->file) }}" class="text-primary">{!! $file->kategori.' ('.$file->file.')' !!}</a><br>
-    @endforeach
-    <br>
+    @if ($pengadaan->pengadaanFile != null)
+    @if ($pengadaan->pengadaanFile->file_rks != null)
+    <a href="{{ asset($pengadaan->pengadaanFile->file_rks) }}" class="text-primary">File RKS</a><br>
+    @endif
+    @if ($pengadaan->pengadaanFile->file_hpe != null)
+    <a href="{{ asset($pengadaan->pengadaanFile->file_hpe) }}" class="text-primary">File HPE</a><br>
+    @endif
+    @if ($pengadaan->pengadaanFile->file_pakta_integritas != null)
+    <a href="{{ asset($pengadaan->pengadaanFile->file_pakta_integritas) }}" class="text-primary">File Fakta Integritas</a><br>
+    @endif
+    @if ($pengadaan->pengadaanFile->file_drp != null)
+    <a href="{{ asset($pengadaan->pengadaanFile->file_drp) }}" class="text-primary">File DRP</a><br>
+    @endif
+    @if ($pengadaan->pengadaanFile->file_nota_dinas != null)
+    <a href="{{ asset($pengadaan->pengadaanFile->file_nota_dinas) }}" class="text-primary">File Nota Dinas GM ke Laksda</a><br>
+    @endif
+    @endif
     <a href="#" data-toggle="modal" data-target="#create-pengadaan-file-modal"><span class="badge badge-success">Upload File</span></a>
 </div>
 

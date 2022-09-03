@@ -544,13 +544,14 @@
                         <b>BAIK</b>
                         <span class="badge badge-primary badge-pill">80 sampai dengan 100</span>
                     </li>
-                    
+
                 </ul>
             </div>
         </div>
     </div>
 
 </div>
+
 @endsection
 
 @section('js')
