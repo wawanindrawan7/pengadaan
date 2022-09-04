@@ -23,7 +23,7 @@ class Perencanaan extends Model
 
     public function perencanaanFile()
     {
-        return $this->hasMany(PerencanaanFile::class);
+        return $this->hasOne(PerencanaanFile::class);
     }
 
     public function hpeItem()

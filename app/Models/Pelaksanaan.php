@@ -22,7 +22,7 @@ class Pelaksanaan extends Model
 
     public function pelaksanaanFile()
     {
-        return $this->hasMany(PelaksanaanFile::class);
+        return $this->hasOne(PelaksanaanFile::class);
     }
 
     public function penilaianVendor(){

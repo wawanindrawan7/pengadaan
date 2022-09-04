@@ -117,22 +117,90 @@ class PelaksanaanController extends Controller
 
 
 
-    public function uploadFile(Request $r)
-    {
+    // public function uploadFile(Request $r)
+    // {
+    //     // return $r->all();
+    //     DB::beginTransaction();
+    //     try {
+    //         $file = $r->file('file');
+    //         foreach ($file as $f) {
+    //             $p = new PelaksanaanFile();
+    //             $p->kategori = $r->kategori;
+    //             $p->file = 'file/' . date('YmdHis') . '-' . $f->getClientOriginalName();
+    //             $p->pelaksanaan_id = $r->pelaksanaan_id;
+    //             $p->save();
+
+    //             $f->move('file', $p->file);
+    //         }
+
+    //         DB::commit();
+    //         return 'success';
+    //     } catch (\Throwable $th) {
+    //         DB::rollBack();
+    //         return $th->getMessage();
+    //     }
+    // }
+
+    public function uploadFile(Request $r){
         // return $r->all();
         DB::beginTransaction();
         try {
-            $file = $r->file('file');
-            foreach ($file as $f) {
-                $p = new PelaksanaanFile();
-                $p->kategori = $r->kategori;
-                $p->file = 'file/' . date('YmdHis') . '-' . $f->getClientOriginalName();
-                $p->pelaksanaan_id = $r->pelaksanaan_id;
-                $p->save();
+            $file_jadwal = ($r->hasFile('file_jadwal')) ? $r->file('file_jadwal') : null;
+            $file_hps = ($r->hasFile('file_hps')) ? $r->file('file_hps') : null;
+            $file_kontrak = ($r->hasFile('file_kontrak')) ? $r->file('file_kontrak') : null;
+            $file_jaminan_pelaksana = ($r->hasFile('file_jaminan_pelaksana')) ? $r->file('file_jaminan_pelaksana') : null;
+            $file_dokumen_kusioner = ($r->hasFile('file_dokumen_kusioner')) ? $r->file('file_dokumen_kusioner') : null;
+            $file_dokumen_penilaian = ($r->hasFile('file_dokumen_penilaian')) ? $r->file('file_dokumen_penilaian') : null;
+            $file_dokumen_pendukung = ($r->hasFile('file_dokumen_pendukung')) ? $r->file('file_dokumen_pendukung') : null;
 
-                $f->move('file', $p->file);
+            $p = Pelaksanaan::find($r->pelaksanaan_id);
+
+
+            $u = ($p->pelaksanaanFile == null) ? new PelaksanaanFile() : PelaksanaanFile::find($p->pelaksanaanFile->id);
+            if ($file_jadwal != null) {
+                $u->file_jadwal = 'file/' . date('YmdHis') . '-' . $file_jadwal->getClientOriginalName();
             }
-
+            if ($file_hps != null) {
+                $u->file_hps = 'file/' . date('YmdHis') . '-' . $file_hps->getClientOriginalName();
+            }
+            if ($file_kontrak != null) {
+                $u->file_kontrak = 'file/' . date('YmdHis') . '-' . $file_kontrak->getClientOriginalName();
+            }
+            if ($file_jaminan_pelaksana != null) {
+                $u->file_jaminan_pelaksana = 'file/' . date('YmdHis') . '-' . $file_jaminan_pelaksana->getClientOriginalName();
+            }
+            if ($file_dokumen_kusioner != null) {
+                $u->file_dokumen_kusioner = 'file/' . date('YmdHis') . '-' . $file_dokumen_kusioner->getClientOriginalName();
+            }
+            if ($file_dokumen_penilaian != null) {
+                $u->file_dokumen_penilaian = 'file/' . date('YmdHis') . '-' . $file_dokumen_penilaian->getClientOriginalName();
+            }
+            if ($file_dokumen_pendukung != null) {
+                $u->file_dokumen_pendukung = 'file/' . date('YmdHis') . '-' . $file_dokumen_pendukung->getClientOriginalName();
+            }
+            $u->pelaksanaan_id = $r->pelaksanaan_id;
+            $u->save();
+            if ($file_jadwal != null) {
+                $file_jadwal->move('file', $u->file_jadwal);
+            }
+            if ($file_hps != null) {
+                $file_hps->move('file', $u->file_hps);
+            }
+            if ($file_kontrak != null) {
+                $file_kontrak->move('file', $u->file_kontrak);
+            }
+            if ($file_jaminan_pelaksana != null) {
+                $file_jaminan_pelaksana->move('file', $u->file_jaminan_pelaksana);
+            }
+            if ($file_dokumen_kusioner != null) {
+                $file_dokumen_kusioner->move('file', $u->file_dokumen_kusioner);
+            }
+            if ($file_dokumen_penilaian != null) {
+                $file_dokumen_penilaian->move('file', $u->file_dokumen_penilaian);
+            }
+            if ($file_dokumen_pendukung != null) {
+                $file_dokumen_pendukung->move('file', $u->file_dokumen_pendukung);
+            }
             DB::commit();
             return 'success';
         } catch (\Throwable $th) {

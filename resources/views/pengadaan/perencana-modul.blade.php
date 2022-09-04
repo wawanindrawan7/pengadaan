@@ -1,4 +1,4 @@
-<div class="modal fade" id="create-perencanaan-file-modal" tabindex="-1" role="dialog"
+{{-- <div class="modal fade" id="create-perencanaan-file-modal" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -48,8 +48,54 @@
             </form>
         </div>
     </div>
-</div>
+</div> --}}
 
+<div class="modal fade" id="create-perencanaan-file-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form id="perencanaan_file" enctype="multipart/form-data">
+                @csrf
+
+                <input type="hidden" name="perencanaan_id"
+                    value="{{ ($pengadaan->perencanaan != null) ? $pengadaan->perencanaan->id : "" }}">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Upload File Perencanaan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">File RKS</label>
+                        <input type="file" class="form-control" name="file_rks">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">File HPE</label>
+                        <input type="file" class="form-control" name="file_hpe">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">File Pakta Integritas</label>
+                        <input type="file" class="form-control" name="file_pakta_integritas">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">File DRP</label>
+                        <input type="file" class="form-control" name="file_drp">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">File Nota Dinas GM ke Laksda</label>
+                        <input type="file" class="form-control" name="file_nota_dinas">
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 {{-- Detail --}}
 
 
@@ -223,11 +269,24 @@
     </div>
 
     <div class="form-group form-group-default">
-        <label for="">File</label>
-        @foreach ($pengadaan->perencanaan->perencanaanFile as $file)
-        <a href="{{ asset($file->file) }}" class="text-primary">{!! $file->kategori.' ('.$file->file.')' !!}</a><br>
-        @endforeach
-        <br>
+        <label for="">File Upload</label>
+        @if ($pengadaan->perencanaan->perencanaanFile != null)
+        @if ($pengadaan->perencanaan->perencanaanFile->file_rks != null)
+        <a href="{{ asset($pengadaan->perencanaan->perencanaanFile->file_rks) }}" class="text-primary">File RKS</a><br>
+        @endif
+        @if ($pengadaan->perencanaan->perencanaanFile->file_hpe != null)
+        <a href="{{ asset($pengadaan->perencanaan->perencanaanFile->file_hpe) }}" class="text-primary">File HPE</a><br>
+        @endif
+        @if ($pengadaan->perencanaan->perencanaanFile->file_pakta_integritas != null)
+        <a href="{{ asset($pengadaan->perencanaan->perencanaanFile->file_pakta_integritas) }}" class="text-primary">File Fakta Integritas</a><br>
+        @endif
+        @if ($pengadaan->perencanaan->perencanaanFile->file_drp != null)
+        <a href="{{ asset($pengadaan->perencanaan->perencanaanFile->file_drp) }}" class="text-primary">File DRP</a><br>
+        @endif
+        @if ($pengadaan->perencanaan->perencanaanFile->file_nota_dinas != null)
+        <a href="{{ asset($pengadaan->perencanaan->perencanaanFile->file_nota_dinas) }}" class="text-primary">File Nota Dinas GM ke Laksda</a><br>
+        @endif
+        @endif
         <a href="#" data-toggle="modal" data-target="#create-perencanaan-file-modal"><span class="badge badge-success">Upload File</span></a>
     </div>
 

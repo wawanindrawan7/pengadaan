@@ -153,10 +153,6 @@
 </div>
 
 
-
-
-
-
 <div class="form-group form-group-default">
     <label for="">File Upload</label>
     @if ($pengadaan->pengadaanFile != null)

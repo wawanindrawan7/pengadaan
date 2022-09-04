@@ -99,24 +99,33 @@
                     </button>
                 </div>
                 <div class="modal-body">
-
                     <div class="form-group">
-                        <label for="exampleFormControlInput1">Kategori</label>
-                        <select class="form-control" name="kategori" required>
-                            <option value=""></option>
-                            <option>Jadwal Pengadaan</option>
-                            <option>HPS</option>
-                            <option>Kontrak</option>
-                            <option>Jaminan Pelaksanaan</option>
-                            <option>Dokumen Kuesioner IDD</option>
-                            <option>Dokumen Penilaian IDD</option>
-                            <option>Dokumen Pendukung IDD</option>
-                        </select>
+                        <label for="exampleFormControlInput1">File Jadwal</label>
+                        <input type="file" class="form-control" name="file_jadwal">
                     </div>
-
                     <div class="form-group">
-                        <label for="exampleFormControlInput1">File</label>
-                        <input type="file" class="form-control" name="file[]" multiple="multiple" required>
+                        <label for="exampleFormControlInput1">File HPS</label>
+                        <input type="file" class="form-control" name="file_hps">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">File Kontrak</label>
+                        <input type="file" class="form-control" name="file_kontrak">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">File Jaminan Pelaksana</label>
+                        <input type="file" class="form-control" name="file_jaminan_pelaksana">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">File Dokumen Kuisioner IDD</label>
+                        <input type="file" class="form-control" name="file_dokumen_kusioner">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">File Dokumen Penilaian IDD</label>
+                        <input type="file" class="form-control" name="file_dokumen_penilaian">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">File Dokumen Pendukung IDD</label>
+                        <input type="file" class="form-control" name="file_dokumen_pendukung">
                     </div>
 
                 </div>
@@ -130,7 +139,7 @@
 </div>
 
 {{-- detail --}}
-@if($pengadaan->pelaksanaan == null && ( (($pengadaan->metode_pengadaan == 'Pengadaan Langsung' || $pengadaan->metode_pengadaan == 'Kontrak Rinci') && $pengadaan->submit == 1) 
+@if($pengadaan->pelaksanaan == null && ( (($pengadaan->metode_pengadaan == 'Pengadaan Langsung' || $pengadaan->metode_pengadaan == 'Kontrak Rinci') && $pengadaan->submit == 1)
 || ($pengadaan->perencanaa != null && $pengadaan->perencanaan->submit == 1)) )
     <a href="#" data-toggle="modal" data-target="#create-pelaksanaan" class="btn btn-success btn-round btn-sm">
         <span class="btn-label">
@@ -194,7 +203,7 @@
                     value="{{ number_format($pengadaan->pelaksanaan->nilai_kontrak) }}" readonly />
             </div>
         </div>
-        
+
     </div>
 
     <div class="form-group form-group-default">
@@ -203,12 +212,30 @@
     </div>
 
     <div class="form-group form-group-default">
-        <label for="">FILE UPLOAD</label>
-        @foreach($pengadaan->pelaksanaan->pelaksanaanFile as $file)
-            <a href="{{ asset($file->file) }}" class="text-primary">{!! $file->kategori . ' (' . $file->file . ')'
-                !!}</a><br>
-        @endforeach
-        <br>
+        <label for="">File Upload</label>
+        @if ($pengadaan->pelaksanaan->pelaksanaanFile != null)
+        @if ($pengadaan->pelaksanaan->pelaksanaanFile->file_jadwal != null)
+        <a href="{{ asset($pengadaan->pelaksanaan->pelaksanaanFile->file_jadwal) }}" class="text-primary">File Jadwal</a><br>
+        @endif
+        @if ($pengadaan->pelaksanaan->pelaksanaanFile->file_hps != null)
+        <a href="{{ asset($pengadaan->pelaksanaan->pelaksanaanFile->file_hps) }}" class="text-primary">File HPS</a><br>
+        @endif
+        @if ($pengadaan->pelaksanaan->pelaksanaanFile->file_kontrak != null)
+        <a href="{{ asset($pengadaan->pelaksanaan->pelaksanaanFile->file_kontrak) }}" class="text-primary">File Kontrak</a><br>
+        @endif
+        @if ($pengadaan->pelaksanaan->pelaksanaanFile->file_jaminan_pelaksana != null)
+        <a href="{{ asset($pengadaan->pelaksanaan->pelaksanaanFile->file_jaminan_pelaksana) }}" class="text-primary">File Jaminan Pelaksana</a><br>
+        @endif
+        @if ($pengadaan->pelaksanaan->pelaksanaanFile->file_dokumen_kusioner != null)
+        <a href="{{ asset($pengadaan->pelaksanaan->pelaksanaanFile->file_dokumen_kusioner) }}" class="text-primary">File Dokumen Kusioner IDD</a><br>
+        @endif
+        @if ($pengadaan->pelaksanaan->pelaksanaanFile->file_dokumen_penilaian != null)
+        <a href="{{ asset($pengadaan->pelaksanaan->pelaksanaanFile->file_dokumen_penilaian) }}" class="text-primary">File Dokumen Penilaian IDD</a><br>
+        @endif
+        @if ($pengadaan->pelaksanaan->pelaksanaanFile->file_dokumen_pendukung != null)
+        <a href="{{ asset($pengadaan->pelaksanaan->pelaksanaanFile->file_dokumen_pendukung) }}" class="text-primary">File Dokumen Pendukung IDD</a><br>
+        @endif
+        @endif
         <a href="#" data-toggle="modal" data-target="#create-pelaksanaan-file-modal"><span class="badge badge-success">Upload File</span></a>
     </div>
 @endif
