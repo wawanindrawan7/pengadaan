@@ -14,23 +14,27 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="exampleFormControlInput1">File RKS</label>
-                        <input type="file" class="form-control" name="file_rks">
+                        <label for="exampleFormControlInput1">File KKP</label>
+                        <input type="file" class="form-control" name="file_kkp">
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlInput1">File HPE</label>
-                        <input type="file" class="form-control" name="file_hpe">
+                        <label for="exampleFormControlInput1">File TOR/KK</label>
+                        <input type="file" class="form-control" name="file_tor_kk">
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlInput1">File Pakta Integritas</label>
-                        <input type="file" class="form-control" name="file_pakta_integritas">
+                        <label for="exampleFormControlInput1">File Referensi</label>
+                        <input type="file" class="form-control" name="file_referensi">
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlInput1">File DRP</label>
-                        <input type="file" class="form-control" name="file_drp">
+                        <label for="exampleFormControlInput1">File RAB/PA</label>
+                        <input type="file" class="form-control" name="file_rab_pa">
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlInput1">File Nota Dinas GM ke Laksda</label>
+                        <label for="exampleFormControlInput1">File Justifikasi</label>
+                        <input type="file" class="form-control" name="file_justifikasi">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">File Nota Dinas GM ke Rendan</label>
                         <input type="file" class="form-control" name="file_nota_dinas">
                     </div>
 
@@ -156,20 +160,23 @@
 <div class="form-group form-group-default">
     <label for="">File Upload</label>
     @if ($pengadaan->pengadaanFile != null)
-    @if ($pengadaan->pengadaanFile->file_rks != null)
-    <a href="{{ asset($pengadaan->pengadaanFile->file_rks) }}" class="text-primary">File RKS</a><br>
+    @if ($pengadaan->pengadaanFile->file_kkp != null)
+    <a href="{{ asset($pengadaan->pengadaanFile->file_kkp) }}" class="text-primary">File KKP</a><br>
     @endif
-    @if ($pengadaan->pengadaanFile->file_hpe != null)
-    <a href="{{ asset($pengadaan->pengadaanFile->file_hpe) }}" class="text-primary">File HPE</a><br>
+    @if ($pengadaan->pengadaanFile->file_tor_kk != null)
+    <a href="{{ asset($pengadaan->pengadaanFile->file_tor_kk) }}" class="text-primary">File TOR/KK</a><br>
     @endif
-    @if ($pengadaan->pengadaanFile->file_pakta_integritas != null)
-    <a href="{{ asset($pengadaan->pengadaanFile->file_pakta_integritas) }}" class="text-primary">File Fakta Integritas</a><br>
+    @if ($pengadaan->pengadaanFile->file_referensi != null)
+    <a href="{{ asset($pengadaan->pengadaanFile->file_referensi) }}" class="text-primary">File Referensi</a><br>
     @endif
-    @if ($pengadaan->pengadaanFile->file_drp != null)
-    <a href="{{ asset($pengadaan->pengadaanFile->file_drp) }}" class="text-primary">File DRP</a><br>
+    @if ($pengadaan->pengadaanFile->file_rab_pa != null)
+    <a href="{{ asset($pengadaan->pengadaanFile->file_rab_pa) }}" class="text-primary">File RAB/PA</a><br>
+    @endif
+    @if ($pengadaan->pengadaanFile->file_justifikasi != null)
+    <a href="{{ asset($pengadaan->pengadaanFile->file_justifikasi) }}" class="text-primary">File Justifikasi</a><br>
     @endif
     @if ($pengadaan->pengadaanFile->file_nota_dinas != null)
-    <a href="{{ asset($pengadaan->pengadaanFile->file_nota_dinas) }}" class="text-primary">File Nota Dinas GM ke Laksda</a><br>
+    <a href="{{ asset($pengadaan->pengadaanFile->file_nota_dinas) }}" class="text-primary">FFile Nota Dinas GM ke Rendan</a><br>
     @endif
     @endif
     <a href="#" data-toggle="modal" data-target="#create-pengadaan-file-modal"><span class="badge badge-success">Upload File</span></a>
