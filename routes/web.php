@@ -46,6 +46,7 @@ Route::get('perencana-pengadaan/submit', [PerencanaanController::class, 'submit'
 Route::get('perencana-pengadaan/detail', [PerencanaanController::class, 'detail']);
 Route::get('perencana-pengadaan/form', [PerencanaanController::class, 'form']);
 Route::post('perencana-pengadaan/create', [PerencanaanController::class, 'create']);
+Route::post('perencana-pengadaan/update', [PerencanaanController::class, 'update']);
 Route::get('perencana-pengadaan/drp-export', [PerencanaanController::class, 'exportDrp']);
 Route::get('perencana-pengadaan/pakta_integritas-export', [PerencanaanController::class, 'exportPaktaIntegritas']);
 Route::get('perencana-pengadaan/hpe-export', [PerencanaanController::class, 'exportHpe']);
@@ -56,9 +57,9 @@ Route::get('perencana-pengadaan/hpe-export', [PerencanaanController::class, 'exp
 Route::post('perencana-pengadaan/file/create', [PerencanaanController::class, 'uploadFile']);
 Route::get('perencanaan-file/delete', [PerencanaanController::class, 'deleteFile']);
 
-Route::get('hpe/load-item',[HpeItemController::class,'loadItem']);
-Route::post('hpe/add-item',[HpeItemController::class,'addItem']);
-Route::get('hpe/delete-item',[HpeItemController::class,'deleteItem']);
+Route::get('hpe/load-item', [HpeItemController::class, 'loadItem']);
+Route::post('hpe/add-item', [HpeItemController::class, 'addItem']);
+Route::get('hpe/delete-item', [HpeItemController::class, 'deleteItem']);
 
 Route::get('pelaksana-pengadaan', [PelaksanaanController::class, 'view']);
 Route::get('pelaksana-pengadaan/submit', [PelaksanaanController::class, 'submit']);
@@ -71,13 +72,13 @@ Route::post('pelaksana-pengadaan/file/create', [PelaksanaanController::class, 'u
 Route::post('pelaksana-idd/file/create', [PelaksanaanController::class, 'uploadFileIDD']);
 Route::get('pelaksanaan-file/delete', [PelaksanaanController::class, 'deleteFile']);
 
-Route::get('manajemen-kontrak', [ManajemenKontrakController::class,'view']);
+Route::get('manajemen-kontrak', [ManajemenKontrakController::class, 'view']);
 Route::post('amandemen/create', [AmandemenController::class, 'create']);
 Route::post('amandemen/update', [AmandemenController::class, 'update']);
 Route::get('amandemen/delete', [AmandemenController::class, 'delete']);
 Route::post('amandemen/file', [AmandemenController::class, 'amandemenFile']);
 Route::get('amandemen-file/delete', [AmandemenController::class, 'deleteFile']);
-Route::get('manajemen-kontrak/rekap', [ManajemenKontrakController::class,'rekap']);
+Route::get('manajemen-kontrak/rekap', [ManajemenKontrakController::class, 'rekap']);
 
 Route::get('users', [UserController::class, 'view']);
 Route::post('users/create', [UserController::class, 'create']);
@@ -110,5 +111,3 @@ Route::get('penilaian/export', [PenilaianVendorController::class, 'export']);
 
 Route::get('penilaian/rekap', [PenilaianVendorController::class, 'rekap']);
 Route::get('penilaian/rekap/export', [PenilaianVendorController::class, 'exportRekap']);
-
-

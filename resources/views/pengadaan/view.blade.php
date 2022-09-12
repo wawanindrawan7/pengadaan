@@ -11,8 +11,7 @@
     </style>
 @endsection
 @section('content')
-    <div class="modal fade" id="create-modal"  role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="create-modal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <form id="form-create" enctype="multipart/form-data">
@@ -140,7 +139,8 @@
                         <div class="form-group form-group-default">
                             <label for="exampleFormControlInput1">Pengawas K3</label>
                             <div class="select2-input select2-warning mt-2">
-                                <select name="pengawas_k3_id" id="pengawas_k3_id" style="width: 100%" class="form-control">
+                                <select name="pengawas_k3_id" id="pengawas_k3_id" style="width: 100%"
+                                    class="form-control">
                                     <option value=""></option>
                                     @foreach ($user as $u)
                                         <option value="{{ $u->id }}">{{ $u->name }}</option>
@@ -173,7 +173,6 @@
             </div>
         </div>
     </div>
-
 
 
     <div class="col-md-12">
@@ -222,23 +221,44 @@
                                     <td>{{ $u->nama }}</td>
                                     <td>{{ $u->unit->nama }}</td>
                                     <td>
-                                        @if(Auth::id() == $u->users_id || Auth::user()->kategori == 'Perencana' || Auth::user()->kategori == 'Pelaksana' || Auth::user()->status == 'Admin') 
-                                        <a href="{!! url('pengadaan/detail?id=' . $u->id.'&tab=inisiasi') !!}"><span class="badge bg-success text-white mt-2">Inisiasi</span></a>
-                                        <br>
+                                        @if (Auth::id() == $u->users_id ||
+                                            Auth::user()->kategori == 'Perencana' ||
+                                            Auth::user()->kategori == 'Pelaksana' ||
+                                            Auth::user()->status == 'Admin')
+                                            <a href="{!! url('pengadaan/detail?id=' . $u->id . '&tab=inisiasi') !!}"><span
+                                                    class="badge bg-success text-white mt-2">Inisiasi</span></a>
+                                            <br>
                                         @endif
 
-                                        @if( (Auth::id() == $u->users_id || Auth::user()->kategori == 'Perencana' || Auth::user()->kategori == 'Pelaksana'  || Auth::user()->status == 'Admin') && $u->state >= 1 )
-                                        <a href="{!! url('pengadaan/detail?id=' . $u->id.'&tab=perencana') !!}"><span class="badge bg-info text-white mt-2">Perncana</span></a>
-                                        <br>
+                                        @if ((Auth::id() == $u->users_id ||
+                                            Auth::user()->kategori == 'Perencana' ||
+                                            Auth::user()->kategori == 'Pelaksana' ||
+                                            Auth::user()->status == 'Admin') &&
+                                            $u->state >= 1)
+                                            <a href="{!! url('pengadaan/detail?id=' . $u->id . '&tab=perencana') !!}"><span
+                                                    class="badge bg-info text-white mt-2">Perncana</span></a>
+                                            <br>
                                         @endif
-                                        @if( (Auth::id() == $u->users_id || Auth::user()->kategori == 'Perencana' || Auth::user()->kategori == 'Pelaksana'  || Auth::user()->status == 'Admin') && $u->state >= 2 )
-                                        <a href="{!! url('pengadaan/detail?id=' . $u->id.'&tab=pelaksana') !!}"><span class="badge bg-danger text-white mt-2">Pelaksana</span></a>
-                                        <br>
+                                        @if ((Auth::id() == $u->users_id ||
+                                            Auth::user()->kategori == 'Perencana' ||
+                                            Auth::user()->kategori == 'Pelaksana' ||
+                                            Auth::user()->status == 'Admin') &&
+                                            $u->state >= 2)
+                                            <a href="{!! url('pengadaan/detail?id=' . $u->id . '&tab=pelaksana') !!}"><span
+                                                    class="badge bg-danger text-white mt-2">Pelaksana</span></a>
+                                            <br>
                                         @endif
 
-                                        @if( (Auth::id() == $u->users_id || Auth::user()->kategori == 'Perencana' || Auth::user()->kategori == 'Pelaksana'  || Auth::user()->status == 'Admin' || Auth::id() == $u->direksiPk->users_id || Auth::id() == $u->pengawasPk->users_id || Auth::id() == $u->pengawasK3->users_id) 
-                                        && $u->state >= 3 )
-                                        <a href="{!! url('pengadaan/detail?id=' . $u->id.'&tab=kontrak') !!}"><span class="badge bg-primary text-white mt-2">Manajemen Kontrak</span></a>
+                                        @if ((Auth::id() == $u->users_id ||
+                                            Auth::user()->kategori == 'Perencana' ||
+                                            Auth::user()->kategori == 'Pelaksana' ||
+                                            Auth::user()->status == 'Admin' ||
+                                            Auth::id() == $u->direksiPk->users_id ||
+                                            Auth::id() == $u->pengawasPk->users_id ||
+                                            Auth::id() == $u->pengawasK3->users_id) &&
+                                            $u->state >= 3)
+                                            <a href="{!! url('pengadaan/detail?id=' . $u->id . '&tab=kontrak') !!}"><span
+                                                    class="badge bg-primary text-white mt-2">Manajemen Kontrak</span></a>
                                         @endif
                                     </td>
                                     {{-- <td>{{ $u->sumber_anggaran }}</td> --}}
@@ -263,12 +283,12 @@
                                             <i class="fa fa-edit"></i>
                                         </a> --}}
 
-                                        @if(Auth::id() == $u->users_id && $u->state == 0)
-                                        <a title="Delete" href="#"
-                                            class="btn btn-danger btn-round btn-xs mr-2 btn-delete"
-                                            data-id="{{ $u->id }}">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
+                                        @if (Auth::id() == $u->users_id && $u->state == 0)
+                                            <a title="Delete" href="#"
+                                                class="btn btn-danger btn-round btn-xs mr-2 btn-delete"
+                                                data-id="{{ $u->id }}">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
                                         @endif
                                     </td>
 
@@ -302,7 +322,7 @@
             theme: "bootstrap"
         });
 
-        
+
 
 
 
@@ -315,8 +335,6 @@
                 pageLength: 100
             });
         });
-
-
 
 
 

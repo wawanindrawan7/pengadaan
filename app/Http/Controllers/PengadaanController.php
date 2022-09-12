@@ -24,27 +24,28 @@ class PengadaanController extends Controller
 
         $u = Auth::user();
 
-        if($u->status == 'Admin'){
-            $pengadaan = Pengadaan::orderBy('id','desc')->get();
-        }elseif($u->kategori == 'Perencana' || $u->kategori == 'Pelaksana'){
-            $pengadaan = Pengadaan::where('unit_id', $u->uid)->orderBy('id','desc')->get();
-        }else{
+        if ($u->status == 'Admin') {
+            $pengadaan = Pengadaan::orderBy('id', 'desc')->get();
+        } elseif ($u->kategori == 'Perencana' || $u->kategori == 'Pelaksana') {
+            $pengadaan = Pengadaan::where('unit_id', $u->uid)->orderBy('id', 'desc')->get();
+        } else {
             $pengadaan = Pengadaan::where('users_id', $u->id)
-            ->orWhereHas('direksiPk', function($q){
-                return $q->where('users_id', Auth::id());
-            })
-            ->orWhereHas('pengawasPk', function($q){
-                return $q->where('users_id', Auth::id());
-            })
-            ->orWhereHas('pengawasK3', function($q){
-                return $q->where('users_id', Auth::id());
-            })
-            ->orderBy('id','desc')->get();
+                ->orWhereHas('direksiPk', function ($q) {
+                    return $q->where('users_id', Auth::id());
+                })
+                ->orWhereHas('pengawasPk', function ($q) {
+                    return $q->where('users_id', Auth::id());
+                })
+                ->orWhereHas('pengawasK3', function ($q) {
+                    return $q->where('users_id', Auth::id());
+                })
+                ->orderBy('id', 'desc')->get();
         }
-        return view('pengadaan.view', compact('pengadaan','user','unit'));
+        return view('pengadaan.view', compact('pengadaan', 'user', 'unit'));
     }
 
-    public function create(Request $r){
+    public function create(Request $r)
+    {
 
         DB::beginTransaction();
         try {
@@ -93,7 +94,8 @@ class PengadaanController extends Controller
         }
     }
 
-    public function update(Request $r){
+    public function update(Request $r)
+    {
         DB::beginTransaction();
         try {
             $p = Pengadaan::find($r->id);
@@ -151,17 +153,21 @@ class PengadaanController extends Controller
 
 
 
-    public function pengadaanDetail(Request $r){
+    public function pengadaanDetail(Request $r)
+    {
         $tab = $r->has('tab') ? $r->tab : 'inisiasi';
         $pengadaan = Pengadaan::find($r->id);
-        $pengadaan_file = PengadaanFile::where('pengadaan_id',$pengadaan->id)->get();
+        $unit = Unit::all();
+        $user = User::all();
+        $pengadaan_file = PengadaanFile::where('pengadaan_id', $pengadaan->id)->get();
         $mitra = Mitra::all();
-        return view('pengadaan.detail', compact('pengadaan','pengadaan_file','mitra','tab'));
+        return view('pengadaan.detail', compact('pengadaan', 'pengadaan_file', 'mitra', 'tab', 'unit', 'user'));
     }
 
 
 
-    public function pengadaanFileCreate(Request $r){
+    public function pengadaanFileCreate(Request $r)
+    {
         // return $r->all();
         DB::beginTransaction();
         try {
@@ -195,7 +201,7 @@ class PengadaanController extends Controller
                 $u->file_nota_dinas = 'file/' . date('YmdHis') . '-' . $file_nota_dinas->getClientOriginalName();
             }
 
-            $u->pengadaan_id = $r->pengadaan_id;
+            $u->penlokasi = $r->pengadaan_id;
             $u->save();
             if ($file_kkp != null) {
                 $file_kkp->move('file', $u->file_kkp);
@@ -238,5 +244,4 @@ class PengadaanController extends Controller
             return $th->getMessage();
         }
     }
-
 }

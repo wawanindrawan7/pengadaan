@@ -35,6 +35,7 @@ class PerencanaanController extends Controller
         return view('perencana-pengadaan.detail', compact('pengadaan', 'pengadaan_file'));
     }
 
+
     public function form(Request $r)
     {
         $pengadaan = Pengadaan::find($r->pengadaan_id);
@@ -77,8 +78,33 @@ class PerencanaanController extends Controller
                 $ti->delete();
             }
 
+            DB::commit();
+            return 'success';
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $th->getMessage();
+        }
+    }
 
-
+    public function update(Request $r)
+    {
+        // return $r->all();
+        DB::beginTransaction();
+        try {
+            $p = Perencanaan::find($r->id);
+            // return $p;
+            $p->tgl_penggunaan = date('Y-m-d', strtotime($r->tgl_penggunaan));
+            $p->waktu_pelaksanaan = $r->waktu_pelaksanaan;
+            $p->kategori_kebutuhan = $r->kategori_kebutuhan;
+            $p->strategi_pengadaan = $r->strategi_pengadaan;
+            $p->jenis_kontrak = $r->jenis_kontrak;
+            $p->nilai_hpe = $r->nilai_hpe;
+            $p->tgl_hpe = date('Y-m-d', strtotime($r->tgl_hpe));
+            $p->tgl_rks = date('Y-m-d', strtotime($r->tgl_rks));
+            $p->nomor_rks = $r->nomor_rks;
+            $p->no_nota_dinas = $r->no_nota_dinas;
+            $p->tgl_nota_dinas = date('Y-m-d', strtotime($r->tgl_nota_dinas));
+            $p->save();
             DB::commit();
             return 'success';
         } catch (\Throwable $th) {
@@ -132,7 +158,8 @@ class PerencanaanController extends Controller
         }
     }
 
-    public function uploadFile(Request $r){
+    public function uploadFile(Request $r)
+    {
         // return $r->all();
         DB::beginTransaction();
         try {
