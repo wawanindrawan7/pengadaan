@@ -1,8 +1,13 @@
 @extends('layouts.master')
 @section('css')
     <style>
-        th { font-size: 11px; }
-        td { font-size: 11px; }
+        th {
+            font-size: 11px;
+        }
+
+        td {
+            font-size: 11px;
+        }
     </style>
 @endsection
 @section('content')
@@ -52,7 +57,8 @@
                                 <div class="form-group form-group-default">
                                     <label for="exampleFormControlInput1">Nilai Anggaran (RAB)</label>
                                     <div class="input-group">
-                                        <input type="number" id="nilai_anggaran" autocomplete="off" name="nilai_anggaran" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                        <input type="number" id="nilai_anggaran" autocomplete="off" name="nilai_anggaran"
+                                            class="form-control" aria-label="Amount (to the nearest dollar)">
                                         <div class="input-group-append">
                                             <span class="input-group-text f_nilai_anggaran"></span>
                                         </div>
@@ -102,7 +108,7 @@
                             <div class="col-md-6">
                                 <div class="form-group form-group-default">
                                     <label>Tanggal Nota Dinas</label>
-                                    <input type="text" class="form-control date"  name="tgl_nota_dinas" required>
+                                    <input type="text" class="form-control date" name="tgl_nota_dinas" required>
                                 </div>
                             </div>
                         </div>
@@ -140,10 +146,11 @@
                         <div class="form-group form-group-default">
                             <label for="exampleFormControlInput1">User Komite Value For Money</label>
                             <div class="select2-input select2-warning mt-2">
-                                <select name="users_komite_id[]" id="users_komite" multiple="multiple" class="form-control" style="width: 100%" required>
+                                <select name="users_komite_id[]" id="users_komite" multiple="multiple"
+                                    class="form-control" style="width: 100%" required>
                                     <option value=""></option>
                                     @foreach ($user as $u)
-                                    <option value="{{ $u->id }}">{{ $u->name }}</option>
+                                        <option value="{{ $u->id }}">{{ $u->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -261,7 +268,7 @@
 
         $(document).ready(function() {
             $('#basic-datatables').DataTable({
-                pageLength:100
+                pageLength: 100
             });
         });
 
@@ -270,7 +277,7 @@
 
 
 
-        $(document).on('input','#nilai_anggaran', function(){
+        $(document).on('input', '#nilai_anggaran', function() {
             var nilai_anggaran = $('#nilai_anggaran').val()
             $('.f_nilai_anggaran').text(nf.format(nilai_anggaran))
         })
@@ -391,8 +398,5 @@
                 }
             });
         })
-
-
-
     </script>
 @endsection
