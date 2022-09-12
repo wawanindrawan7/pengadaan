@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\ImportMitra;
 use App\Models\Mitra;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MitraController extends Controller
 {
@@ -74,5 +76,11 @@ class MitraController extends Controller
             DB::rollBack();
             return $th->getMessage();
         }
+    }
+
+    public function import()
+    {
+        Excel::import(new ImportMitra(), "data-vendor.xlsx");
+        return 'success';
     }
 }

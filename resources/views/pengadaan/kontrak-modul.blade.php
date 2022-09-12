@@ -123,7 +123,79 @@
 
 
 <div class="row">
+
     <div class="col-md-12">
+        @if($pengadaan->pelaksanaan != null)
+
+        <div class="form-group form-group-default">
+            <label>Nama Pekerjaan</label>
+            <input type="text" class="form-control" value="{{ $pengadaan->nama }}"
+                readonly />
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group form-group-default">
+                    <label>Nomor Kontak</label>
+                    <input type="text" class="form-control" value="{{ $pengadaan->pelaksanaan->nomor_kontrak }}"
+                        readonly />
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group form-group-default">
+                    <label>Tgl. Kontrak</label>
+                    <input type="text" class="form-control" value="{{ $pengadaan->pelaksanaan->tgl_kontrak }}"
+                        readonly />
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group form-group-default">
+                    <label>Penyedia Barang / Jasa</label>
+                    <input type="text" class="form-control" value="{{ $pengadaan->pelaksanaan->mitra->nama }}"
+                        readonly />
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group form-group-default">
+                    <label>Tgl. Efektif</label>
+                    <input type="text" class="form-control" value="{{ $pengadaan->pelaksanaan->tgl_efektif }}"
+                        readonly />
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group form-group-default">
+                    <label>Tgl. Akhir</label>
+                    <input type="text" class="form-control" value="{{ $pengadaan->pelaksanaan->tgl_akhir }}" readonly />
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group form-group-default">
+                    <label>Nilai Kontrak</label>
+                    <input type="text" class="form-control"
+                        value="{{ number_format($pengadaan->pelaksanaan->nilai_kontrak) }}" readonly />
+                </div>
+            </div>
+        </div>
+    
+    
+        
+
+
+        <div class="form-group form-group-default">
+            <label for="">File Upload</label>
+            <br>
+            @if ($pengadaan->pelaksanaan->pelaksanaanFile != null)
+            
+            @if ($pengadaan->pelaksanaan->pelaksanaanFile->file_kontrak != null)
+            <a href="{{ asset($pengadaan->pelaksanaan->pelaksanaanFile->file_kontrak) }}" class="text-primary">File Kontrak</a><br>
+            @endif
+            @if ($pengadaan->pelaksanaan->pelaksanaanFile->file_jaminan_pelaksana != null)
+            <a href="{{ asset($pengadaan->pelaksanaan->pelaksanaanFile->file_jaminan_pelaksana) }}" class="text-primary">File Jaminan Pelaksanaan</a><br>
+            @endif
+            @endif
+        </div>
+    
+        @endif
         <h3>Amandemen Kontrak</h3>
 
         <table class="display table table-bordered table-hover">
@@ -196,26 +268,30 @@
 
 
 @if($pengadaan->pelaksanaan != null && $pengadaan->pelaksanaan->tgl_selesai != null && $pengadaan->pelaksanaan->penilaianVendor == null)
-<h3>Penilaian Kinerja Vendor</h3>
+    <h3>Penilaian Kinerja Vendor</h3>
     <div class="row mt-3">
-        <div class="col-md-3">
+        <div class="col-md-2">
             <a href="{{ url('penilaian/form-errect?id=' . $pengadaan->id) }}"
-                class="btn btn-primary btn-round form-control">Form Errect Only</a>
+                class="btn btn-danger btn-round form-control">Form Errect Only</a>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <a href="{{ url('penilaian/form-supply-only?id=' . $pengadaan->id) }}"
-                class="btn btn-primary btn-round form-control">Form Supply Only</a>
+                class="btn btn-warning btn-round form-control">Form Supply Only</a>
         </div>
         <div class="col-md-3">
             <a href="{{ url('penilaian/form-supply-errect?id=' . $pengadaan->id) }}"
-                class="btn btn-primary btn-round form-control">Form Supply Errect</a>
+                class="btn btn-success btn-round form-control">Form Supply Errect</a>
         </div>
         <div class="col-md-3">
             <a href="{{ url('penilaian/form-khs_distribusi_niaga?id=' . $pengadaan->id) }}"
                 class="btn btn-primary btn-round form-control">Form KHS Distribusi & Niaga</a>
         </div>
+        <div class="col-md-2">
+            <a href="{{ url('penilaian/form-lainnya?id=' . $pengadaan->id) }}"
+                class="btn btn-info btn-round form-control">Form Lainnya</a>
+        </div>
     </div>
-    @endif
+@endif
                     
     @if($pengadaan->pelaksanaan != null && $pengadaan->pelaksanaan->penilaianVendor != null)
                     @if($pengadaan->pelaksanaan->penilaianVendor->form == 'Errect' ||
@@ -262,6 +338,7 @@
                                 </tfoot>
                             </table>
                         </div>
+                    </div>
                         @else
                         <div class="row mt-3">
                             <div class="col-md-12">
@@ -308,10 +385,9 @@
                                     </tr>
                                 </tfoot>
                             </table>
+                            </div>
                         </div>
-
-                            
-                            @endif
+                        @endif
 
                             
                                 <div class="col-md-12">

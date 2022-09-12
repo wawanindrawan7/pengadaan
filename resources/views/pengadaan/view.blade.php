@@ -6,7 +6,7 @@
     </style>
 @endsection
 @section('content')
-    <div class="modal fade" id="create-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="create-modal"  role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -28,10 +28,10 @@
                             <div class="col-md-6">
                                 <div class="form-group form-group-default">
                                     <label for="exampleFormControlInput1">Lokasi</label>
-                                    <select name="unit_id" class="form-control">
+                                    <select name="lokasi" class="form-control">
                                         <option value=""></option>
                                         @foreach ($unit as $un)
-                                            <option value="{{ $un->id }}">{{ $un->nama }}</option>
+                                            <option>{{ $un->nama }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -109,32 +109,38 @@
 
                         <div class="form-group form-group-default">
                             <label for="exampleFormControlInput1">Direaksi Pekerjaan</label>
-                            <select name="direksi_pk_id" class="form-control">
-                                <option value=""></option>
-                                @foreach ($user as $u)
-                                    <option value="{{ $u->id }}">{{ $u->name }}</option>
-                                @endforeach
-                            </select>
+                            <div class="select2-input select2-warning mt-2">
+                                <select name="direksi_pk_id" id="direksi_pk_id" style="width: 100%" class="form-control">
+                                    <option value=""></option>
+                                    @foreach ($user as $u)
+                                        <option value="{{ $u->id }}">{{ $u->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
 
                         <div class="form-group form-group-default">
                             <label for="exampleFormControlInput1">Pengawas Pekerjaan</label>
-                            <select name="pengawas_pk_id" class="form-control">
-                                <option value=""></option>
-                                @foreach ($user as $u)
-                                    <option value="{{ $u->id }}">{{ $u->name }}</option>
-                                @endforeach
-                            </select>
+                            <div class="select2-input select2-warning mt-2">
+                                <select name="pengawas_pk_id" id="pengawas_pk_id" style="width: 100%" class="form-control">
+                                    <option value=""></option>
+                                    @foreach ($user as $u)
+                                        <option value="{{ $u->id }}">{{ $u->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
 
                         <div class="form-group form-group-default">
                             <label for="exampleFormControlInput1">Pengawas K3</label>
-                            <select name="pengawas_k3_id" class="form-control">
-                                <option value=""></option>
-                                @foreach ($user as $u)
-                                    <option value="{{ $u->id }}">{{ $u->name }}</option>
-                                @endforeach
-                            </select>
+                            <div class="select2-input select2-warning mt-2">
+                                <select name="pengawas_k3_id" id="pengawas_k3_id" style="width: 100%" class="form-control">
+                                    <option value=""></option>
+                                    @foreach ($user as $u)
+                                        <option value="{{ $u->id }}">{{ $u->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
 
                         <div class="form-group form-group-default">
@@ -167,7 +173,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="card-head-row">
-                    <div class="card-title">Inisiasi Pengadaan</div>
+                    <div class="card-title">Data Pengadaan</div>
                     <div class="card-tools">
                         <a href="#" class="btn btn-info btn-border btn-round btn-sm mr-2" data-toggle="modal"
                             data-target="#create-modal">
@@ -186,14 +192,16 @@
                             <tr>
                                 <th width="1%">No.</th>
                                 <th>Nama</th>
+                                <th>Detail Proses</th>
                                 <th>Lokasi</th>
-                                <th>Sumber Anggaran</th>
+                                {{-- <th>Sumber Anggaran</th> --}}
                                 <th>Nilai Anggaran</th>
                                 <th>Jenis</th>
-                                <th>Volume</th>
+                                {{-- <th>Volume</th> --}}
                                 <th>Metode Pengadaan</th>
                                 {{-- <th>Nomor Nota Dinas</th>
                                 <th>Tanggal Nota Dinas</th> --}}
+                                <th>User</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -204,17 +212,38 @@
                             @foreach ($pengadaan as $u)
                                 <tr>
                                     <td>{{ $no++ }}</td>
-                                    <td><a href="{{ url('pengadaan/detail?id=' . $u->id) }}">{{ $u->nama }}</a></td>
+                                    <td>{{ $u->nama }}</td>
                                     <td>{{ $u->unit->nama }}</td>
-                                    <td>{{ $u->sumber_anggaran }}</td>
+                                    <td>
+                                        @if(Auth::id() == $u->users_id || Auth::user()->kategori == 'Perencana' || Auth::user()->kategori == 'Pelaksana' || Auth::user()->status == 'Admin') 
+                                        <a href="{!! url('pengadaan/detail?id=' . $u->id.'&tab=inisiasi') !!}"><span class="badge bg-success text-white mt-2">Inisiasi</span></a>
+                                        <br>
+                                        @endif
+
+                                        @if( (Auth::id() == $u->users_id || Auth::user()->kategori == 'Perencana' || Auth::user()->kategori == 'Pelaksana'  || Auth::user()->status == 'Admin') && $u->state >= 1 )
+                                        <a href="{!! url('pengadaan/detail?id=' . $u->id.'&tab=perencana') !!}"><span class="badge bg-info text-white mt-2">Perncana</span></a>
+                                        <br>
+                                        @endif
+                                        @if( (Auth::id() == $u->users_id || Auth::user()->kategori == 'Perencana' || Auth::user()->kategori == 'Pelaksana'  || Auth::user()->status == 'Admin') && $u->state >= 2 )
+                                        <a href="{!! url('pengadaan/detail?id=' . $u->id.'&tab=pelaksana') !!}"><span class="badge bg-danger text-white mt-2">Pelaksana</span></a>
+                                        <br>
+                                        @endif
+
+                                        @if( (Auth::id() == $u->users_id || Auth::user()->kategori == 'Perencana' || Auth::user()->kategori == 'Pelaksana'  || Auth::user()->status == 'Admin' || Auth::id() == $u->direksiPk->users_id || Auth::id() == $u->pengawasPk->users_id || Auth::id() == $u->pengawasK3->users_id) 
+                                        && $u->state >= 3 )
+                                        <a href="{!! url('pengadaan/detail?id=' . $u->id.'&tab=kontrak') !!}"><span class="badge bg-primary text-white mt-2">Manajemen Kontrak</span></a>
+                                        @endif
+                                    </td>
+                                    {{-- <td>{{ $u->sumber_anggaran }}</td> --}}
                                     <td>{{ number_format($u->nilai_anggaran) }}</td>
                                     <td>{{ $u->jenis }}</td>
-                                    <td>{{ $u->volume }}</td>
+                                    {{-- <td>{{ $u->volume }}</td> --}}
                                     <td>{{ $u->metode_pengadaan }}</td>
+                                    <td>{{ $u->users->name }}</td>
                                     {{-- <td>{{ $u->no_nota_dinas }}</td>
                                     <td>{{ $u->tgl_nota_dinas }}</td> --}}
                                     <td align="center">
-                                        <a title="Update" href="#"
+                                        {{-- <a title="Update" href="#"
                                             class="btn btn-warning btn-round btn-xs mr-2 btn-update"
                                             data-id="{{ $u->id }}" data-nama="{{ $u->nama }}"
                                             data-lokasi="{{ $u->lokasi }}"
@@ -225,13 +254,15 @@
                                             data-no_nota_dinas="{{ $u->no_nota_dinas }}"
                                             data-tgl_nota_dinas="{{ $u->tgl_nota_dinas }}">
                                             <i class="fa fa-edit"></i>
-                                        </a>
+                                        </a> --}}
 
+                                        @if(Auth::id() == $u->users_id && $u->state == 0)
                                         <a title="Delete" href="#"
                                             class="btn btn-danger btn-round btn-xs mr-2 btn-delete"
                                             data-id="{{ $u->id }}">
                                             <i class="fa fa-trash"></i>
                                         </a>
+                                        @endif
                                     </td>
 
                                 </tr>
@@ -248,12 +279,25 @@
     <script src="{{ asset('public/atlantis/assets/js/plugin/datepicker/bootstrap-datetimepicker.min.js') }}"></script>
     <script src="{{ asset('public/atlantis/assets/js/plugin/datatables/datatables.min.js') }}"></script>
     <script src="{{ asset('public/atlantis/assets/js/plugin/sweetalert/sweetalert.min.js') }}"></script>
-    <script src="public/atlantis/assets/js/plugin/select2/select2.full.min.js"></script>
+    <script src="{{ asset('public/atlantis/assets/js/plugin/select2/select2.full.min.js') }}"></script>
 
     <script>
         $('#users_komite').select2({
             theme: "bootstrap"
         });
+        $('#direksi_pk_id').select2({
+            theme: "bootstrap"
+        });
+        $('#pengawas_pk_id').select2({
+            theme: "bootstrap"
+        });
+        $('#pengawas_k3_id').select2({
+            theme: "bootstrap"
+        });
+
+        
+
+
 
         $('.date').datetimepicker({
             format: 'MM/DD/YYYY',

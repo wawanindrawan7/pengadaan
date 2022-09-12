@@ -14,6 +14,18 @@
                     <input type="hidden" name="pelaksanaan_id" value="{{ $pengadaan->pelaksanaan->id }}">
                     <input type="hidden" name="form" value="KHS Distribusi & Niaga">
 
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">DPT / Non DPT</label>
+                        <select class="form-control" name="dpt_non_dpt" required>
+                            <option value=""></option>
+                            <option>DPT Jasa Konstruksi JTM, Gardu Distribusi dan JTR</option>
+                            <option>DPT Jasa Konstruksi SR dan APP</option>
+                            <option>DPT Jasa Grinding dan Polishing Crankshaft Mesin Diesel</option>
+                            <option>DPT Jasa Rekondisi Sparepart Mesin Diesel</option>
+                            <option>Non DPT</option>
+                        </select>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -55,7 +67,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="tk_nilai[]" id="n_kom_res">
+                                <input type="number" class="form-control" value="" name="tk_nilai[]" max="10" id="n_kom_res">
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -80,7 +92,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="tk_nilai[]"
+                                <input type="number" class="form-control" value="" name="tk_nilai[]" max="10"
                                     id="n_min_1_tim">
                             </div>
                         </div>
@@ -108,7 +120,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="tk_nilai[]"
+                                <input type="number" class="form-control" value="" name="tk_nilai[]" max="10"
                                     id="n_pengawas_k3">
                             </div>
                         </div>
@@ -140,7 +152,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="sop_nilai[]"
+                                <input type="number" class="form-control" value="" name="sop_nilai[]" max="10"
                                     id="n_kepatuhan_k2_k3">
                             </div>
                         </div>
@@ -173,7 +185,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="smk_nilai[]"
+                                <input type="number" class="form-control" value="" name="smk_nilai[]" max="10"
                                     id="n_safety_briefing_sk">
                             </div>
                         </div>
@@ -200,7 +212,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="smk_nilai[]"
+                                <input type="number" class="form-control" value="" name="smk_nilai[]" max="10"
                                     id="n_kualitas_pekerjaan">
                             </div>
                         </div>
@@ -226,7 +238,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="smk_nilai[]"
+                                <input type="number" class="form-control" value="" name="smk_nilai[]" max="10"
                                     id="n_kecepatan_penyelesaian_pekerjaan">
                             </div>
                         </div>
@@ -253,7 +265,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="smk_nilai[]"
+                                <input type="number" class="form-control" value="" name="smk_nilai[]" max="10"
                                     id="n_kesiapan_adm_penagihan">
                             </div>
                         </div>
@@ -285,7 +297,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="phpd_nilai[]"
+                                <input type="number" class="form-control" value="" name="phpd_nilai[]" max="10"
                                     id="n_helm_safety">
                             </div>
                         </div>
@@ -312,7 +324,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="phpd_nilai[]"
+                                <input type="number" class="form-control" value="" name="phpd_nilai[]" max="10"
                                     id="n_sarung_tangan">
                             </div>
                         </div>
@@ -339,7 +351,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="phpd_nilai[]"
+                                <input type="number" class="form-control" value="" name="phpd_nilai[]" max="10"
                                     id="n_kaca_mata_safety">
                             </div>
                         </div>
@@ -366,7 +378,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="phpd_nilai[]"
+                                <input type="number" class="form-control" value="" name="phpd_nilai[]" max="10"
                                     id="n_pengaman_penjat">
                             </div>
                         </div>
@@ -392,7 +404,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="phpd_nilai[]"
+                                <input type="number" class="form-control" value="" name="phpd_nilai[]" max="10"
                                     id="n_p3k">
                             </div>
                         </div>
@@ -418,7 +430,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="phpd_nilai[]"
+                                <input type="number" class="form-control" value="" name="phpd_nilai[]" max="10"
                                     id="n_baju_kerja">
                             </div>
                         </div>
@@ -444,7 +456,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="phpd_nilai[]"
+                                <input type="number" class="form-control" value="" name="phpd_nilai[]" max="10"
                                     id="n_sepatu_safety">
                             </div>
                         </div>
@@ -477,7 +489,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="pk_nilai[]"
+                                <input type="number" class="form-control" value="" name="pk_nilai[]" max="10"
                                     id="n_kelengkapan_per_kerja">
                             </div>
                         </div>
@@ -750,7 +762,7 @@
                                 }
                             },
                         }).then(function() {
-                            window.location = "{{ url('pengadaan/detail?id=' . $pengadaan->id.'&tab=kontrak') }}";
+                            window.location = "{!! url('pengadaan/detail?id=' . $pengadaan->id.'&tab=kontrak') !!}";
                         });
                     }
                 }

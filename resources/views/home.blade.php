@@ -87,65 +87,83 @@
         <div class="card">
             <div class="card-header">
                 <div class="card-head-row">
-                    <div class="card-title">Rekap Penilaian Kinerja Vendor</div>
+                    <div class="card-title">Grafik Pengadaan</div>
                     {{-- <div class="card-tools">
-                        <a href="#" class="btn btn-info btn-border btn-round btn-sm mr-2" data-toggle="modal" data-target="#create-modal">
+                        <a href="#" class="btn btn-info btn-border btn-round btn-sm mr-2" data-toggle="modal"
+                            data-target="#create-modal">
                             <span class="btn-label">
                                 <i class="fa fa-plus"></i>
                             </span>
                             Create
                         </a>
-
                     </div> --}}
                 </div>
             </div>
             <div class="card-body">
-                <div class="table-responsive">
-                    <table id="basic-datatables" class="display table table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th width="1%">No.</th>
-                                <th width="10%">Nama Vendor</th>
-                                <th width="10%">Deskrispi Pengadaan</th>
-                                <th width="5%">No.Kontrak</th>
-                                <th width="5%">Nilai Kontrak</th>
-                                <th width="5%">Tgl.Kontrak</th>
-                                <th width="5%">Tgl.Selesai</th>
-                                <th width="5%">Total Nilai</th>
-                                <th width="5%">Kategori Penilaian</th>
-                                <th width="5%">DPT / Non DPT</th>
-                            </tr>
-                        </thead>
-                        
-                        <tbody>
-                            @php
-                                $no = 1;
-                                $id = 0;
-                            @endphp
-                            @foreach ($penilaian as $u)
-                            <tr>
-                                <td>{{ ($u->id != $id) ? $no ++ : '' }}</td>
-                                <td>{{ ($u->id != $id) ? $u->nama : '' }}</td>
-                                <td>{{ $u->peng_nama }}</td>
-                                <td>{{ $u->nomor_kontrak }}</td>
-                                <td>{{ number_format($u->nilai_kontrak) }}</td>
-                                <td>{{ $u->tgl_kontrak }}</td>
-                                <td>{{ $u->tgl_selesai }}</td>
-                                <td>{{ $u->total }}</td>
-                                <td>{{ $u->pv_kategori }}</td>
-                                <td>{{ $u->dpt_non_dpt }}</td>
-                            </tr>
-
-                            @php
-                                $id = $u->id;
-                            @endphp
-
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                <div id="chartdiv" style="width: 100%;height: 550px;"></div>
             </div>
         </div>
     </div>
+    
 </div>
+@endsection
+@section('js')
+<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+<script>
+    am5.ready(function () {
+
+        // Create root element
+        // https://www.amcharts.com/docs/v5/getting-started/#Root_element
+        var root = am5.Root.new("chartdiv");
+
+        // Set themes
+        // https://www.amcharts.com/docs/v5/concepts/themes/
+        root.setThemes([
+            am5themes_Animated.new(root)
+        ]);
+
+        // Create chart
+        // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
+        // start and end angle must be set both for chart and series
+        var chart = root.container.children.push(am5percent.PieChart.new(root, {
+            startAngle: 180,
+            endAngle: 360,
+            layout: root.verticalLayout,
+            innerRadius: am5.percent(50)
+        }));
+
+        // Create series
+
+        // start and end angle must be set both for chart and series
+        var series = chart.series.push(am5percent.PieSeries.new(root, {
+            startAngle: 180,
+            endAngle: 360,
+            valueField: "value",
+            categoryField: "kategori",
+            alignLabels: false
+        }));
+
+        series.states.create("hidden", {
+            startAngle: 180,
+            endAngle: 180
+        });
+
+        series.slices.template.setAll({
+            cornerRadius: 5
+        });
+
+        series.ticks.template.setAll({
+            forceHidden: true
+        });
+
+        // Set data
+
+        series.data.setAll(@json($chart_data, JSON_PRETTY_PRINT));
+
+        series.appear(1000, 100);
+
+    });
+</script>
 @endsection

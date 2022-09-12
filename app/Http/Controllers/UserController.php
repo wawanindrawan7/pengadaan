@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\ImportUser;
 use App\Models\Unit;
 use App\Models\User;
 use App\Models\UsersUnit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -114,4 +116,24 @@ class UserController extends Controller
             return $th->getMessage();
         }
     }
+
+    public function import(Request $r)
+    {
+        // Excel::import(new ImportUser(), "user.xlsx");
+        // return 'success';
+        $user = User::all();
+        foreach ($user as $u) {
+            if($u->uid != null){
+                $uu = new UsersUnit();
+                $uu->users_id = $u->id;
+                $uu->unit_id = $u->uid;
+                $uu->save();
+            }
+
+
+        }
+        return 'success';
+    }
+
+
 }

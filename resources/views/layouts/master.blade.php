@@ -101,7 +101,7 @@
                                             <div class="avatar-lg"><img src="{!! asset('public/atlantis/assets/img/profile.jpg') !!}"
                                                     alt="image profile" class="avatar-img rounded"></div>
                                             <div class="u-text">
-                                                <h4>Hizrian</h4>
+                                                <h4>{!! Auth::user()->name !!}</h4>
                                                 <p class="text-muted">hello@example.com</p><a href="profile.html"
                                                     class="btn btn-xs btn-secondary btn-sm">View Profile</a>
                                             </div>
@@ -143,7 +143,7 @@
                         <div class="info">
                             <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                                 <span>
-                                    Hizrian
+                                    {!! Auth::user()->name !!}
                                     <span class="user-level">Administrator</span>
                                     <span class="caret"></span>
                                 </span>
@@ -198,10 +198,10 @@
                         <li class="nav-item">
                             <a href="{{ url('pengadaan') }}">
                                 <i class="fas fa-book"></i>
-                                <p>Inisiasi Pengadaan</p>
+                                <p>Data Pengadaan</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="{{ url('perencana-pengadaan') }}">
                                 <i class="fas fa-calendar-check"></i>
                                 <p>Perencana Pengadaan</p>
@@ -218,11 +218,17 @@
                                 <i class="fas fa-edit"></i>
                                 <p>Manajemen Kontrak</p>
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item">
-                            <a href="{{ url('manajemen-kontrak') }}">
+                            <a href="{{ url('penilaian/rekap') }}">
                                 <i class="fas fa-chart-pie"></i>
                                 <p>Rekap Penilaian Kinerja</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('manajemen-kontrak/rekap') }}">
+                                <i class="fas fa-edit"></i>
+                                <p>Rekap Kontrak</p>
                             </a>
                         </li>
                         <li class="nav-item">

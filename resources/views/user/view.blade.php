@@ -234,6 +234,7 @@
                                 <th>NIP</th>
                                 <th>Email</th>
                                 <th>Jabatan</th>
+                                <th>Kategori</th>
                                 <th>No. Whatsap</th>
                                 <th>Unit</th>
                                 <th>Option</th>
@@ -250,6 +251,7 @@
                                     <td>{{ $u->nip }}</td>
                                     <td>{{ $u->email }}</td>
                                     <td>{{ $u->status }}</td>
+                                    <td>{{ $u->kategori }}</td>
                                     <td>{{ $u->no_wa }}</td>
                                     <td>
                                         @if ($u->usersUnit != null)
@@ -302,7 +304,9 @@
 
     <script>
         $(document).ready(function() {
-            $('#basic-datatables').DataTable({});
+            $('#basic-datatables').DataTable({
+                pageLength:100
+            });
         });
 
         $(document).on('click','.btn-unit-create', function(e){

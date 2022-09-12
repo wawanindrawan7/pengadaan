@@ -5,12 +5,18 @@
         <div class="card-header">
             <div class="row row-nav-line">
                 <ul class="nav nav-tabs nav-line nav-color-secondary w-100 pl-4" role="tablist">
-                    
+                    @if(Auth::id() == $pengadaan->users_id || Auth::user()->kategori == 'Perencana' || Auth::user()->kategori == 'Pelaksana')
                     <li class="nav-item submenu"> <a class="nav-link {{ ($tab == 'inisiasi') ? 'active show' : '' }}" data-tag="inisiasi" data-toggle="tab" href="#inisiasi" role="tab" aria-selected="false">Inisiasi Pengadaan</a> </li>
+                    @endif
+                    @if(Auth::id() == $pengadaan->users_id || Auth::user()->kategori == 'Perencana' || Auth::user()->kategori == 'Pelaksana')
                     @if($pengadaan->metode_pengadaan != 'Kontrak Rinci' || $pengadaan->metode_pengadaan != 'Pengadaan Langsung')
                     <li class="nav-item submenu"> <a class="nav-link {{ ($tab == 'perencana') ? 'active show' : '' }}" data-tag="perencana" data-toggle="tab" href="#perencana" role="tab" aria-selected="false">Perencana Pengadaan</a> </li>
                     @endif
+                    @endif
+
+                    @if(Auth::id() == $pengadaan->users_id || Auth::user()->kategori == 'Perencana' || Auth::user()->kategori == 'Pelaksana')
                     <li class="nav-item submenu"> <a class="nav-link {{ ($tab == 'pelaksana') ? 'active show' : '' }}" data-tag="pelaksana" data-toggle="tab" href="#pelaksana" role="tab" aria-selected="false">Pelaksana Pengadaan</a> </li>
+                    @endif
                     <li class="nav-item submenu"> <a class="nav-link {{ ($tab == 'kontrak') ? 'active show' : '' }}" data-tag="kontrak" data-toggle="tab" href="#kontrak" role="tab" aria-selected="false">Manajemen Kontrak</a> </li>
                 </ul>
             </div>
@@ -42,6 +48,7 @@
 <script src="{{ asset('public/atlantis/assets/js/plugin/moment/moment.min.js') }}"></script>
 <script src="{{ asset('public/atlantis/assets/js/plugin/datepicker/bootstrap-datetimepicker.min.js') }}"></script>
 <script src="{{ asset('public/atlantis/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
+<script src="{{ asset('public/atlantis/assets/js/plugin/select2/select2.full.min.js') }}"></script>
 <script>
 
 $('.datepicker').datetimepicker({

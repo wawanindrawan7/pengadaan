@@ -13,6 +13,19 @@
                     @csrf
                     <input type="hidden" name="pelaksanaan_id" value="{{ $pengadaan->pelaksanaan->id }}">
                     <input type="hidden" name="form" value="Supply Only">
+
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">DPT / Non DPT</label>
+                        <select class="form-control" name="dpt_non_dpt" required>
+                            <option value=""></option>
+                            <option>DPT Jasa Konstruksi JTM, Gardu Distribusi dan JTR</option>
+                            <option>DPT Jasa Konstruksi SR dan APP</option>
+                            <option>DPT Jasa Grinding dan Polishing Crankshaft Mesin Diesel</option>
+                            <option>DPT Jasa Rekondisi Sparepart Mesin Diesel</option>
+                            <option>Non DPT</option>
+                        </select>
+                    </div>
+                    
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -344,7 +357,7 @@
                         },
                     }).then(function () {
                         window.location =
-                            "{{ url('pengadaan/detail?id=' . $pengadaan->id.'&tab=kontrak') }}";
+                        "{!! url('pengadaan/detail?id=' . $pengadaan->id.'&tab=kontrak') !!}";
                     });
                 }
             }

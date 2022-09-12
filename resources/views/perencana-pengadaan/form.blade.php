@@ -80,7 +80,7 @@
                         <div class="form-group form-group-default">
                             <label for="exampleFormControlInput1">Nilai HPE</label>
                             <div class="input-group">
-                                <input type="number" id="nilai_hpe" autocomplete="off" name="nilai_hpe" class="form-control" aria-label="Amount (to the nearest dollar)" required>
+                                <input type="number" id="nilai_hpe" autocomplete="off" name="nilai_hpe" class="form-control" min="1" max="{{ $pengadaan->nilai_anggaran }}" aria-label="Amount (to the nearest dollar)" required>
                                 <div class="input-group-append">
                                     <span class="input-group-text f_nilai_hpe"></span>
                                 </div>
@@ -227,8 +227,25 @@
     });
 
     $(document).on('input','#nilai_hpe', function(){
+        var nilai_anggaran = {{ $pengadaan->nilai_anggaran }}
+
         var nilai_hpe = $('#nilai_hpe').val()
         $('.f_nilai_hpe').text(nf.format(nilai_hpe))
+
+        if(nilai_hpe > nilai_anggaran){
+            swal("Oops!", "Nilai HPE tidak boleh melebihi Nilai Anggaran !", {
+                icon: "error",
+                buttons: {
+                    confirm: {
+                        className: 'btn btn-warning'
+                    }
+                },
+            })
+
+            $(this).val('')
+            $('.f_nilai_hpe').text('')
+        }
+
     })
 
     function countJumlah(){
@@ -398,7 +415,7 @@
                                 }
                             },
                         }).then(function() {
-                            window.location = "{{ url('pengadaan/detail?id='.$pengadaan->id.'&tab=perencana') }}"
+                            window.location = "{!! url('pengadaan/detail?id='.$pengadaan->id.'&tab=perencana') !!}"
                         });
                     }
                 }
