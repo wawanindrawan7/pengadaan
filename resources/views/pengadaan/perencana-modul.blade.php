@@ -1,54 +1,3 @@
-{{-- <div class="modal fade" id="create-perencanaan-file-modal" tabindex="-1" role="dialog"
-    aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <form id="perencanaan_file" enctype="multipart/form-data">
-                @csrf
-
-                <input type="hidden" name="perencanaan_id"
-                    value="{{ ($pengadaan->perencanaan != null) ? $pengadaan->perencanaan->id : "" }}">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Upload File Perencanaan</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                    <div class="form-group">
-                        <label for="exampleFormControlInput1">Kategori</label>
-                        <select class="form-control" name="kategori" required>
-                            <option value=""></option>
-                            <option>RKS</option>
-                            <option>HPE</option>
-                            <option>Pakta Integritas</option>
-                            <option>DRP</option>
-                            <option>Nota Dinas GM ke Laksda</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="exampleFormControlInput1">File RKS</label>
-                        <input type="file" class="form-control" name="file[]" multiple="multiple" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlInput1">File HPE</label>
-                        <input type="file" class="form-control" name="file[]" multiple="multiple" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlInput1">File Pakta Integritas</label>
-                        <input type="file" class="form-control" name="file[]" multiple="multiple" required>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div> --}}
 
 <div class="modal fade" id="create-perencanaan-file-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -116,7 +65,7 @@
 
 
 
-@if($pengadaan->submit == 1 && $pengadaan->perencanaan == null)
+@if($pengadaan->submit == 1 && $pengadaan->perencanaan == null && Auth::user()->kategori == 'Perencana')
     <a href="{{ url('perencana-pengadaan/form?pengadaan_id='.$pengadaan->id) }}"
         class="btn btn-success btn-round btn-sm">
         <span class="btn-label">
@@ -168,6 +117,7 @@
             </div>
         </div>
     </div>
+    
     <div class="row">
         <div class="col-md-6">
             <div class="form-group form-group-default">
@@ -303,7 +253,8 @@
     <br>
 @endif
 
-@if($pengadaan->perencanaan != null && $pengadaan->perencanaan->submit == 0)
+@if($pengadaan->perencanaan != null && $pengadaan->perencanaan->submit == 0 && Auth::user()->kategori == 'Perencana')
+
     <a href="#" class="btn btn-success btn-round btn-sm btn-submit-perencanaan">
         <span class="btn-label">
             <i class="fa fa-check"></i>

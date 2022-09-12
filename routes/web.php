@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('login');
 });
 
 Auth::routes();
@@ -63,10 +63,12 @@ Route::get('hpe/delete-item',[HpeItemController::class,'deleteItem']);
 Route::get('pelaksana-pengadaan', [PelaksanaanController::class, 'view']);
 Route::get('pelaksana-pengadaan/submit', [PelaksanaanController::class, 'submit']);
 Route::post('pelaksanaan/create', [PelaksanaanController::class, 'create']);
+Route::post('pelaksanaan/create-idd', [PelaksanaanController::class, 'createIDD']);
 Route::post('pelaksanaan/selesai', [PelaksanaanController::class, 'selesai']);
 Route::get('pelaksanaan/delete', [PelaksanaanController::class, 'delete']);
 Route::get('pelaksana-pengadaan/detail', [PelaksanaanController::class, 'detail']);
 Route::post('pelaksana-pengadaan/file/create', [PelaksanaanController::class, 'uploadFile']);
+Route::post('pelaksana-idd/file/create', [PelaksanaanController::class, 'uploadFileIDD']);
 Route::get('pelaksanaan-file/delete', [PelaksanaanController::class, 'deleteFile']);
 
 Route::get('manajemen-kontrak', [ManajemenKontrakController::class,'view']);
@@ -75,6 +77,7 @@ Route::post('amandemen/update', [AmandemenController::class, 'update']);
 Route::get('amandemen/delete', [AmandemenController::class, 'delete']);
 Route::post('amandemen/file', [AmandemenController::class, 'amandemenFile']);
 Route::get('amandemen-file/delete', [AmandemenController::class, 'deleteFile']);
+Route::get('manajemen-kontrak/rekap', [ManajemenKontrakController::class,'rekap']);
 
 Route::get('users', [UserController::class, 'view']);
 Route::post('users/create', [UserController::class, 'create']);
@@ -82,6 +85,7 @@ Route::post('users/update', [UserController::class, 'update']);
 Route::post('users/pointing-unit/create', [UserController::class, 'createUnit']);
 Route::post('users/pointing-unit/update', [UserController::class, 'updateUnit']);
 Route::get('users/delete', [UserController::class, 'delete']);
+Route::get('users/import', [UserController::class, 'import']);
 
 Route::get('unit', [UnitController::class, 'view']);
 Route::post('unit/create', [UnitController::class, 'create']);
@@ -93,6 +97,7 @@ Route::get('mitra/get-data', [MitraController::class, 'getData']);
 Route::post('mitra/create', [MitraController::class, 'create']);
 Route::post('mitra/update', [MitraController::class, 'update']);
 Route::get('mitra/delete', [MitraController::class, 'delete']);
+Route::get('mitra/import', [MitraController::class, 'import']);
 
 Route::get('penilaian/form-errect', [PenilaianVendorController::class, 'formErrect']);
 Route::post('penilaian-form-errect/create', [PenilaianVendorController::class, 'createForm1']);
@@ -102,5 +107,8 @@ Route::get('penilaian/form-supply-only', [PenilaianVendorController::class, 'for
 Route::get('penilaian/form-supply-errect', [PenilaianVendorController::class, 'formSupplyErrect']);
 Route::get('penilaian/form-khs_distribusi_niaga', [PenilaianVendorController::class, 'formKhsDistribusiNiaga']);
 Route::get('penilaian/export', [PenilaianVendorController::class, 'export']);
+
+Route::get('penilaian/rekap', [PenilaianVendorController::class, 'rekap']);
+Route::get('penilaian/rekap/export', [PenilaianVendorController::class, 'exportRekap']);
 
 

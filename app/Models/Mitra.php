@@ -11,6 +11,15 @@ class Mitra extends Model
     protected $table = 'mitra';
     public $timestamps = false;
 
+    protected $fillable = [
+        'nama',
+        'kategori',
+        'npwp',
+        'no_wa',
+        'alamat'
+    ];
+
+
     public function penilaian_vendor()
     {
         return $this->hasMany('App\Models\PenilaianVendor');

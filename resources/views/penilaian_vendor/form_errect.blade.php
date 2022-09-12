@@ -356,8 +356,7 @@
                             }
                         },
                     }).then(function () {
-                        window.location =
-                            "{{ url('pengadaan/detail?id=' . $pengadaan->id.'&tab=kontrak') }}";
+                        window.location = "{!! url('pengadaan/detail?id=' . $pengadaan->id.'&tab=kontrak') !!}";
                     });
                 }
             }

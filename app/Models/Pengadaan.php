@@ -55,6 +55,10 @@ class Pengadaan extends Model
     {
         return $this->belongsTo(Unit::class);
     }
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
 
 
 

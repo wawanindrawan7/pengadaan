@@ -1,4 +1,4 @@
-<div class="modal fade" id="create-pelaksanaan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="create-pelaksanaan" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -32,11 +32,14 @@
 
                     <div class="form-group form-group-default">
                         <label for="exampleFormControlInput1">Penyedia Barang Jasa</label>
-                        <select class="form-control" name="mitra_id" required>
-                            @foreach($mitra as $item)
-                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                            @endforeach
-                        </select>
+                        <div class="select2-input select2-warning mt-2">
+                            <select class="form-control" id="mitra_id" name="mitra_id" style="width: 100%" required>
+                                @foreach($mitra as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <a href="#">Tambah Data Vendor</a>
                     </div>
 
                     <div class="row">
@@ -69,10 +72,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group form-group-default">
-                        <label>Tanggal Pelaksanaan IDD</label>
-                        <input type="text" class="form-control datepicker" name="tgl_idd">
-                    </div>
+                    
 
                 </div>
                 <div class="modal-footer">
@@ -115,6 +115,75 @@
                         <label for="exampleFormControlInput1">File Jaminan Pelaksana</label>
                         <input type="file" class="form-control" name="file_jaminan_pelaksana">
                     </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="create-idd-file-modal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form id="idd_file" enctype="multipart/form-data">
+                @csrf
+
+                <input type="hidden" name="pelaksanaan_id" value="{{ ($pengadaan->pelaksanaan != null) ? $pengadaan->pelaksanaan->id : "" }}">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Upload File IDD</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">File Dokumen Kuisioner IDD</label>
+                        <input type="file" class="form-control" name="file_dokumen_kusioner">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">File Dokumen Penilaian IDD</label>
+                        <input type="file" class="form-control" name="file_dokumen_penilaian">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">File Dokumen Pendukung IDD</label>
+                        <input type="file" class="form-control" name="file_dokumen_pendukung">
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="create-idd-modal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form id="form_idd" enctype="multipart/form-data">
+                @csrf
+
+                <input type="hidden" name="pelaksanaan_id" value="{{ ($pengadaan->pelaksanaan != null) ? $pengadaan->pelaksanaan->id : "" }}">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create IDD</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group form-group-default">
+                        <label>Tanggal Pelaksanaan IDD</label>
+                        <input type="text" class="form-control datepicker" name="tgl_idd">
+                    </div>
+                    
                     <div class="form-group">
                         <label for="exampleFormControlInput1">File Dokumen Kuisioner IDD</label>
                         <input type="file" class="form-control" name="file_dokumen_kusioner">
@@ -147,7 +216,7 @@
         </span>
         Create Data Pelaksana Pengadaan
     </a>
-@elseif($pengadaan->pelaksanaan == null && $pengadaan->state == 2)
+@elseif($pengadaan->pelaksanaan == null && $pengadaan->state == 2 && Auth::user()->kategori == 'Pelaksana')
     <a href="#" data-toggle="modal" data-target="#create-pelaksanaan" class="btn btn-success btn-round btn-sm">
         <span class="btn-label">
             <i class="fa fa-pencil"></i>
@@ -206,10 +275,7 @@
 
     </div>
 
-    <div class="form-group form-group-default">
-        <label>Tgl. IDD</label>
-        <input type="text" class="form-control" value="{{ $pengadaan->pelaksanaan->tgl_idd }}" readonly />
-    </div>
+    
 
     <div class="form-group form-group-default">
         <label for="">File Upload</label>
@@ -224,8 +290,28 @@
         <a href="{{ asset($pengadaan->pelaksanaan->pelaksanaanFile->file_kontrak) }}" class="text-primary">File Kontrak</a><br>
         @endif
         @if ($pengadaan->pelaksanaan->pelaksanaanFile->file_jaminan_pelaksana != null)
-        <a href="{{ asset($pengadaan->pelaksanaan->pelaksanaanFile->file_jaminan_pelaksana) }}" class="text-primary">File Jaminan Pelaksana</a><br>
+        <a href="{{ asset($pengadaan->pelaksanaan->pelaksanaanFile->file_jaminan_pelaksana) }}" class="text-primary">File Jaminan Pelaksanaan</a><br>
         @endif
+        @endif
+        <br>
+        <a href="#" data-toggle="modal" data-target="#create-pelaksanaan-file-modal"><span class="badge badge-info">Upload File</span></a>
+    </div>
+
+    
+    <div class="form-group form-group-default bg-warning text-white">
+        <label for=""><b class="text-white">Pelaksanaan IDD</b></label>
+    </div>
+    
+    @if($pengadaan->pelaksanaan->tgl_idd != null)
+    <div class="form-group form-group-default">
+        <label>Tgl. Pelaksanaan IDD</label>
+        <input type="text" class="form-control" value="{{ $pengadaan->pelaksanaan->tgl_idd }}"
+            readonly />
+    </div>
+    
+    <div class="form-group form-group-default">
+        <label for="">File Upload</label>
+        @if ($pengadaan->pelaksanaan->pelaksanaanFile != null)
         @if ($pengadaan->pelaksanaan->pelaksanaanFile->file_dokumen_kusioner != null)
         <a href="{{ asset($pengadaan->pelaksanaan->pelaksanaanFile->file_dokumen_kusioner) }}" class="text-primary">File Dokumen Kusioner IDD</a><br>
         @endif
@@ -236,11 +322,23 @@
         <a href="{{ asset($pengadaan->pelaksanaan->pelaksanaanFile->file_dokumen_pendukung) }}" class="text-primary">File Dokumen Pendukung IDD</a><br>
         @endif
         @endif
-        <a href="#" data-toggle="modal" data-target="#create-pelaksanaan-file-modal"><span class="badge badge-success">Upload File</span></a>
+        <br>
+        <a href="#" data-toggle="modal" data-target="#create-idd-file-modal"><span class="badge badge-info">Upload File IDD</span></a>
     </div>
+    @endif
+
+    @if($pengadaan->pelaksanaan->tgl_idd == null)
+    <a href="#" class="btn btn-warning btn-round btn-sm" data-toggle="modal" data-target="#create-idd-modal">
+        <span class="btn-label">
+            <i class="fa fa-check"></i>
+        </span>
+        Input IDD
+    </a>
+    @endif
+
 @endif
 
-@if($pengadaan->state == 2 && $pengadaan->pelaksanaan != null)
+@if($pengadaan->state == 2 && $pengadaan->pelaksanaan != null && Auth::user()->kategori == 'Pelaksana') 
     <a href="#" class="btn btn-success btn-round btn-sm btn-submit-pelaksanaan">
         <span class="btn-label">
             <i class="fa fa-check"></i>

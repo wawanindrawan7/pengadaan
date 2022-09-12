@@ -24,7 +24,11 @@ class HpeItemController extends Controller
         $item->vol_1 = $r->vol_1;
         $item->vol_2 = $r->vol_2;
         $item->harga_satuan = $r->harga_satuan;
-        $item->jumlah = ($item->vol_1 * $item->vol_2) * $item->harga_satuan;
+        if($item->vol_2 != null){
+            $item->jumlah = ($item->vol_1 * $item->vol_2) * $item->harga_satuan;
+        }else{
+            $item->jumlah = $item->vol_1 * $item->harga_satuan;
+        }
         $item->save();
 
         return 'success';

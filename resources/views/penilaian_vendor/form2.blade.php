@@ -11,7 +11,7 @@
     <style type="text/css">
         table tr td,
         table tr th {
-            font-size: 10pt;
+            font-size: 9pt;
             padding: 5px;
         }
 
@@ -140,5 +140,7 @@
                 </tr>
             </tfoot>
         </table>
+
+        <p style="text-align: center;margin-left: 300px;font-size: 9pt;">............. 20 <br>Direksi Pekrejaan <br><br><br><br><br><br><br> <u><b>{{ $pengadaan->direksiPk->users->name }}</b></u> </p>
     </div>
 </body>

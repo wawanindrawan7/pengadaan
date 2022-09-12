@@ -20,8 +20,27 @@ class PengadaanController extends Controller
     public function view()
     {
         $user = User::all();
-        $pengadaan = Pengadaan::all();
         $unit = Unit::all();
+
+        $u = Auth::user();
+
+        if($u->status == 'Admin'){
+            $pengadaan = Pengadaan::orderBy('id','desc')->get();
+        }elseif($u->kategori == 'Perencana' || $u->kategori == 'Pelaksana'){
+            $pengadaan = Pengadaan::where('unit_id', $u->uid)->orderBy('id','desc')->get();
+        }else{
+            $pengadaan = Pengadaan::where('users_id', $u->id)
+            ->orWhereHas('direksiPk', function($q){
+                return $q->where('users_id', Auth::id());
+            })
+            ->orWhereHas('pengawasPk', function($q){
+                return $q->where('users_id', Auth::id());
+            })
+            ->orWhereHas('pengawasK3', function($q){
+                return $q->where('users_id', Auth::id());
+            })
+            ->orderBy('id','desc')->get();
+        }
         return view('pengadaan.view', compact('pengadaan','user','unit'));
     }
 
@@ -40,7 +59,7 @@ class PengadaanController extends Controller
             $p->no_nota_dinas = $r->no_nota_dinas;
             $p->tgl_nota_dinas = date('Y-m-d', strtotime($r->tgl_nota_dinas));
             $p->users_id = Auth::id();
-            $p->unit_id = $r->unit_id;
+            $p->unit_id = Auth::user()->uid;
             $p->save();
 
             $direaksi_pk = new DireksiPk();
