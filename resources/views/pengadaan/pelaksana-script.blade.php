@@ -3,13 +3,13 @@
         theme: "bootstrap"
     });
 
-    $(document).on('input', '#nilai_kontrak', function () {
+    $(document).on('input', '#nilai_kontrak', function() {
         var nilai_anggaran = {{ $pengadaan->nilai_anggaran }}
 
         var nilai_kontrak = $('#nilai_kontrak').val()
         $('.f_nilai_kontrak').text(nf.format(nilai_kontrak))
 
-        if(nilai_kontrak > nilai_anggaran){
+        if (nilai_kontrak > nilai_anggaran) {
             swal("Oops!", "Nilai Kontrak tidak boleh melebihi Nilai Anggaran !", {
                 icon: "error",
                 buttons: {
@@ -25,7 +25,7 @@
 
     })
 
-    $('#form_pelaksanaan').on('submit', function (e) {
+    $('#form_pelaksanaan').on('submit', function(e) {
         e.preventDefault()
         $.ajax({
             type: 'POST',
@@ -34,7 +34,7 @@
             contentType: false,
             cache: false,
             processData: false,
-            success: function (r) {
+            success: function(r) {
                 console.log(r)
                 if (r == 'success') {
                     swal("Good job!", "Simpan data berhasil !", {
@@ -44,15 +44,15 @@
                                 className: 'btn btn-success'
                             }
                         },
-                    }).then(function () {
-                        window.location = "{!! url('pengadaan/detail?id='.$pengadaan->id.'&tab=pelaksana') !!}"
+                    }).then(function() {
+                        window.location = "{!! url('pengadaan/detail?id=' . $pengadaan->id . '&tab=pelaksana') !!}"
                     });
                 }
             }
         })
     });
 
-    $('#form_idd').on('submit', function (e) {
+    $('#form_idd').on('submit', function(e) {
         e.preventDefault()
         $.ajax({
             type: 'POST',
@@ -61,7 +61,7 @@
             contentType: false,
             cache: false,
             processData: false,
-            success: function (r) {
+            success: function(r) {
                 console.log(r)
                 if (r == 'success') {
                     swal("Good job!", "Simpan data berhasil !", {
@@ -71,15 +71,15 @@
                                 className: 'btn btn-success'
                             }
                         },
-                    }).then(function () {
-                        window.location = "{!! url('pengadaan/detail?id='.$pengadaan->id.'&tab=pelaksana') !!}"
+                    }).then(function() {
+                        window.location = "{!! url('pengadaan/detail?id=' . $pengadaan->id . '&tab=pelaksana') !!}"
                     });
                 }
             }
         })
     });
 
-    $(document).on('click', '.btn-submit-pelaksanaan', function (e) {
+    $(document).on('click', '.btn-submit-pelaksanaan', function(e) {
         e.preventDefault()
         swal({
             title: 'Yakin untuk submit ?',
@@ -103,7 +103,7 @@
                     data: {
                         id: "{{ $pengadaan->pelaksanaan != null ? $pengadaan->pelaksanaan->id : '' }}"
                     },
-                    success: function (r) {
+                    success: function(r) {
                         console.log(r)
                         if (r == 'success') {
                             swal("Good job!", "Submit pengadaan berhasil !", {
@@ -114,7 +114,7 @@
                                         className: 'btn btn-success'
                                     }
                                 },
-                            }).then(function () {
+                            }).then(function() {
                                 location.reload()
                             });
                         }
@@ -127,7 +127,7 @@
         });
     })
 
-    $('#idd_file').on('submit', function (e) {
+    $('#idd_file').on('submit', function(e) {
         e.preventDefault()
         $.ajax({
             type: 'POST',
@@ -136,7 +136,7 @@
             contentType: false,
             cache: false,
             processData: false,
-            success: function (r) {
+            success: function(r) {
                 console.log(r)
                 if (r == 'success') {
                     swal("Good job!", "Simpan data berhasil !", {
@@ -146,15 +146,15 @@
                                 className: 'btn btn-success'
                             }
                         },
-                    }).then(function () {
-                        window.location = "{!! url('pengadaan/detail?id='.$pengadaan->id.'&tab=pelaksana') !!}"
+                    }).then(function() {
+                        window.location = "{!! url('pengadaan/detail?id=' . $pengadaan->id . '&tab=pelaksana') !!}"
                     });
                 }
             }
         })
     });
 
-    $('#pelaksanaan_file').on('submit', function (e) {
+    $('#pelaksanaan_file').on('submit', function(e) {
         e.preventDefault()
         $.ajax({
             type: 'POST',
@@ -163,7 +163,7 @@
             contentType: false,
             cache: false,
             processData: false,
-            success: function (r) {
+            success: function(r) {
                 console.log(r)
                 if (r == 'success') {
                     swal("Good job!", "Simpan data berhasil !", {
@@ -173,8 +173,84 @@
                                 className: 'btn btn-success'
                             }
                         },
-                    }).then(function () {
-                        window.location = "{!! url('pengadaan/detail?id='.$pengadaan->id.'&tab=pelaksana') !!}"
+                    }).then(function() {
+                        window.location = "{!! url('pengadaan/detail?id=' . $pengadaan->id . '&tab=pelaksana') !!}"
+                    });
+                }
+            }
+        })
+    });
+
+    $(document).on('click', '.btn-update', function(e) {
+        $('#fe_id').val($(this).data('id'))
+        $('#fe_nomor_kontrak').val($(this).data('nomor_kontrak'))
+        $('#e_tgl_kontrak').val($(this).data('tgl_kontrak'))
+        $('#e_tgl_efektif').val($(this).data('tgl_efektif'))
+        $('#e_tgl_akhir').val($(this).data('tgl_akhir'))
+        $('#e_nilai_kontrak').val($(this).data('nilai_kontrak'))
+
+        $('#update-pelaksanaan').modal('show')
+    })
+
+    $('#form_update_pelaksanaan').on('submit', function(e) {
+        e.preventDefault()
+        $.ajax({
+            type: 'post',
+            url: "{!! url('pelaksanaan/update') !!}",
+            data: new FormData(this),
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(r) {
+                console.log(r)
+                if (r == 'success') {
+                    swal("Good job!", "Simpan data berhasil !", {
+                        icon: "success",
+                        buttons: {
+                            confirm: {
+                                className: 'btn btn-success'
+                            }
+                        },
+                    }).then(function() {
+                        location.reload()
+                    });
+                }
+            }
+        })
+    });
+
+    $(document).on('click', '.btn-update-tgl-idd', function(e) {
+        $('#fe_id').val($(this).data('id'))
+        $('#fe_nomor_kontrak').val($(this).data('nomor_kontrak'))
+        $('#e_tgl_kontrak').val($(this).data('tgl_kontrak'))
+        $('#e_tgl_efektif').val($(this).data('tgl_efektif'))
+        $('#e_tgl_akhir').val($(this).data('tgl_akhir'))
+        $('#e_nilai_kontrak').val($(this).data('nilai_kontrak'))
+
+        $('#update-idd-modal').modal('show')
+    })
+
+    $('#form_update_idd').on('submit', function(e) {
+        e.preventDefault()
+        $.ajax({
+            type: 'post',
+            url: "{!! url('pelaksanaan/update') !!}",
+            data: new FormData(this),
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(r) {
+                console.log(r)
+                if (r == 'success') {
+                    swal("Good job!", "Simpan data berhasil !", {
+                        icon: "success",
+                        buttons: {
+                            confirm: {
+                                className: 'btn btn-success'
+                            }
+                        },
+                    }).then(function() {
+                        location.reload()
                     });
                 }
             }

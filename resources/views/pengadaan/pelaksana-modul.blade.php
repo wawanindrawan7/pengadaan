@@ -84,6 +84,81 @@
 </div>
 
 
+<div class="modal fade" id="update-pelaksanaan" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form id="form_update_pelaksanaan">
+                @csrf
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLabel">Update Pelaksanaan</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <input type="hidden" name="id" id="fe_id">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group form-group-default">
+                                <label for="exampleFormControlInput1">Nomor Kontrak</label>
+                                <input type="text" class="form-control" name="nomor_kontrak" id="fe_nomor_kontrak">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group form-group-default">
+                                <label>Tanggal Kontrak</label>
+                                <input type="text" class="form-control datepicker" name="tgl_kontrak"
+                                    id="e_tgl_kontrak">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group form-group-default">
+                                <label>Tanggal Efektif</label>
+                                <input type="text" class="form-control datepicker" name="tgl_efektif"
+                                    id="e_tgl_efektif">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group form-group-default">
+                                <label>Tanggal Akhir</label>
+                                <input type="text" class="form-control datepicker" name="tgl_akhir"
+                                    id="e_tgl_akhir">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group form-group-default">
+                                <label for="exampleFormControlInput1">Nilai Kontrak</label>
+                                <div class="input-group">
+                                    <input type="number" id="e_nilai_kontrak" autocomplete="off"
+                                        name="nilai_kontrak" class="form-control"
+                                        aria-label="Amount (to the nearest dollar)" required>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text f_nilai_kontrak"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 <div class="modal fade" id="create-pelaksanaan-file-modal" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -210,6 +285,37 @@
     </div>
 </div>
 
+<div class="modal fade" id="update-idd-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form id="form_update_idd" enctype="multipart/form-data">
+                @csrf
+
+                <input type="hidden" name="pelaksanaan_id"
+                    value="{{ $pengadaan->pelaksanaan != null ? $pengadaan->pelaksanaan->id : '' }}">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update IDD</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group form-group-default">
+                        <label>Tanggal Pelaksanaan IDD</label>
+                        <input type="text" class="form-control datepicker" name="tgl_idd" id="e_tgl_idd">
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 {{-- detail --}}
 @if ($pengadaan->pelaksanaan == null &&
     ((($pengadaan->metode_pengadaan == 'Pengadaan Langsung' || $pengadaan->metode_pengadaan == 'Kontrak Rinci') &&
@@ -283,9 +389,18 @@
 
     </div>
 
+    <a title="Update" href="#" class="btn btn-warning btn-round btn-xs mr-2 btn-update"
+        data-id="{{ $pengadaan->pelaksanaan->id }}"
+        data-nomor_kontrak="{{ $pengadaan->pelaksanaan->nomor_kontrak }}"
+        data-nomor_kontrak="{{ $pengadaan->pelaksanaan->nomor_kontrak }}"
+        data-tgl_kontrak="{{ $pengadaan->pelaksanaan->tgl_kontrak }}"
+        data-tgl_efektif="{{ $pengadaan->pelaksanaan->tgl_efektif }}"
+        data-tgl_akhir="{{ $pengadaan->pelaksanaan->tgl_akhir }}"
+        data-nilai_kontrak="{{ $pengadaan->pelaksanaan->nilai_kontrak }}">
+        <i class="fa fa-edit"></i> <span>Edit Pelaksana</span>
+    </a>
 
-
-    <div class="form-group form-group-default">
+    <div class="form-group form-group-default mt-3">
         <label for="">File Upload</label>
         @if ($pengadaan->pelaksanaan->pelaksanaanFile != null)
             @if ($pengadaan->pelaksanaan->pelaksanaanFile->file_jadwal != null)
@@ -320,6 +435,11 @@
             <label>Tgl. Pelaksanaan IDD</label>
             <input type="text" class="form-control" value="{{ $pengadaan->pelaksanaan->tgl_idd }}" readonly />
         </div>
+
+        <a title="Update" href="#" class="btn btn-warning btn-round btn-xs mr-2 btn-update-tgl-idd mb-3"
+            data-id="{{ $pengadaan->pelaksanaan->id }}">
+            <i class="fa fa-edit"></i> <span>Edit Tanggal IDD</span>
+        </a>
 
         <div class="form-group form-group-default">
             <label for="">File Upload</label>

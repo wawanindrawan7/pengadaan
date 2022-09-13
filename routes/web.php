@@ -64,6 +64,7 @@ Route::get('hpe/delete-item', [HpeItemController::class, 'deleteItem']);
 Route::get('pelaksana-pengadaan', [PelaksanaanController::class, 'view']);
 Route::get('pelaksana-pengadaan/submit', [PelaksanaanController::class, 'submit']);
 Route::post('pelaksanaan/create', [PelaksanaanController::class, 'create']);
+Route::post('pelaksanaan/update', [PelaksanaanController::class, 'update']);
 Route::post('pelaksanaan/create-idd', [PelaksanaanController::class, 'createIDD']);
 Route::post('pelaksanaan/selesai', [PelaksanaanController::class, 'selesai']);
 Route::get('pelaksanaan/delete', [PelaksanaanController::class, 'delete']);

@@ -99,7 +99,6 @@ class PelaksanaanController extends Controller
             $p = Pelaksanaan::find($r->id);
             $p->nomor_kontrak = $r->nomor_kontrak;
             $p->tgl_kontrak = date('Y-m-d', strtotime($r->tgl_kontrak));
-            $p->penyedia_barang_jasa = $r->penyedia_barang_jasa;
             $p->tgl_efektif = date('Y-m-d', strtotime($r->tgl_efektif));
             $p->tgl_akhir = date('Y-m-d', strtotime($r->tgl_akhir));
             $p->nilai_kontrak = $r->nilai_kontrak;
@@ -117,7 +116,7 @@ class PelaksanaanController extends Controller
         $pengadaan = Pengadaan::find($r->id);
         $pengadaan_file = PengadaanFile::where('pengadaan_id', $pengadaan->id)->get();
         $mitra = Mitra::all();
-        return view('pelaksana-pengadaan.detail', compact('pengadaan', 'pengadaan_file','mitra'));
+        return view('pelaksana-pengadaan.detail', compact('pengadaan', 'pengadaan_file', 'mitra'));
     }
 
 
@@ -160,7 +159,8 @@ class PelaksanaanController extends Controller
 
 
 
-    public function uploadFile(Request $r){
+    public function uploadFile(Request $r)
+    {
         // return $r->all();
         DB::beginTransaction();
         try {
@@ -168,7 +168,7 @@ class PelaksanaanController extends Controller
             $file_hps = ($r->hasFile('file_hps')) ? $r->file('file_hps') : null;
             $file_kontrak = ($r->hasFile('file_kontrak')) ? $r->file('file_kontrak') : null;
             $file_jaminan_pelaksana = ($r->hasFile('file_jaminan_pelaksana')) ? $r->file('file_jaminan_pelaksana') : null;
-            
+
 
             $p = Pelaksanaan::find($r->pelaksanaan_id);
 
@@ -186,7 +186,7 @@ class PelaksanaanController extends Controller
             if ($file_jaminan_pelaksana != null) {
                 $u->file_jaminan_pelaksana = 'file/' . date('YmdHis') . '-' . $file_jaminan_pelaksana->getClientOriginalName();
             }
-            
+
             $u->pelaksanaan_id = $r->pelaksanaan_id;
 
             $u->save();
@@ -202,7 +202,7 @@ class PelaksanaanController extends Controller
             if ($file_jaminan_pelaksana != null) {
                 $file_jaminan_pelaksana->move('file', $u->file_jaminan_pelaksana);
             }
-            
+
             DB::commit();
             return 'success';
         } catch (\Throwable $th) {
@@ -211,7 +211,8 @@ class PelaksanaanController extends Controller
         }
     }
 
-    public function uploadFileIDD(Request $r){
+    public function uploadFileIDD(Request $r)
+    {
         // return $r->all();
         DB::beginTransaction();
         try {
@@ -219,8 +220,8 @@ class PelaksanaanController extends Controller
             $file_dokumen_kusioner = ($r->hasFile('file_dokumen_kusioner')) ? $r->file('file_dokumen_kusioner') : null;
             $file_dokumen_penilaian = ($r->hasFile('file_dokumen_penilaian')) ? $r->file('file_dokumen_penilaian') : null;
             $file_dokumen_pendukung = ($r->hasFile('file_dokumen_pendukung')) ? $r->file('file_dokumen_pendukung') : null;
-            
-            
+
+
 
             $p = Pelaksanaan::find($r->pelaksanaan_id);
 
@@ -235,11 +236,11 @@ class PelaksanaanController extends Controller
             if ($file_dokumen_pendukung != null) {
                 $u->file_dokumen_pendukung = 'file/' . date('YmdHis') . '-' . $file_dokumen_pendukung->getClientOriginalName();
             }
-            
+
             $u->pelaksanaan_id = $r->pelaksanaan_id;
 
             $u->save();
-            
+
             if ($file_dokumen_kusioner != null) {
                 $file_dokumen_kusioner->move('file', $u->file_dokumen_kusioner);
             }
@@ -249,7 +250,7 @@ class PelaksanaanController extends Controller
             if ($file_dokumen_pendukung != null) {
                 $file_dokumen_pendukung->move('file', $u->file_dokumen_pendukung);
             }
-            
+
             DB::commit();
             return 'success';
         } catch (\Throwable $th) {

@@ -53,7 +53,7 @@
                         aria-labelledby="pills-home-tab">
                         @include('pengadaan.pelaksana-modul')
                     </div>
-                    <div class="tab-pane fade {{ $tab == 'kontrak' ? 'active show' : '' }}" id="kontrak" role="tabpanel"
+                    <div class="tab-pane fade {{ $tab == 'kon trak' ? 'active show' : '' }}" id="kontrak" role="tabpanel"
                         aria-labelledby="pills-home-tab">
                         @include('pengadaan.kontrak-modul')
                     </div>
