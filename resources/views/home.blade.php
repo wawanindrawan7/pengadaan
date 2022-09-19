@@ -83,7 +83,7 @@
         </div>
     </div>
 
-    <div class="col-md-12">
+    <div class="col-md-6">
         <div class="card">
             <div class="card-header">
                 <div class="card-head-row">
@@ -101,6 +101,28 @@
             </div>
             <div class="card-body">
                 <div id="chartdiv" style="width: 100%;height: 550px;"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-head-row">
+                    <div class="card-title">Grafik Penilaian Vendor</div>
+                    {{-- <div class="card-tools">
+                        <a href="#" class="btn btn-info btn-border btn-round btn-sm mr-2" data-toggle="modal"
+                            data-target="#create-modal">
+                            <span class="btn-label">
+                                <i class="fa fa-plus"></i>
+                            </span>
+                            Create
+                        </a>
+                    </div> --}}
+                </div>
+            </div>
+            <div class="card-body">
+                <div id="chartdiv_penilaian" style="width: 100%;height: 550px;"></div>
             </div>
         </div>
     </div>
@@ -161,6 +183,60 @@
         // Set data
 
         series.data.setAll(@json($chart_data, JSON_PRETTY_PRINT));
+
+        series.appear(1000, 100);
+
+    });
+
+    am5.ready(function () {
+
+        // Create root element
+        // https://www.amcharts.com/docs/v5/getting-started/#Root_element
+        var root = am5.Root.new("chartdiv_penilaian");
+
+        // Set themes
+        // https://www.amcharts.com/docs/v5/concepts/themes/
+        root.setThemes([
+            am5themes_Animated.new(root)
+        ]);
+
+        // Create chart
+        // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
+        // start and end angle must be set both for chart and series
+        var chart = root.container.children.push(am5percent.PieChart.new(root, {
+            startAngle: 180,
+            endAngle: 360,
+            layout: root.verticalLayout,
+            innerRadius: am5.percent(50)
+        }));
+
+        // Create series
+
+        // start and end angle must be set both for chart and series
+        var series = chart.series.push(am5percent.PieSeries.new(root, {
+            startAngle: 180,
+            endAngle: 360,
+            valueField: "value",
+            categoryField: "kategori",
+            alignLabels: false
+        }));
+
+        series.states.create("hidden", {
+            startAngle: 180,
+            endAngle: 180
+        });
+
+        series.slices.template.setAll({
+            cornerRadius: 5
+        });
+
+        series.ticks.template.setAll({
+            forceHidden: true
+        });
+
+        // Set data
+
+        series.data.setAll(@json($chart_penilaian_data, JSON_PRETTY_PRINT));
 
         series.appear(1000, 100);
 

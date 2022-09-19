@@ -14,17 +14,29 @@
                     <input type="hidden" name="pelaksanaan_id" value="{{ $pengadaan->pelaksanaan->id }}">
                     <input type="hidden" name="form" value="KHS Distribusi & Niaga">
 
-                    <div class="form-group">
-                        <label for="exampleFormControlInput1">DPT / Non DPT</label>
-                        <select class="form-control" name="dpt_non_dpt" required>
-                            <option value=""></option>
-                            <option>DPT Jasa Konstruksi JTM, Gardu Distribusi dan JTR</option>
-                            <option>DPT Jasa Konstruksi SR dan APP</option>
-                            <option>DPT Jasa Grinding dan Polishing Crankshaft Mesin Diesel</option>
-                            <option>DPT Jasa Rekondisi Sparepart Mesin Diesel</option>
-                            <option>Non DPT</option>
-                        </select>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="">Tanggal</label>
+                                <input type="text" name="tgl_penilaian" required class="form-control date">
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">DPT / Non DPT</label>
+                                <select class="form-control" name="dpt_non_dpt" required>
+                                    <option value=""></option>
+                                    <option>DPT Jasa Konstruksi JTM, Gardu Distribusi dan JTR</option>
+                                    <option>DPT Jasa Konstruksi SR dan APP</option>
+                                    <option>DPT Jasa Grinding dan Polishing Crankshaft Mesin Diesel</option>
+                                    <option>DPT Jasa Rekondisi Sparepart Mesin Diesel</option>
+                                    <option>Non DPT</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
+
+                    
 
                     <div class="row">
                         <div class="col-md-6">
@@ -50,7 +62,7 @@
                     </div>
                     <div class="form-group form-group-default bg-info text-white mt-3">
                         <label for=""><b class="text-white">TENAGA KERJA</b></label>
-                        <input type="hidden" name="tenaga_kerja" value="1. Tenaga Kerja">
+                        <input type="hidden" name="tenaga_kerja" value="Tenaga Kerja">
                     </div>
                     <div class="row">
                         <div class="col-md-6">
@@ -67,12 +79,12 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="tk_nilai[]" max="10" id="n_kom_res">
+                                <input type="number" class="form-control" value="" name="tk_nilai[]" max="10" step="any" required id="n_kom_res">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" name="tk_nilai_bobot[]" readonly id="nb_kom_res">
+                                <input type="number" class="form-control" name="tk_nilai_bobot[]" value="0" readonly id="nb_kom_res">
                             </div>
                         </div>
                     </div>
@@ -92,13 +104,13 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="tk_nilai[]" max="10"
+                                <input type="number" class="form-control" value="" name="tk_nilai[]" max="10" step="any" required
                                     id="n_min_1_tim">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" name="tk_nilai_bobot[]" readonly
+                                <input type="number" class="form-control" name="tk_nilai_bobot[]" value="0" readonly
                                     id="nb_min_1_tim">
                             </div>
                         </div>
@@ -120,13 +132,13 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="tk_nilai[]" max="10"
+                                <input type="number" class="form-control" value="" name="tk_nilai[]" max="10" step="any" required
                                     id="n_pengawas_k3">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" name="tk_nilai_bobot[]" readonly
+                                <input type="number" class="form-control" name="tk_nilai_bobot[]" value="0" readonly
                                     id="nb_pengawas_k3">
                             </div>
                         </div>
@@ -134,7 +146,7 @@
 
                     <div class="form-group form-group-default bg-info text-white mt-3">
                         <label for=""><b class="text-white">SOP/Instruksi Kerja</b></label>
-                        <input type="hidden" name="sop" value="2. SOP/Instruksi Kerja">
+                        <input type="hidden" name="sop" value="SOP/Instruksi Kerja">
                     </div>
 
                     <div class="row">
@@ -152,13 +164,13 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="sop_nilai[]" max="10"
+                                <input type="number" class="form-control" value="" name="sop_nilai[]" max="10" step="any" required
                                     id="n_kepatuhan_k2_k3">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" name="sop_nilai_bobot[]" readonly
+                                <input type="number" class="form-control" name="sop_nilai_bobot[]" value="0" readonly
                                     id="nb_kepatuhan_k2_k3">
                             </div>
                         </div>
@@ -166,7 +178,7 @@
 
                     <div class="form-group form-group-default bg-info text-white mt-3">
                         <label for=""><b class="text-white">Sistem Manajemen Kerja</b></label>
-                        <input type="hidden" name="smk" value="3. Sistem Manajemen Kerja">
+                        <input type="hidden" name="smk" value="Sistem Manajemen Kerja">
                     </div>
 
                     <div class="row">
@@ -185,13 +197,13 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="smk_nilai[]" max="10"
+                                <input type="number" class="form-control" value="" name="smk_nilai[]" max="10" step="any" required
                                     id="n_safety_briefing_sk">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" name="smk_nilai_bobot[]" readonly
+                                <input type="number" class="form-control" name="smk_nilai_bobot[]" value="0" readonly
                                     id="nb_safety_briefing_sk">
                             </div>
                         </div>
@@ -212,13 +224,13 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="smk_nilai[]" max="10"
+                                <input type="number" class="form-control" value="" name="smk_nilai[]" max="10" step="any" required
                                     id="n_kualitas_pekerjaan">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" name="smk_nilai_bobot[]" readonly
+                                <input type="number" class="form-control" name="smk_nilai_bobot[]" value="0" readonly
                                     id="nb_kualitas_pekerjaan">
                             </div>
                         </div>
@@ -238,13 +250,13 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="smk_nilai[]" max="10"
+                                <input type="number" class="form-control" value="" name="smk_nilai[]" max="10" step="any" required
                                     id="n_kecepatan_penyelesaian_pekerjaan">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" name="smk_nilai_bobot[]" readonly
+                                <input type="number" class="form-control" name="smk_nilai_bobot[]" value="0" readonly
                                     id="nb_kecepatan_penyelesaian_pekerjaan">
                             </div>
                         </div>
@@ -265,13 +277,13 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="smk_nilai[]" max="10"
+                                <input type="number" class="form-control" value="" name="smk_nilai[]" max="10" step="any" required
                                     id="n_kesiapan_adm_penagihan">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" name="smk_nilai_bobot[]" readonly
+                                <input type="number" class="form-control" name="smk_nilai_bobot[]" value="0" readonly
                                     id="nb_kesiapan_adm_penagihan">
                             </div>
                         </div>
@@ -279,7 +291,7 @@
 
                     <div class="form-group form-group-default bg-info text-white mt-3">
                         <label for=""><b class="text-white">Penggunaan Alat Pelindung Diri (APD)</b></label>
-                        <input type="hidden" name="papd" value="4. Penggunaan Alat Pelindung Diri (APD)">
+                        <input type="hidden" name="papd" value="Penggunaan Alat Pelindung Diri (APD)">
                     </div>
 
                     <div class="row">
@@ -297,13 +309,13 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="phpd_nilai[]" max="10"
+                                <input type="number" class="form-control" value="" name="phpd_nilai[]" max="10" step="any" required
                                     id="n_helm_safety">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" name="phpd_nilai_bobot[]" readonly
+                                <input type="number" class="form-control" name="phpd_nilai_bobot[]" value="0" readonly
                                     id="nb_helm_safety">
                             </div>
                         </div>
@@ -324,13 +336,13 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="phpd_nilai[]" max="10"
+                                <input type="number" class="form-control" value="" name="phpd_nilai[]" max="10" step="any" required
                                     id="n_sarung_tangan">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" name="phpd_nilai_bobot[]" readonly
+                                <input type="number" class="form-control" name="phpd_nilai_bobot[]" value="0" readonly
                                     id="nb_sarung_tangan">
                             </div>
                         </div>
@@ -351,13 +363,13 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="phpd_nilai[]" max="10"
+                                <input type="number" class="form-control" value="" name="phpd_nilai[]" max="10" step="any" required
                                     id="n_kaca_mata_safety">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" name="phpd_nilai_bobot[]" readonly
+                                <input type="number" class="form-control" name="phpd_nilai_bobot[]" value="0" readonly
                                     id="nb_kaca_mata_safety">
                             </div>
                         </div>
@@ -378,13 +390,13 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="phpd_nilai[]" max="10"
+                                <input type="number" class="form-control" value="" name="phpd_nilai[]" max="10" step="any" required
                                     id="n_pengaman_penjat">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" name="phpd_nilai_bobot[]" readonly
+                                <input type="number" class="form-control" name="phpd_nilai_bobot[]" value="0" readonly
                                     id="nb_pengaman_penjat">
                             </div>
                         </div>
@@ -404,13 +416,13 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="phpd_nilai[]" max="10"
+                                <input type="number" class="form-control" value="" name="phpd_nilai[]" max="10" step="any" required
                                     id="n_p3k">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" name="phpd_nilai_bobot[]" readonly
+                                <input type="number" class="form-control" name="phpd_nilai_bobot[]" value="0" readonly
                                     id="nb_p3k">
                             </div>
                         </div>
@@ -430,13 +442,13 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="phpd_nilai[]" max="10"
+                                <input type="number" class="form-control" value="" name="phpd_nilai[]" max="10" step="any" required
                                     id="n_baju_kerja">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" name="phpd_nilai_bobot[]" readonly
+                                <input type="number" class="form-control" name="phpd_nilai_bobot[]" value="0" readonly
                                     id="nb_baju_kerja">
                             </div>
                         </div>
@@ -456,13 +468,13 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="phpd_nilai[]" max="10"
+                                <input type="number" class="form-control" value="" name="phpd_nilai[]" max="10" step="any" required
                                     id="n_sepatu_safety">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" name="phpd_nilai_bobot[]" readonly
+                                <input type="number" class="form-control" name="phpd_nilai_bobot[]" value="0" readonly
                                     id="nb_sepatu_safety">
                             </div>
                         </div>
@@ -470,7 +482,7 @@
 
                     <div class="form-group form-group-default bg-info text-white mt-3">
                         <label for=""><b class="text-white">Peralatan Kerja</b></label>
-                        <input type="hidden" name="pk" value="5. Peralatan Kerja">
+                        <input type="hidden" name="pk" value="Peralatan Kerja">
                     </div>
 
                     <div class="row">
@@ -489,13 +501,13 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" value="" name="pk_nilai[]" max="10"
+                                <input type="number" class="form-control" value="" name="pk_nilai[]" max="10" step="any" required
                                     id="n_kelengkapan_per_kerja">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="number" class="form-control" name="pk_nilai_bobot[]" readonly
+                                <input type="number" class="form-control" name="pk_nilai_bobot[]" value="0" readonly
                                     id="nb_kelengkapan_per_kerja">
                             </div>
                         </div>
@@ -526,7 +538,11 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <button type="button" id="btn-submit" class="btn btn-primary">Save</button>
+                        <label for="">Keterangan</label>
+                        <textarea type="text" name="ket" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" id="btn-submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
 
@@ -568,7 +584,13 @@
 
 @section('js')
     <script src="{{ asset('public/atlantis/assets/js/plugin/sweetalert/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('public/atlantis/assets/js/plugin/moment/moment.min.js') }}"></script>
+    <script src="{{ asset('public/atlantis/assets/js/plugin/datepicker/bootstrap-datetimepicker.min.js') }}"></script>
     <script>
+        $('.date').datetimepicker({
+            format: 'YYYY-MM-DD',
+        });
+
         $(document).on('input', '#n_kom_res', function() {
             var nilai = $(this).val();
             var bobot = $('#b_kom_res').val();
@@ -718,11 +740,12 @@
             var baju_kerja = $('#nb_baju_kerja').val();
             var sepatu_safety = $('#nb_sepatu_safety').val();
             var kelengkapan_per_kerja = $('#nb_kelengkapan_per_kerja').val();
-            var total = parseInt(komres) + parseInt(min_1_tim) + parseInt(pengawas_k3) + parseInt(kepatuhan_k2_k3) +
-                parseInt(safety_briefing) + parseInt(kualitas_pekerjaan) + parseInt(kecepatan_penyelesaian_pekerjaan) +
-                parseInt(kesiapan_adm_penagihan) + parseInt(helm_safety) + parseInt(sarung_tangan) + parseInt(
-                    kaca_mata_safety) + parseInt(pengaman_panjat) + parseInt(p3k) + parseInt(baju_kerja) + parseInt(
-                    sepatu_safety) + parseInt(kelengkapan_per_kerja);
+            var total = Number.parseFloat(komres) + Number.parseFloat(min_1_tim) + Number.parseFloat(pengawas_k3) + Number.parseFloat(kepatuhan_k2_k3) +
+                Number.parseFloat(safety_briefing) + Number.parseFloat(kualitas_pekerjaan) + Number.parseFloat(kecepatan_penyelesaian_pekerjaan) +
+                Number.parseFloat(kesiapan_adm_penagihan) + Number.parseFloat(helm_safety) + Number.parseFloat(sarung_tangan) + Number.parseFloat(
+                    kaca_mata_safety) + Number.parseFloat(pengaman_panjat) + Number.parseFloat(p3k) + Number.parseFloat(baju_kerja) + Number.parseFloat(
+                    sepatu_safety) + Number.parseFloat(kelengkapan_per_kerja);
+
             $('#total').val(total);
 
             var kategori;
@@ -737,10 +760,10 @@
             $('#kategori').val(kategori);
         }
 
-        $(document).on('click','#btn-submit', function(e){
-            console.log('click')
-            $('#create').submit()
-        })
+        // $(document).on('click','#btn-submit', function(e){
+        //     console.log('click')
+        //     $('#create').submit()
+        // })
 
         $('#create').on('submit', function(e) {
             e.preventDefault()

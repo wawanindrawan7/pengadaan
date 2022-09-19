@@ -58,20 +58,20 @@
                     </form>
                 </div>
             </div>
-            <div class="table-responsive mt-3">
-                <table id="basic-datatables" class="display table table-bordered table-hover">
+            <div class="table-responsive mt-3" style="padding-left: 0; padding-right: 0">
+                <table id="basic-datatables" class="display table table-striped table-bordered table-hover" >
                     <thead>
                         <tr>
-                            <th width="1%">No.</th>
-                            <th width="10%">Nama Vendor</th>
-                            <th width="10%">Deskrispi Pengadaan</th>
-                            <th width="5%">No.Kontrak</th>
-                            <th width="5%">Nilai Kontrak</th>
-                            <th width="5%">Tgl.Kontrak</th>
-                            <th width="5%">Tgl.Selesai</th>
-                            <th width="5%">Total Nilai</th>
-                            <th width="5%">Kategori Penilaian</th>
-                            <th width="5%">DPT / Non DPT</th>
+                            <th>No.</th>
+                            <th>Nama Vendor</th>
+                            <th>Deskrispi Pengadaan</th>
+                            {{-- <th>No.Kontrak</th> --}}
+                            {{-- <th>Nilai Kontrak</th> --}}
+                            {{-- <th>Tgl.Kontrak</th> --}}
+                            {{-- <th>Tgl.Selesai</th> --}}
+                            <th>Total Nilai</th>
+                            <th>Kategori Penilaian</th>
+                            {{-- <th>DPT / Non DPT</th> --}}
                         </tr>
                     </thead>
                     
@@ -82,16 +82,19 @@
                         @endphp
                         @foreach ($rekap as $u)
                         <tr>
-                            <td>{{ ($u->id != $id) ? $no ++ : '' }}</td>
-                            <td>{{ ($u->id != $id) ? $u->nama : '' }}</td>
-                            <td>{{ $u->peng_nama }}</td>
-                            <td>{{ $u->nomor_kontrak }}</td>
-                            <td>{{ number_format($u->nilai_kontrak) }}</td>
-                            <td>{{ $u->tgl_kontrak }}</td>
-                            <td>{{ $u->tgl_selesai }}</td>
-                            <td>{{ $u->total }}</td>
-                            <td>{{ $u->pv_kategori }}</td>
-                            <td>{{ $u->dpt_non_dpt }}</td>
+                            <td>{{ $no ++ }}</td>
+                            <td style="font-size: 9pt;padding-left: 0;padding-right: 0;">{{ $u->nama }}</td>
+                            <td style="font-size: 9pt;">
+                                {{ $u->peng_nama }}
+                                {!! ($u->nomor_kontrak != null) ? "<br><br>".$u->nomor_kontrak."<br><br>" : '' !!}
+                            </td>
+                            {{-- <td style="font-size: 9pt;">{{ $u->nomor_kontrak }}</td> --}}
+                            {{-- <td>{{ number_format($u->nilai_kontrak) }}</td> --}}
+                            {{-- <td>{{ $u->tgl_kontrak }}</td> --}}
+                            {{-- <td>{{ $u->tgl_selesai }}</td> --}}
+                            <td style="font-size: 9pt;">{{ $u->total }}</td>
+                            <td style="font-size: 9pt;">{{ $u->pv_kategori }}</td>
+                            {{-- <td>{{ $u->dpt_non_dpt }}</td> --}}
                         </tr>
 
                         @php
@@ -112,7 +115,8 @@
 <script>
     $(document).ready(function() {
         $('#basic-datatables').DataTable({
-            pageLength:100
+            pageLength:100,
+            ordering: false,
         });
     });
 

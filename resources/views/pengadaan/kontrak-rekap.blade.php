@@ -5,15 +5,15 @@
         <div class="card-header">
             <div class="card-head-row">
                 <div class="card-title">Rekap Kontrak</div>
-                {{-- <div class="card-tools">
-                    <a href="#" class="btn btn-info btn-border btn-round btn-sm mr-2" data-toggle="modal" data-target="#create-modal">
+                <div class="card-tools">
+                    <a href="{{ url('manajemen-kontrak/rekap/export') }}" class="btn btn-success btn-round btn-sm mr-2">
                         <span class="btn-label">
-                            <i class="fa fa-plus"></i>
+                            <i class="fa fa-file-excel"></i>
                         </span>
-                        Create
+                        Export
                     </a>
 
-                </div> --}}
+                </div>
             </div>
         </div>
         <div class="card-body">
@@ -59,17 +59,18 @@
                 </div>
             </div> --}}
             <div class="table-responsive mt-3">
-                <table id="basic-datatables" class="display table table-bordered table-hover">
+                <table id="basic-datatables" class="display table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
                             <th width="1%">No.</th>
                             <th width="10%">Deskrispi Pengadaan</th>
+                            <th width="5%">Unit</th>
                             <th width="5%">Metode Pengadaan</th>
                             <th width="10%">Nama Vendor</th>
-                            <th width="5%">No.Kontrak</th>
+                            {{-- <th width="5%">No.Kontrak</th> --}}
                             <th width="5%">Nilai Kontrak</th>
                             <th width="5%">Tgl.Kontrak</th>
-                            <th width="5%">Tgl.Selesai</th>
+                            <th width="5%">Tgl.Akhir</th>
                         </tr>
                     </thead>
                     
@@ -79,14 +80,18 @@
                         @endphp
                         @foreach ($pengadaan as $p)
                         <tr>
-                            <td>{{ $no ++ }}</td>
-                            <td>{{ $p->nama }}</td>
-                            <td>{{ $p->metode_pengadaan }}</td>
-                            <td>{{ $p->pelaksanaan->mitra->nama }}</td>
-                            <td>{{ $p->pelaksanaan->nomor_kontrak }}</td>
-                            <td align="right">{{ number_format($p->pelaksanaan->nilai_kontrak) }}</td>
-                            <td>{{ $p->pelaksanaan->tgl_kontrak }}</td>
-                            <td>{{ $p->pelaksanaan->tgl_selesai }}</td>
+                            <td style="font-size: 9pt;">{{ $no ++ }}</td>
+                            <td style="font-size: 9pt;">
+                                {{ $p->nama }}
+                                {!! ($p->pelaksanaan != null) ? "<br><br>".$p->pelaksanaan->nomor_kontrak."<br><br>" : '' !!}
+                            </td>
+                            <td style="font-size: 9pt;">{{ $p->unit->nama }}</td>
+                            <td style="font-size: 9pt;">{{ $p->metode_pengadaan }}</td>
+                            <td style="font-size: 9pt;">{{ $p->pelaksanaan->mitra->nama }}</td>
+                            {{-- <td>{{ $p->pelaksanaan->nomor_kontrak }}</td> --}}
+                            <td style="font-size: 9pt;" align="right">{{ number_format($p->pelaksanaan->nilai_kontrak) }}</td>
+                            <td style="font-size: 9pt;">{{ $p->pelaksanaan->tgl_kontrak }}</td>
+                            <td style="font-size: 9pt;">{{ $p->pelaksanaan->tgl_akhir }}</td>
                         </tr>
 
                     

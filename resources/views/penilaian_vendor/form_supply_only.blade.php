@@ -14,16 +14,26 @@
                     <input type="hidden" name="pelaksanaan_id" value="{{ $pengadaan->pelaksanaan->id }}">
                     <input type="hidden" name="form" value="Supply Only">
 
-                    <div class="form-group">
-                        <label for="exampleFormControlInput1">DPT / Non DPT</label>
-                        <select class="form-control" name="dpt_non_dpt" required>
-                            <option value=""></option>
-                            <option>DPT Jasa Konstruksi JTM, Gardu Distribusi dan JTR</option>
-                            <option>DPT Jasa Konstruksi SR dan APP</option>
-                            <option>DPT Jasa Grinding dan Polishing Crankshaft Mesin Diesel</option>
-                            <option>DPT Jasa Rekondisi Sparepart Mesin Diesel</option>
-                            <option>Non DPT</option>
-                        </select>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="">Tanggal</label>
+                                <input type="text" name="tgl_penilaian" required class="form-control date">
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">DPT / Non DPT</label>
+                                <select class="form-control" name="dpt_non_dpt" required>
+                                    <option value=""></option>
+                                    <option>DPT Jasa Konstruksi JTM, Gardu Distribusi dan JTR</option>
+                                    <option>DPT Jasa Konstruksi SR dan APP</option>
+                                    <option>DPT Jasa Grinding dan Polishing Crankshaft Mesin Diesel</option>
+                                    <option>DPT Jasa Rekondisi Sparepart Mesin Diesel</option>
+                                    <option>Non DPT</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="row">
@@ -130,6 +140,11 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="">Keterangan</label>
+                        <textarea type="text" name="ket" class="form-control" rows="3"></textarea>
+                    </div>
+
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
@@ -292,7 +307,13 @@
 
 @section('js')
 <script src="{{ asset('public/atlantis/assets/js/plugin/sweetalert/sweetalert.min.js') }}"></script>
+<script src="{{ asset('public/atlantis/assets/js/plugin/moment/moment.min.js') }}"></script>
+<script src="{{ asset('public/atlantis/assets/js/plugin/datepicker/bootstrap-datetimepicker.min.js') }}"></script>
 <script>
+    $('.date').datetimepicker({
+            format: 'YYYY-MM-DD',
+        });
+        
     $(document).on('input', '#nilai_kualitas', function () {
         var nilai = $(this).val();
         var bobot = $('#bobot_kualitas').val();

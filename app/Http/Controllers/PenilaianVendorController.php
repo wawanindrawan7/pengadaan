@@ -12,6 +12,7 @@ use App\Models\VPenilaian;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use Illuminate\Support\Facades\Auth;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class PenilaianVendorController extends Controller
@@ -48,6 +49,8 @@ class PenilaianVendorController extends Controller
             $p->pelaksanaan_id = $r->pelaksanaan_id;
             $p->kategori = $r->kategori;
             $p->dpt_non_dpt = $r->dpt_non_dpt;
+            $p->tgl_penilaian = $r->tgl_penilaian;
+            $p->ket = $r->ket;
             $p->save();
 
             for ($i = 0; $i < count($r->kriteria); $i++) {
@@ -79,6 +82,8 @@ class PenilaianVendorController extends Controller
             $p->pelaksanaan_id = $r->pelaksanaan_id;
             $p->kategori = $r->kategori;
             $p->dpt_non_dpt = $r->dpt_non_dpt;
+            $p->tgl_penilaian = $r->tgl_penilaian;
+            $p->ket = $r->ket;
             $p->save();
 
             // TENAGA KERJA
@@ -199,14 +204,52 @@ class PenilaianVendorController extends Controller
         $mitra_select = null;
         $mitra_id = $r->has('mitra_id') ? $r->mitra_id : 'semua';
         $cat = $r->has('cat') ? $r->cat : 'semua';
-        if($mitra_id != 'semua'){
-            $mitra_select = Mitra::find($mitra_id);
-        
-            $rekap = ($cat == 'semua') ? VPenilaian::where('id', $mitra_id)->get() : VPenilaian::where('id', $mitra_id)->where('dpt_non_dpt', $cat)->get();
-        }else{
 
-            $rekap = ($cat == 'semua') ? VPenilaian::all() : VPenilaian::where('dpt_non_dpt', $cat)->get();
+        $u = Auth::user();
+        if($u->status == 'Admin'){
+            if($mitra_id != 'semua'){
+                $mitra_select = Mitra::find($mitra_id);
+            
+                $rekap = ($cat == 'semua') ? VPenilaian::where('id', $mitra_id)->get() : VPenilaian::where('id', $mitra_id)->where('dpt_non_dpt', $cat)->get();
+            }else{
+    
+                $rekap = ($cat == 'semua') ? VPenilaian::all() : VPenilaian::where('dpt_non_dpt', $cat)->get();
+            }
+        }elseif($u->kategori == 'Perencana' || $u->kategori == 'Pelaksana' || $u->kategori == 'Admin Unit'){
+            if($mitra_id != 'semua'){
+                $mitra_select = Mitra::find($mitra_id);
+            
+                $rekap = ($cat == 'semua') ? VPenilaian::where('unit_id', $u->uid)->where('id', $mitra_id)->get() : VPenilaian::where('id', $mitra_id)->where('dpt_non_dpt', $cat)->get();
+            }else{
+    
+                $rekap = ($cat == 'semua') ? VPenilaian::where('unit_id', $u->uid)->get() : VPenilaian::where('unit_id', $u->uid)->where('dpt_non_dpt', $cat)->get();
+            }
+        }else{
+            if($mitra_id != 'semua'){
+                $mitra_select = Mitra::find($mitra_id);
+            
+                if ($cat == 'semua'){
+                    $rekap = VPenilaian::where(function($q){
+                        return $q->where('dpk_users_id', Auth::id())->orWhere('pk_users_id', Auth::id())->orWhere('pk3_users_id', Auth::id())->orWhere('peng_users_id', Auth::id());
+                    })->where('id', $mitra_id)->get();
+                }else{
+                    $rekap = VPenilaian::where(function($q){
+                        return $q->where('dpk_users_id', Auth::id())->orWhere('pk_users_id', Auth::id())->orWhere('pk3_users_id', Auth::id())->orWhere('peng_users_id', Auth::id());
+                    })->where('id', $mitra_id)->where('dpt_non_dpt', $cat)->get();
+                }
+            }else{
+                if ($cat == 'semua'){
+                    $rekap = VPenilaian::where(function($q){
+                        return $q->where('dpk_users_id', Auth::id())->orWhere('pk_users_id', Auth::id())->orWhere('pk3_users_id', Auth::id())->orWhere('peng_users_id', Auth::id());
+                    })->get();
+                }else{
+                    $rekap = VPenilaian::where(function($q){
+                        return $q->where('dpk_users_id', Auth::id())->orWhere('pk_users_id', Auth::id())->orWhere('pk3_users_id', Auth::id())->orWhere('peng_users_id', Auth::id());
+                    })->where('dpt_non_dpt', $cat)->get();
+                }
+            }
         }
+        
 
         return view('penilaian_vendor.rekap', compact('mitra','rekap','mitra_select','cat'));
 

@@ -44,7 +44,7 @@
 
                 <a href="{{ url('/home') }}" class="logo">
                     {{-- <img src="{!! asset('public/atlantis/assets/img/logo.svg') !!}" alt="navbar brand" class="navbar-brand"> --}}
-                    <label alt="navbar brand" class="navbar-brand text-white"><h3><b>PENGADAAN</b></h3></label>
+                    <label alt="navbar brand" class="navbar-brand text-white"><h3><b style="font-weight: 700;font-size: 26px;">CoVer MaP</b></h3></label>
                 </a>
                 <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse"
                     data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -101,8 +101,8 @@
                                             <div class="avatar-lg"><img src="{!! asset('public/atlantis/assets/img/profile.jpg') !!}"
                                                     alt="image profile" class="avatar-img rounded"></div>
                                             <div class="u-text">
-                                                <h4>{!! Auth::user()->name !!}</h4>
-                                                <p class="text-muted">hello@example.com</p><a href="profile.html"
+                                                <h4>{!! Str::substr(Auth::user()->name, 0, 12)  !!}</h4>
+                                                <p class="text-muted">{{ Auth::user()->email }}</p><a href="profile.html"
                                                     class="btn btn-xs btn-secondary btn-sm">View Profile</a>
                                             </div>
                                         </div>
@@ -143,8 +143,8 @@
                         <div class="info">
                             <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                                 <span>
-                                    {!! Auth::user()->name !!}
-                                    <span class="user-level">Administrator</span>
+                                    {!! Str::substr(Auth::user()->name, 0, 12)  !!}
+                                    <span class="user-level">{{ Auth::user()->kategori }}</span>
                                     <span class="caret"></span>
                                 </span>
                             </a>
@@ -231,6 +231,7 @@
                                 <p>Rekap Kontrak</p>
                             </a>
                         </li>
+                        @if(Auth::user()->status == 'Admin')
                         <li class="nav-item">
                             <a href="{{ url('unit') }}">
                                 <i class="fas  fa-building"></i>
@@ -243,12 +244,15 @@
                                 <p>Mitra</p>
                             </a>
                         </li>
+                        @endif
+                        @if(Auth::user()->status == 'Admin' || Auth::user()->kategori == 'Admin Unit')
                         <li class="nav-item">
                             <a href="{{ url('users') }}">
                                 <i class="fas fa-users"></i>
                                 <p>Users</p>
                             </a>
                         </li>
+                        @endif
                     </ul>
                 </div>
             </div>

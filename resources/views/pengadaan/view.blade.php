@@ -23,6 +23,18 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        @if(Auth::user()->status == 'Admin')
+                        <div class="form-group form-group-default">
+                            <label for="exampleFormControlInput1">Unit Inisiator</label>
+                            <select name="unit_id" class="form-control">
+                                <option value=""></option>
+                                @foreach ($unit as $ui)
+                                    <option value="{{ $ui->id }}">{{ $ui->nama }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @endif
+
                         <div class="form-group form-group-default">
                             <label for="exampleFormControlInput1">Nama Pengadaan</label>
                             <textarea class="form-control" name="nama" rows="3" required></textarea>
@@ -193,21 +205,23 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="basic-datatables" class="display table table-bordered table-hover">
+                    <table id="basic-datatables" class="display table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th width="1%">No.</th>
                                 <th>Nama</th>
+                                {{-- <th>No.Kontrak</th> --}}
+                                <th>Vendor</th>
                                 <th>Detail Proses</th>
                                 <th>Lokasi</th>
                                 {{-- <th>Sumber Anggaran</th> --}}
                                 <th>Nilai Anggaran</th>
-                                <th>Jenis</th>
+                                {{-- <th>Jenis</th> --}}
                                 {{-- <th>Volume</th> --}}
-                                <th>Metode Pengadaan</th>
+                                {{-- <th>Metode Pengadaan</th> --}}
                                 {{-- <th>Nomor Nota Dinas</th>
                                 <th>Tanggal Nota Dinas</th> --}}
-                                <th>User</th>
+                                {{-- <th>User</th> --}}
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -218,7 +232,13 @@
                             @foreach ($pengadaan as $u)
                                 <tr>
                                     <td>{{ $no++ }}</td>
-                                    <td>{{ $u->nama }}</td>
+                                    <td>
+                                        {!! $u->nama !!}
+                                        {!! ($u->pelaksanaan != null) ? "<br><br>".$u->pelaksanaan->nomor_kontrak."<br><br>" : '' !!}
+                                    </td>
+                                    <td>
+                                        {{ $u->pelaksanaan != null ? $u->pelaksanaan->mitra->nama : '' }}
+                                    </td>
                                     <td>{{ $u->unit->nama }}</td>
                                     <td>
                                         @if (Auth::id() == $u->users_id ||
@@ -236,7 +256,7 @@
                                             Auth::user()->status == 'Admin') &&
                                             $u->state >= 1)
                                             <a href="{!! url('pengadaan/detail?id=' . $u->id . '&tab=perencana') !!}"><span
-                                                    class="badge bg-info text-white mt-2">Perncana</span></a>
+                                                    class="badge bg-info text-white mt-2">Perencana</span></a>
                                             <br>
                                         @endif
                                         @if ((Auth::id() == $u->users_id ||
@@ -263,10 +283,10 @@
                                     </td>
                                     {{-- <td>{{ $u->sumber_anggaran }}</td> --}}
                                     <td>{{ number_format($u->nilai_anggaran) }}</td>
-                                    <td>{{ $u->jenis }}</td>
+                                    {{-- <td>{{ $u->jenis }}</td> --}}
                                     {{-- <td>{{ $u->volume }}</td> --}}
-                                    <td>{{ $u->metode_pengadaan }}</td>
-                                    <td>{{ $u->users->name }}</td>
+                                    {{-- <td>{{ $u->metode_pengadaan }}</td> --}}
+                                    {{-- <td>{{ $u->users->name }}</td> --}}
                                     {{-- <td>{{ $u->no_nota_dinas }}</td>
                                     <td>{{ $u->tgl_nota_dinas }}</td> --}}
                                     <td align="center">
@@ -332,7 +352,8 @@
 
         $(document).ready(function() {
             $('#basic-datatables').DataTable({
-                pageLength: 100
+                pageLength: 100,
+                ordering: false,
             });
         });
 

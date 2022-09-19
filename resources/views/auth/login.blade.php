@@ -31,10 +31,11 @@
 <body class="login">
 	<div class="wrapper wrapper-login">
 		<div class="container container-login animated fadeIn">
-			<h3 class="text-center">Sign In To Admin</h3>
+			<h3 class="text-center" style="font-weight: 700;font-size: 26px;">CoVer MaP</h3>
+			<p class="text-center" style="font-family: Verdana, Geneva, Tahoma, sans-serif">Contract & Vendor Performance Management Apps</p>
             <form method="POST" action="{{ route('login') }}">
                 @csrf
-			<div class="login-form">
+			<div class="login-form mt-3">
 				<div class="form-group">
 					<label for="username" class="placeholder"><b>Email</b></label>
 					<input id="email" name="email" type="text" class="form-control @error('email') is-invalid @enderror"

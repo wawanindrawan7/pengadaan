@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\PengadaanImport;
 use App\Models\DireksiPk;
 use App\Models\Mitra;
+use App\Models\Pelaksanaan;
 use App\Models\Pengadaan;
 use App\Models\PengadaanFile;
 use App\Models\PengawasK3;
@@ -14,6 +16,7 @@ use App\Models\UsersReviewer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PengadaanController extends Controller
 {
@@ -26,7 +29,7 @@ class PengadaanController extends Controller
 
         if ($u->status == 'Admin') {
             $pengadaan = Pengadaan::orderBy('id', 'desc')->get();
-        } elseif ($u->kategori == 'Perencana' || $u->kategori == 'Pelaksana') {
+        } elseif ($u->kategori == 'Perencana' || $u->kategori == 'Pelaksana' || $u->kategori == 'Admin Unit') {
             $pengadaan = Pengadaan::where('unit_id', $u->uid)->orderBy('id', 'desc')->get();
         } else {
             $pengadaan = Pengadaan::where('users_id', $u->id)
@@ -60,7 +63,7 @@ class PengadaanController extends Controller
             $p->no_nota_dinas = $r->no_nota_dinas;
             $p->tgl_nota_dinas = date('Y-m-d', strtotime($r->tgl_nota_dinas));
             $p->users_id = Auth::id();
-            $p->unit_id = Auth::user()->uid;
+            $p->unit_id = (Auth::user()->status == 'Admin') ? $r->unit_id : Auth::user()->uid;
             $p->save();
 
             $direaksi_pk = new DireksiPk();
@@ -156,6 +159,7 @@ class PengadaanController extends Controller
     public function pengadaanDetail(Request $r)
     {
         $tab = $r->has('tab') ? $r->tab : 'inisiasi';
+
         $pengadaan = Pengadaan::find($r->id);
         $unit = Unit::all();
         $user = User::all();
@@ -243,5 +247,65 @@ class PengadaanController extends Controller
             DB::rollBack();
             return $th->getMessage();
         }
+    }
+
+    public function import(Request $r)
+    {
+        $data = Excel::toCollection(new PengadaanImport(), 'pengadaan-import.xlsx');
+        $rows = $data[0];
+        
+
+        DB::beginTransaction();
+            try {
+                foreach ($rows as $row) {
+
+                    $tanggal_nota_dinas = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject(intval($row['tanggal_nota_dinas']))->format('Y-m-d');
+                    $tanggal_kontrak = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject(intval($row['tanggal_kontrak']))->format('Y-m-d');
+                    $tanggal_efektif = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject(intval($row['tanggal_efektif']))->format('Y-m-d');
+                    $tanggal_akhir = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject(intval($row['tanggal_akhir']))->format('Y-m-d');
+        
+                    $ui = User::where('nip', $row['nip'])->first();
+                    $ud = User::where('nip', $row['nip_direksi'])->first();
+                    $mitra = Mitra::where('nama', str_replace("\n","",$row['penyedia_barang_jasa']))->first();
+        
+                    //pengadaan
+                    $p = new Pengadaan();
+                    $p->nama = $row['nama_pengadaan'];
+                    $p->lokasi = $row['lokasi'];
+                    $p->sumber_anggaran = $row['sumber_anggaran'];
+                    $p->nilai_anggaran = $row['nilai_anggaran_rab'];
+                    $p->jenis = $r->jenis;
+                    $p->volume = $row['vol'];
+                    $p->metode_pengadaan = $row['metode_pengadaan'];
+                    $p->no_nota_dinas = $row['nomor_nota_dinas'];
+                    $p->tgl_nota_dinas = $tanggal_nota_dinas;
+                    $p->users_id = $ui->id;
+                    $p->unit_id = $ui->uid;
+                    $p->submit = 1;
+                    $p->state = 2;
+                    $p->save();
+        
+                    $dp = new DireksiPk();
+                    $dp->pengadaan_id = $p->id;
+                    $dp->users_id = $ud->id;
+                    $dp->save();
+        
+                    $pl = new Pelaksanaan();
+                    $pl->nomor_kontrak = $row['nomor_kontrak'];
+                    $pl->tgl_kontrak = $tanggal_kontrak;
+                    $pl->tgl_efektif = $tanggal_efektif;
+                    $pl->tgl_akhir = $tanggal_akhir;
+                    $pl->nilai_kontrak = $row['nilai_kontrak'];
+                    $pl->mitra_id = $mitra->id;
+                    $pl->pengadaan_id = $p->id;
+                    $pl->save();
+        
+                }
+            DB::commit();
+            return 'success';
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $th->getMessage();
+        }    
     }
 }

@@ -28,6 +28,8 @@ Route::get('/', function () {
     return redirect('login');
 });
 
+
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -38,6 +40,7 @@ Route::post('pengadaan/update', [PengadaanController::class, 'update']);
 Route::get('pengadaan/delete', [PengadaanController::class, 'delete']);
 Route::get('pengadaan/detail', [PengadaanController::class, 'pengadaanDetail']);
 Route::get('pengadaan/submit', [PengadaanController::class, 'submit']);
+Route::get('pengadaan/import', [PengadaanController::class, 'import']);
 Route::post('pengadaan/file/create', [PengadaanController::class, 'pengadaanFileCreate']);
 Route::get('pengadaan-file/delete', [PengadaanController::class, 'deleteFile']);
 
@@ -74,16 +77,21 @@ Route::post('pelaksana-idd/file/create', [PelaksanaanController::class, 'uploadF
 Route::get('pelaksanaan-file/delete', [PelaksanaanController::class, 'deleteFile']);
 
 Route::get('manajemen-kontrak', [ManajemenKontrakController::class, 'view']);
+Route::post('manajemen-kontrak/upload-penilaian', [ManajemenKontrakController::class, 'uploadPenilaianFile']);
+Route::post('manajemen-kontrak/edit-penilaian-f1', [ManajemenKontrakController::class, 'editPenilaianF1']);
+Route::post('manajemen-kontrak/edit-penilaian-f2', [ManajemenKontrakController::class, 'editPenilaianF2']);
 Route::post('amandemen/create', [AmandemenController::class, 'create']);
 Route::post('amandemen/update', [AmandemenController::class, 'update']);
 Route::get('amandemen/delete', [AmandemenController::class, 'delete']);
 Route::post('amandemen/file', [AmandemenController::class, 'amandemenFile']);
 Route::get('amandemen-file/delete', [AmandemenController::class, 'deleteFile']);
 Route::get('manajemen-kontrak/rekap', [ManajemenKontrakController::class, 'rekap']);
+Route::get('manajemen-kontrak/rekap/export', [ManajemenKontrakController::class, 'export']);
 
 Route::get('users', [UserController::class, 'view']);
 Route::post('users/create', [UserController::class, 'create']);
 Route::post('users/update', [UserController::class, 'update']);
+Route::post('users/update-password', [UserController::class, 'updatePassword']);
 Route::post('users/pointing-unit/create', [UserController::class, 'createUnit']);
 Route::post('users/pointing-unit/update', [UserController::class, 'updateUnit']);
 Route::get('users/delete', [UserController::class, 'delete']);

@@ -239,16 +239,17 @@
             <input type="text" class="form-control" value="{{ $pengadaan->direksiPk->users->name }}" disabled />
         </div>
     </div>
+    
     <div class="col-md-4">
         <div class="form-group form-group-default">
             <label>Pengawas Pekerjaan</label>
-            <input type="text" class="form-control" value="{{ $pengadaan->pengawasPk->users->name }}" disabled />
+            <input type="text" class="form-control" value="{{ $pengadaan->pengawasPk != null ? $pengadaan->pengawasPk->users->name : ''}}" disabled />
         </div>
     </div>
     <div class="col-md-4">
         <div class="form-group form-group-default">
             <label>Pengawas K3</label>
-            <input type="text" class="form-control" value="{{ $pengadaan->pengawasK3->users->name }}" disabled />
+            <input type="text" class="form-control" value="{{ $pengadaan->pengawasK3 != null ? $pengadaan->pengawasK3->users->name : '' }}" disabled />
         </div>
     </div>
 </div>

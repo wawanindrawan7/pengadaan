@@ -7,14 +7,16 @@
                     <ul class="nav nav-tabs nav-line nav-color-secondary w-100 pl-4" role="tablist">
                         @if (Auth::id() == $pengadaan->users_id ||
                             Auth::user()->kategori == 'Perencana' ||
-                            Auth::user()->kategori == 'Pelaksana')
+                            Auth::user()->kategori == 'Pelaksana' ||
+                            Auth::user()->status == 'Admin')
                             <li class="nav-item submenu"> <a class="nav-link {{ $tab == 'inisiasi' ? 'active show' : '' }}"
                                     data-tag="inisiasi" data-toggle="tab" href="#inisiasi" role="tab"
                                     aria-selected="false">Inisiasi Pengadaan</a> </li>
                         @endif
                         @if (Auth::id() == $pengadaan->users_id ||
                             Auth::user()->kategori == 'Perencana' ||
-                            Auth::user()->kategori == 'Pelaksana')
+                            Auth::user()->kategori == 'Pelaksana'||
+                            Auth::user()->status == 'Admin')
                             @if ($pengadaan->metode_pengadaan != 'Kontrak Rinci' || $pengadaan->metode_pengadaan != 'Pengadaan Langsung')
                                 <li class="nav-item submenu"> <a
                                         class="nav-link {{ $tab == 'perencana' ? 'active show' : '' }}" data-tag="perencana"
@@ -25,7 +27,8 @@
 
                         @if (Auth::id() == $pengadaan->users_id ||
                             Auth::user()->kategori == 'Perencana' ||
-                            Auth::user()->kategori == 'Pelaksana')
+                            Auth::user()->kategori == 'Pelaksana'||
+                            Auth::user()->status == 'Admin')
                             <li class="nav-item submenu"> <a class="nav-link {{ $tab == 'pelaksana' ? 'active show' : '' }}"
                                     data-tag="pelaksana" data-toggle="tab" href="#pelaksana" role="tab"
                                     aria-selected="false">Pelaksana
@@ -53,7 +56,7 @@
                         aria-labelledby="pills-home-tab">
                         @include('pengadaan.pelaksana-modul')
                     </div>
-                    <div class="tab-pane fade {{ $tab == 'kon trak' ? 'active show' : '' }}" id="kontrak" role="tabpanel"
+                    <div class="tab-pane fade {{ $tab == 'kontrak' ? 'active show' : '' }}" id="kontrak" role="tabpanel"
                         aria-labelledby="pills-home-tab">
                         @include('pengadaan.kontrak-modul')
                     </div>
@@ -71,7 +74,7 @@
     <script src="{{ asset('public/atlantis/assets/js/plugin/select2/select2.full.min.js') }}"></script>
     <script>
         $('.datepicker').datetimepicker({
-            format: 'YY/MM/DD',
+            format: 'YYYY/MM/DD',
         });
 
         var tab = "{{ $tab }}"

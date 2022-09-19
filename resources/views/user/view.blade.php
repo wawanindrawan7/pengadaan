@@ -42,7 +42,19 @@
                             <label for="exampleFormControlInput1">Jabatan</label>
                             <select class="form-control" name="status" required>
                                 <option value=""></option>
-                                <option>Pengadaan</option>
+                                @foreach ($jabatan as $j)
+                                    <option>{{ $j->status }}</option>
+                                @endforeach
+                            </select>
+                        </div> 
+
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Kategori</label>
+                            <select class="form-control" name="status">
+                                <option value=""></option>
+                                <option>Perencana</option>
+                                <option>Pelaksana</option>
+                                <option>Admin Unit</option>
                             </select>
                         </div> 
 
@@ -86,7 +98,7 @@
 
                         <div class="form-group">
                             <label for="exampleFormControlInput1">NIP</label>
-                            <input type="text" class="form-control" name="nip" id="e_nip" required>
+                            <input type="text" class="form-control" name="nip" id="e_nip">
                         </div>
 
                         <div class="form-group">
@@ -97,18 +109,21 @@
 
                         <div class="form-group">
                             <label for="exampleFormControlInput1">No. Whatsapp</label>
-                            <input type="text" class="form-control" name="no_wa" id="e_no_wa" required>
+                            <input type="text" class="form-control" name="no_wa" id="e_no_wa">
                         </div>
 
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Jabatan</label>
-                            <select class="form-control" name="status" id="e_status" required>
+                            <select class="form-control" name="status" id="e_status">
                                 <option value=""></option>
-                                <option>Pengadaan</option>
+                                <option>Admin</option>
+                                @foreach ($jabatan as $j)
+                                    <option>{{ $j->status }}</option>
+                                @endforeach
                             </select>
                         </div> 
 
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="exampleFormControlInput1">Unit</label>
                             <select class="form-control" name="unit_id" id="e_unit_id" required>
                                 <option value=""></option>
@@ -116,7 +131,17 @@
                                     <option value="{{ $un->id }}">{{ $un->nama }}</option>
                                 @endforeach
                             </select>
-                        </div> 
+                        </div>  --}}
+
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Kategori</label>
+                            <select class="form-control" name="kategori" id="e_kategori">
+                                <option value=""></option>
+                                <option>Perencana</option>
+                                <option>Pelaksana</option>
+                                <option>Admin Unit</option>
+                            </select>
+                        </div>
 
                     </div>
                     <div class="modal-footer">
@@ -208,6 +233,43 @@
         </div>
     </div>
 
+    <div class="modal fade" id="password-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <form id="form_update_password">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Update Password</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <input type="hidden" name="id" id="pass_id">
+
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Nama</label>
+                            <input type="text" class="form-control" id="pass_name" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Password</label>
+                            <input type="password" class="form-control" name="password" required>
+                        </div>
+
+                          
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
@@ -269,14 +331,14 @@
                                     <td align="center">
                                         <a title="Update" href="#"
                                             class="btn btn-warning btn-round btn-xs mr-2 btn-update"
-                                            data-id="{{ $u->id }}" data-name="{{ $u->name }}" data-email="{{ $u->email }}" data-status="{{ $u->status }}" data-nip="{{ $u->nip }}" data-no_wa="{{ $u->no_wa }}"
+                                            data-id="{{ $u->id }}" data-name="{{ $u->name }}" data-email="{{ $u->email }}" data-kategori="{{ $u->kategori }}" data-status="{{ $u->status }}" data-nip="{{ $u->nip }}" data-no_wa="{{ $u->no_wa }}"
                                             data-unit_id="{{ $u->usersUnit != null ? $u->usersUnit->unit_id : '' }}">
                                             <i class="fa fa-edit"></i>
                                         </a>
 
                                         <a title="Update Password" href="#"
                                             class="btn btn-info btn-round btn-xs mr-2 btn-update-password"
-                                            data-id="{{ $u->id }}">
+                                            data-name="{{ $u->name }}" data-id="{{ $u->id }}">
                                             <i class="fa fa-key"></i>
                                         </a>
 
@@ -307,6 +369,41 @@
             $('#basic-datatables').DataTable({
                 pageLength:100
             });
+        });
+
+        $(document).on('click','.btn-update-password', function(e){
+            e.preventDefault()
+            $('#pass_id').val($(this).data('id'))
+            $('#pass_name').val($(this).data('name'))
+
+            $('#password-modal').modal('show')
+        })
+
+        $('#form_update_password').on('submit', function(e) {
+            e.preventDefault()
+            $.ajax({
+                type: 'POST',
+                url: "{!! url('users/update-password') !!}",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(r) {
+                    console.log(r)
+                    if (r == 'success') {
+                        swal("Good job!", "Simpan data berhasil !", {
+                            icon: "success",
+                            buttons: {
+                                confirm: {
+                                    className: 'btn btn-success'
+                                }
+                            },
+                        }).then(function() {
+                            location.reload()
+                        });
+                    }
+                }
+            })
         });
 
         $(document).on('click','.btn-unit-create', function(e){
@@ -389,6 +486,7 @@
             $('#e_nip').val($(this).data('nip'))
             $('#e_no_wa').val($(this).data('no_wa'))
             $('#e_status').val($(this).data('status'))
+            $('#e_kategori').val($(this).data('kategori'))
 
             $('#update-user').modal('show')
         })
