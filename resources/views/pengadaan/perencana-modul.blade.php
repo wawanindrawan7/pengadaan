@@ -91,7 +91,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group form-group-default">
                                 <label for="exampleFormControlInput1">Strategi Pengadaan</label>
                                 <select name="strategi_pengadaan" id="e_strategi_pengadaan" class="form-control"
@@ -103,7 +103,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group form-group-default">
                                 <label for="exampleFormControlInput1">Jenis Kontrak</label>
                                 <select name="jenis_kontrak" id="e_jenis_kontrak" class="form-control" required>
@@ -117,7 +117,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group form-group-default">
                                 <label for="exampleFormControlInput1">Nilai HPE</label>
                                 <div class="input-group">
@@ -130,7 +130,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group form-group-default">
                                 <label>Tanggal HPE</label>
                                 <input type="text" class="form-control date" id="e_tgl_hpe" name="tgl_hpe"
@@ -140,14 +140,14 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group form-group-default">
                                 <label for="exampleFormControlInput1">Nomor RKS</label>
                                 <input type="text" class="form-control" name="nomor_rks" id="e_nomor_rks"
                                     required>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group form-group-default">
                                 <label>Tanggal RKS</label>
                                 <input type="text" class="form-control date" name="tgl_rks" id="e_tgl_rks"
@@ -155,15 +155,95 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-md-4">
+                            <div class="form-group form-group-default">
+                                <label for="">Kebutuhan</label>
+                                <select id="epr_kebutuhan" name="kebutuhan" class="form-control">
+                                    <option>Spesifik</option>
+                                    <option>Standard</option>
+                                </select>
+                            </div>
+                        </div>
+    
+                        <div class="col-md-4">
+                            <div class="form-group form-group-default">
+                                <label for="">Volume</label>
+                                <select id="epr_volume" name="volume" class="form-control">
+                                    <option>Sedikit</option>
+                                    <option>Banyak</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-group-default">
+                                <label for="">Jumlah Pengguna</label>
+                                <select id="epr_jumlah_pengguna" name="jumlah_pengguna" class="form-control">
+                                    <option>Satu Unit</option>
+                                    <option>Lebih dari Satu Unit</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group form-group-default">
+                                <label for="">Penyedia</label>
+                                <select id="epr_penyedia" name="penyedia" class="form-control">
+                                    <option>Dalam negeri</option>
+                                    <option>Luar negeri</option>
+                                    <option>Dalam dan LN</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group form-group-default">
+                                <label for="">Jumlah Vendor</label>
+                                <select id="epr_jumlah_vendor" name="jumlah_vendor" class="form-control">
+                                    <option>Banyak</option>
+                                    <option>Cukup</option>
+                                    <option>Sedikit</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="update-nodin-perencanaan-modal" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form id="form_update_nodin_perencanaan" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="id" id="nodin_pp_id">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLabel">Update Nota Dinas</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-6">
                             <div class="form-group form-group-default">
                                 <label for="exampleFormControlInput1">Nomor Nota Dinas</label>
                                 <input type="text" class="form-control" name="no_nota_dinas"
                                     id="pp_no_nota_dinas" required>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group form-group-default">
                                 <label>Tanggal Nota Dinas</label>
                                 <input type="text" class="form-control date" name="tgl_nota_dinas"
@@ -285,6 +365,79 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-group form-group-default">
+                <label>Kebutuhan</label>
+                <input type="text" class="form-control" value="{{ $pengadaan->perencanaan->kebutuhan }}"
+                    readonly />
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group form-group-default">
+                <label>Volume</label>
+                <input type="text" class="form-control" value="{{ $pengadaan->perencanaan->kebutuhan }}"
+                    readonly />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group form-group-default">
+                <label>Jumlah Pengguna</label>
+                <input type="text" class="form-control" value="{{ $pengadaan->perencanaan->jumlah_pengguna }}"
+                    readonly />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group form-group-default">
+                <label>Penyedia</label>
+                <input type="text" class="form-control" value="{{ $pengadaan->perencanaan->penyedia }}"
+                    readonly />
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group form-group-default">
+                <label>Jumlah Vendor</label>
+                <input type="text" class="form-control" value="{{ $pengadaan->perencanaan->jumlah_vendor }}"
+                    readonly />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group form-group-default">
+        <label>Komite Value For Money</label>
+        <p class="mt-2">
+            @php
+                $no = 1;
+            @endphp
+            @foreach ($pengadaan->usersReviewer as $item)
+                {!! $no++ . '. ' . $item->users->name . '<br>' !!}
+            @endforeach
+        </p>
+    </div>
+
+    <a title="Update" href="#" class="btn btn-warning btn-round btn-xs mr-2 btn-update-perencanaan"
+        data-id="{{ $pengadaan->perencanaan->id }}"
+        data-kategori_kebutuhan="{{ $pengadaan->perencanaan->kategori_kebutuhan }}"
+        data-tgl_penggunaan="{{ $pengadaan->perencanaan->tgl_penggunaan }}"
+        data-waktu_pelaksanaan="{{ $pengadaan->perencanaan->waktu_pelaksanaan }}"
+        data-strategi_pengadaan="{{ $pengadaan->perencanaan->strategi_pengadaan }}"
+        data-jenis_kontrak="{{ $pengadaan->perencanaan->jenis_kontrak }}"
+        data-nilai_hpe="{{ $pengadaan->perencanaan->nilai_hpe }}"
+        data-tgl_hpe="{{ $pengadaan->perencanaan->tgl_hpe }}"
+        data-nomor_rks="{{ $pengadaan->perencanaan->nomor_rks }}"
+        data-tgl_rks="{{ $pengadaan->perencanaan->tgl_rks }}"
+        data-kebutuhan="{{ $pengadaan->perencanaan->kebutuhan }}"
+        data-volume="{{ $pengadaan->perencanaan->volume }}"
+        data-jumlah_pengguna="{{ $pengadaan->perencanaan->jumlah_pengguna }}"
+        data-penyedia="{{ $pengadaan->perencanaan->penyedia }}"
+        data-jumlah_vendor="{{ $pengadaan->perencanaan->jumlah_vendor }}"
+        >
+        <i class="fa fa-edit"></i> <span>Edit</span>
+    </a>
+
+    <div class="form-group form-group-default bg-primary text-white mt-3">
+        <label for=""><b class="text-white">NOTA DINAS</b></label>
+    </div>
 
     <div class="row">
         <div class="col-md-6">
@@ -298,25 +451,19 @@
             <div class="form-group form-group-default">
                 <label>Tanggal Nota Dinas</label>
                 <input type="text" class="form-control"
-                    value="{{ date('d-m-Y', strtotime($pengadaan->perencanaan->tgl_nota_dinas)) }}" readonly />
+                    value="{{ $pengadaan->perencanaan->tgl_nota_dinas != NULL ? date('d-m-Y', strtotime($pengadaan->perencanaan->tgl_nota_dinas)) : '' }}" readonly />
             </div>
         </div>
     </div>
 
-    <a title="Update" href="#" class="btn btn-warning btn-round btn-xs mr-2 btn-update"
+    
+
+    
+    <a title="Update" href="#" class="btn btn-primary btn-round btn-xs mr-2 btn-update-nodin-perencanaan"
         data-id="{{ $pengadaan->perencanaan->id }}"
-        data-kategori_kebutuhan="{{ $pengadaan->perencanaan->kategori_kebutuhan }}"
-        data-tgl_penggunaan="{{ $pengadaan->perencanaan->tgl_penggunaan }}"
-        data-waktu_pelaksanaan="{{ $pengadaan->perencanaan->waktu_pelaksanaan }}"
-        data-strategi_pengadaan="{{ $pengadaan->perencanaan->strategi_pengadaan }}"
-        data-jenis_kontrak="{{ $pengadaan->perencanaan->jenis_kontrak }}"
-        data-nilai_hpe="{{ $pengadaan->perencanaan->nilai_hpe }}"
-        data-tgl_hpe="{{ $pengadaan->perencanaan->tgl_hpe }}"
-        data-nomor_rks="{{ $pengadaan->perencanaan->nomor_rks }}"
-        data-tgl_rks="{{ $pengadaan->perencanaan->tgl_rks }}"
         data-no_nota_dinas="{{ $pengadaan->perencanaan->no_nota_dinas }}"
         data-tgl_nota_dinas="{{ $pengadaan->perencanaan->tgl_nota_dinas }}">
-        <i class="fa fa-edit"></i> <span>Edit Perencanaan</span>
+        <i class="fa fa-pen"></i> <span>Update Nota Dinas</span>
     </a>
 
     <div class="form-group form-group-default bg-success text-white mt-3">

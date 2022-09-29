@@ -77,6 +77,10 @@
             format: 'YYYY/MM/DD',
         });
 
+        $('.date').datetimepicker({
+            format: 'YYYY/MM/DD',
+        });
+
         var tab = "{{ $tab }}"
         console.log(tab)
         $(document).on('click', '.nav-link', function(e) {

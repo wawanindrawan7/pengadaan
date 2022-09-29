@@ -1,4 +1,26 @@
 <script>
+    $(document).on('input','#e_nilai_hpe', function(){
+        var nilai_anggaran = "{{ $pengadaan->nilai_anggaran }}"
+
+        var nilai_hpe = $('#e_nilai_hpe').val()
+        $('.f_nilai_hpe').text(nf.format(nilai_hpe))
+
+        if(nilai_hpe > nilai_anggaran){
+            swal("Oops!", "Nilai HPE tidak boleh melebihi Nilai Anggaran !", {
+                icon: "error",
+                buttons: {
+                    confirm: {
+                        className: 'btn btn-warning'
+                    }
+                },
+            })
+
+            $(this).val(0)
+            $('.f_nilai_hpe').text(0)
+        }
+
+    })
+
     $(document).on('click', '.btn-submit-perencanaan', function(e) {
         e.preventDefault()
         swal({
@@ -74,7 +96,7 @@
         })
     });
 
-    $(document).on('click', '.btn-update', function(e) {
+    $(document).on('click', '.btn-update-perencanaan', function(e) {
         console.log($(this).data('no_nota_dinas'))
         $('#pp_id').val($(this).data('id'))
         $('#e_kategori_kebutuhan').val($(this).data('kategori_kebutuhan'))
@@ -88,6 +110,11 @@
         $('#e_tgl_rks').val($(this).data('tgl_rks'))
         $('#pp_no_nota_dinas').val($(this).data('no_nota_dinas'))
         $('#pp_tgl_nota_dinas').val($(this).data('tgl_nota_dinas'))
+        $('#epr_kebutuhan').val($(this).data('kebutuhan'))
+        $('#epr_volume').val($(this).data('volume'))
+        $('#epr_jumlah_pengguna').val($(this).data('jumlah_pengguna'))
+        $('#epr_penyedia').val($(this).data('penyedia'))
+        $('#epr_jumlah_vendor').val($(this).data('jumlah_vendor'))
         $('#update-perencanaan-modal').modal('show')
     })
 
@@ -96,6 +123,42 @@
         $.ajax({
             type: 'post',
             url: "{!! url('perencana-pengadaan/update') !!}",
+            data: new FormData(this),
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(r) {
+                console.log(r)
+                if (r == 'success') {
+                    swal("Good job!", "Simpan data berhasil !", {
+                        icon: "success",
+                        buttons: {
+                            confirm: {
+                                className: 'btn btn-success'
+                            }
+                        },
+                    }).then(function() {
+                        window.location = "{!! url('pengadaan/detail?id=' . $pengadaan->id . '&tab=perencana') !!}"
+                    });
+                }
+            }
+        })
+    });
+
+    $(document).on('click', '.btn-update-nodin-perencanaan', function(e) {
+        console.log($(this).data('no_nota_dinas'))
+        $('#nodin_pp_id').val($(this).data('id'))
+        
+        $('#pp_no_nota_dinas').val($(this).data('no_nota_dinas'))
+        $('#pp_tgl_nota_dinas').val($(this).data('tgl_nota_dinas'))
+        $('#update-nodin-perencanaan-modal').modal('show')
+    })
+
+    $('#form_update_nodin_perencanaan').on('submit', function(e) {
+        e.preventDefault()
+        $.ajax({
+            type: 'post',
+            url: "{!! url('perencana-pengadaan/update-nodin') !!}",
             data: new FormData(this),
             contentType: false,
             cache: false,

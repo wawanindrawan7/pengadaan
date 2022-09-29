@@ -82,7 +82,7 @@
                 <tr>
                     <td>1</td>
                     <td>
-                        Spesifikasi Teknis<br>
+                        Kebutuhan<br>
                         Volume<br>
                         Nilai Pengadaan<br>
                         Jumlah Pengguna<br>
@@ -90,14 +90,14 @@
                         
                     </td>
                     <td>
-                        : Spesifik<br>
-                        : Banyak<br>
-                        : Dibawah 5 Milyar<br>
-                        : Satu Unit <br>
-                        : Dalam Negeri
+                        : {{ $pengadaan->perencanaan->kebutuhan }}<br>
+                        : {{ $pengadaan->perencanaan->volume }}<br>
+                        : {{ number_format($pengadaan->nilai_anggaran) }}<br>
+                        : {{ $pengadaan->perencanaan->jumlah_pengguna }}<br>
+                        : {{ $pengadaan->perencanaan->penyedia }}
 
                     </td>
-                    <td>CUKUP BANYAK</td>
+                    <td align="center">{{ $pengadaan->perencanaan->jumlah_vendor }}</td>
                     <td align="center">{{ $pengadaan->metode_pengadaan }}</td>
                     <td align="center">{{ $pengadaan->perencanaan->strategi_pengadaan }}</td>
                 </tr>
@@ -110,7 +110,7 @@
                 <tr>
                     <th style="text-align: center">NO</th>
                     <th style="text-align: center">JENIS PENGADAAN</th>
-                    <th style="text-align: center">SPECTEK</th>
+                    {{-- <th style="text-align: center">SPECTEK</th> --}}
                     <th style="text-align: center">VOL</th>
                     <th style="text-align: center">PEMAKAIAN</th>
                     <th style="text-align: center">KATEGORI</th>
@@ -123,7 +123,7 @@
                 <tr>
                     <td>1</td>
                     <td>{{ $pengadaan->nama }}</td>
-                    <td></td>
+                    {{-- <td></td> --}}
                     <td align="center">{{ $pengadaan->volume }}</td>
                     <td align="center">{{ $pengadaan->perencanaan->tgl_penggunaan }}</td>
                     <td align="center">{{ $pengadaan->perencanaan->kategori_kebutuhan }}</td>

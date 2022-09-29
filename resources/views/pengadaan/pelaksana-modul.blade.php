@@ -38,7 +38,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <a href="#">Tambah Data Vendor</a>
+                        {{-- <a href="#">Tambah Data Vendor</a> --}}
                     </div>
 
                     <div class="row">
@@ -115,6 +115,18 @@
                         </div>
                     </div>
 
+                    <div class="form-group form-group-default">
+                        <label for="exampleFormControlInput1">Penyedia Barang Jasa</label>
+                        <div class="select2-input select2-warning mt-2">
+                            <select class="form-control" id="e_mitra_id" name="mitra_id" style="width: 100%" required>
+                                @foreach ($mitra as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        {{-- <a href="#">Tambah Data Vendor</a> --}}
+                    </div>
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group form-group-default">
@@ -175,10 +187,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="exampleFormControlInput1">File Jadwal</label>
                         <input type="file" class="form-control" name="file_jadwal">
-                    </div>
+                    </div> --}}
                     <div class="form-group">
                         <label for="exampleFormControlInput1">File HPS</label>
                         <input type="file" class="form-control" name="file_hps">
@@ -389,8 +401,9 @@
 
     </div>
 
-    <a title="Update" href="#" class="btn btn-warning btn-round btn-xs mr-2 btn-update"
+    <a title="Update" href="#" class="btn btn-warning btn-round btn-xs mr-2 btn-update-pelaksanaan"
         data-id="{{ $pengadaan->pelaksanaan->id }}"
+        data-mitra_id="{{ $pengadaan->pelaksanaan->mitra_id }}"
         data-nomor_kontrak="{{ $pengadaan->pelaksanaan->nomor_kontrak }}"
         data-nomor_kontrak="{{ $pengadaan->pelaksanaan->nomor_kontrak }}"
         data-tgl_kontrak="{{ $pengadaan->pelaksanaan->tgl_kontrak }}"

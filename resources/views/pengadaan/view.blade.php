@@ -161,7 +161,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group form-group-default">
+                        {{-- <div class="form-group form-group-default">
                             <label for="exampleFormControlInput1">User Komite Value For Money</label>
                             <div class="select2-input select2-warning mt-2">
                                 <select name="users_komite_id[]" id="users_komite" multiple="multiple"
@@ -172,7 +172,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
+                        </div> --}}
 
 
 
@@ -180,6 +180,33 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="import-modal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <form id="form_import" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="exampleModalLabel">Import Pengadaan</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group form-group-default">
+                            <label for="exampleFormControlInput1">File Import</label>
+                            <input type="file" class="form-control" name="file" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Import</button>
                     </div>
                 </form>
             </div>
@@ -200,6 +227,16 @@
                             </span>
                             Create
                         </a>
+
+                        @if(Auth::user()->status == 'Admin')
+                        <a href="#" class="btn btn-success btn-border btn-round btn-sm mr-2" data-toggle="modal"
+                            data-target="#import-modal">
+                            <span class="btn-label">
+                                <i class="fa fa-upload"></i>
+                            </span>
+                            Import Excel
+                        </a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -212,8 +249,8 @@
                                 <th>Nama</th>
                                 {{-- <th>No.Kontrak</th> --}}
                                 <th>Vendor</th>
-                                <th>Detail Proses</th>
                                 <th>Lokasi</th>
+                                <th>Detail Proses</th>
                                 {{-- <th>Sumber Anggaran</th> --}}
                                 <th>Nilai Anggaran</th>
                                 {{-- <th>Jenis</th> --}}
@@ -303,7 +340,7 @@
                                             <i class="fa fa-edit"></i>
                                         </a> --}}
 
-                                        @if (Auth::id() == $u->users_id && $u->state == 0)
+                                        @if ((Auth::id() == $u->users_id && $u->state == 0) || Auth::user()->status == 'Admin')
                                             <a title="Delete" href="#"
                                                 class="btn btn-danger btn-round btn-xs mr-2 btn-delete"
                                                 data-id="{{ $u->id }}">
@@ -366,6 +403,43 @@
         })
 
 
+        $('#form_import').on('submit', function(e) {
+            e.preventDefault()
+            $.ajax({
+                type: 'POST',
+                url: "{!! url('pengadaan/import') !!}",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(r) {
+                    console.log(r)
+                    console.log(r.msg)
+                    if (r.res == 'success') {
+                        swal("Good job!", "Simpan data berhasil !", {
+                            icon: "success",
+                            buttons: {
+                                confirm: {
+                                    className: 'btn btn-success'
+                                }
+                            },
+                        }).then(function() {
+                            window.location = "{!! url('pengadaan') !!}"
+                        });
+                    }else{
+                        swal("Ops !", r.msg, {
+                            icon: "error",
+                            buttons: {
+                                confirm: {
+                                    className: 'btn btn-danger'
+                                }
+                            },
+                        })
+                    }
+                }
+            })
+        });
+
         $('#form-create').on('submit', function(e) {
             e.preventDefault()
             $.ajax({
@@ -377,7 +451,7 @@
                 processData: false,
                 success: function(r) {
                     console.log(r)
-                    if (r == 'success') {
+                    if (r.res == 'success') {
                         swal("Good job!", "Simpan data berhasil !", {
                             icon: "success",
                             buttons: {
@@ -386,7 +460,7 @@
                                 }
                             },
                         }).then(function() {
-                            location.reload()
+                            window.location = "{!! url('pengadaan/detail?id=') !!}"+r.id+'&tab=inisiasi'
                         });
                     }
                 }

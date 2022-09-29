@@ -3,8 +3,12 @@
         theme: "bootstrap"
     });
 
+    $('#e_mitra_id').select2({
+        theme: "bootstrap"
+    });
+
     $(document).on('input', '#nilai_kontrak', function() {
-        var nilai_anggaran = {{ $pengadaan->nilai_anggaran }}
+        var nilai_anggaran = "{{ $pengadaan->nilai_anggaran }}"
 
         var nilai_kontrak = $('#nilai_kontrak').val()
         $('.f_nilai_kontrak').text(nf.format(nilai_kontrak))
@@ -181,13 +185,16 @@
         })
     });
 
-    $(document).on('click', '.btn-update', function(e) {
+    $(document).on('click', '.btn-update-pelaksanaan', function(e) {
         $('#fe_id').val($(this).data('id'))
         $('#fe_nomor_kontrak').val($(this).data('nomor_kontrak'))
         $('#e_tgl_kontrak').val($(this).data('tgl_kontrak'))
         $('#e_tgl_efektif').val($(this).data('tgl_efektif'))
         $('#e_tgl_akhir').val($(this).data('tgl_akhir'))
         $('#e_nilai_kontrak').val($(this).data('nilai_kontrak'))
+
+        $('#e_mitra_id').val($(this).data('mitra_id'))
+        $('#e_mitra_id').select2().trigger('change');
 
         $('#update-pelaksanaan').modal('show')
     })
@@ -226,6 +233,8 @@
         $('#e_tgl_efektif').val($(this).data('tgl_efektif'))
         $('#e_tgl_akhir').val($(this).data('tgl_akhir'))
         $('#e_nilai_kontrak').val($(this).data('nilai_kontrak'))
+
+        
 
         $('#update-idd-modal').modal('show')
     })

@@ -20,6 +20,7 @@ class UnitController extends Controller
         try {
             $u = new Unit();
             $u->nama = $r->nama;
+            $u->kota = $r->kota;
             $u->save();
             DB::commit();
             return 'success';
@@ -34,6 +35,7 @@ class UnitController extends Controller
         try {
             $u = Unit::find($r->id);
             $u->nama = $r->nama;
+            $u->kota = $r->kota;
             $u->save();
             DB::commit();
             return 'success';

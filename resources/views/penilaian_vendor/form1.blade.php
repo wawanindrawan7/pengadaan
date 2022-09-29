@@ -11,7 +11,7 @@
     <style type="text/css">
         table tr td,
         table tr th {
-            font-size: 10pt;
+            font-size: 9pt;
             padding: 5px;
         }
 
@@ -40,7 +40,7 @@
         <center>
             <h5>FORMULIR PENILAIAN KINERJA PENYEDIA JASA (PENILAIAN VENDOR) <br> DI LINGKUNGAN PT PLN (PERSERO)</h5>
         </center>
-        <table id="basic-datatables" class="display table table-bordered table-hover mt-3">
+        <table id="basic-datatables" class="mt-3">
             <tr>
                 <th width="1%">a.</th>
                 <th colspan="3">IDENTITAS PENYEDIA</th>
@@ -134,5 +134,7 @@
                 </tr>
             </tfoot>
         </table>
+
+        <p style="text-align: center;margin-left: 300px;font-size: 9pt;">{{ $pengadaan->unit->kota.', '.date('d-m-Y', strtotime($pengadaan->pelaksanaan->penilaianVendor->tgl_penilaian)) }} <br>Direksi Pekrejaan <br><br><br><br><br><br><br> <u><b>{{ $pengadaan->direksiPk->users->name }}</b></u> </p>
     </div>
 </body>

@@ -34,6 +34,11 @@
                         <input type="text" class="form-control" name="nama" id="exampleFormControlInput1" required>
                     </div>
 
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Kota</label>
+                        <input type="text" class="form-control" name="kota" id="exampleFormControlInput1" required>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -62,6 +67,10 @@
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Nama</label>
                         <input type="text" class="form-control" name="nama" id="e_nama" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Kota</label>
+                        <input type="text" class="form-control" name="kota" id="e_kota" required>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -96,7 +105,8 @@
                     <thead>
                         <tr>
                             <th width="1%">No.</th>
-                            <th width="80%">Nama Unit</th>
+                            <th width="30%">Nama Unit</th>
+                            <th width="10%">Kota</th>
                             <th>Option</th>
                         </tr>
                     </thead>
@@ -108,9 +118,10 @@
                         <tr>
                             <td>{{ $no ++ }}</td>
                             <td>{{ $u->nama }}</td>
+                            <td>{{ $u->kota }}</td>
                             <td align="center">
                                 <a title="Update" href="#" class="btn btn-warning btn-round btn-xs mr-2 btn-update" data-id="{{ $u->id }}"
-                                    data-nama="{{ $u->nama }}">
+                                    data-nama="{{ $u->nama }}" data-kota="{{ $u->kota }}">
                                     <i class="fa fa-edit"></i>
                                 </a>
 
@@ -171,6 +182,7 @@
     $(document).on('click','.btn-update', function(e){
         $('#e_id').val($(this).data('id'))
         $('#e_nama').val($(this).data('nama'))
+        $('#e_kota').val($(this).data('kota'))
         $('#update-modal').modal('show')
     })
 

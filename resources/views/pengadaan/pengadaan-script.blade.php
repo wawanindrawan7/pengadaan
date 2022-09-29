@@ -1,4 +1,14 @@
 <script>
+    $('#e_direksi_pk_id').select2({
+        theme: "bootstrap"
+    });
+    $('#pengawas_pk_id').select2({
+        theme: "bootstrap"
+    });
+    $('#pengawas_k3_id').select2({
+        theme: "bootstrap"
+    });
+
     $(document).on('click', '.btn-submit', function(e) {
         e.preventDefault()
         swal({
@@ -84,6 +94,16 @@
         $('#e_volume').val($(this).data('volume'))
         $('#e_no_nota_dinas').val($(this).data('no_nota_dinas'))
         $('#e_tgl_nota_dinas').val($(this).data('tgl_nota_dinas'))
+        
+        $('#e_direksi_pk_id').val($(this).data('dpu_id'))
+        $('#e_direksi_pk_id').select2().trigger('change');
+
+        $('#e_pengawas_pk_id').val($(this).data('ppku_id'))
+        $('#e_pengawas_pk_id').select2().trigger('change');
+
+        $('#e_pengawas_k3_id').val($(this).data('ppk3u_id'))
+        $('#e_pengawas_k3_id').select2().trigger('change');
+
         $('#update-pengadaan-modal').modal('show')
     })
 

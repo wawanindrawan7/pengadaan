@@ -120,7 +120,7 @@ class ManajemenKontrakController extends Controller
         
         $u = Auth::user();
         if($u->status == 'Admin'){
-            $pengadaan = Pengadaan::orderBy('id','desc')->get();
+            $pengadaan = Pengadaan::whereHas('pelaksanaan')->orderBy('id','desc')->get();
         }elseif($u->kategori == 'Perencana' || $u->kategori == 'Pelaksana' || $u->kategori == 'Admin Unit'){
             $pengadaan = Pengadaan::where('unit_id', $u->uid)->whereHas('pelaksanaan')->orderBy('id','desc')->get();
         }else{

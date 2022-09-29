@@ -117,7 +117,7 @@ class HomeController extends Controller
                             $buruk ++;
                         }
                     }else{
-                        $belum_dinilai ++;
+                        // $belum_dinilai ++;
                     }
                 }
                 array_push($chart_data, array(
@@ -129,7 +129,7 @@ class HomeController extends Controller
         }
 
         $chart_penilaian_data = [
-            ['kategori' => 'Sangat Baik', 'value' => $sangat_baik],
+            // ['kategori' => 'Sangat Baik', 'value' => $sangat_baik],
             ['kategori' => 'Baik', 'value' => $baik],
             ['kategori' => 'Cukup', 'value' => $cukup],
             ['kategori' => 'Buruk', 'value' => $buruk],

@@ -102,6 +102,7 @@ class PelaksanaanController extends Controller
             $p->tgl_efektif = date('Y-m-d', strtotime($r->tgl_efektif));
             $p->tgl_akhir = date('Y-m-d', strtotime($r->tgl_akhir));
             $p->nilai_kontrak = $r->nilai_kontrak;
+            $p->mitra_id = $r->mitra_id;
             $p->save();
             DB::commit();
             return 'success';

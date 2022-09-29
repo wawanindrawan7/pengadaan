@@ -36,6 +36,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('pengadaan', [PengadaanController::class, 'view']);
 Route::post('pengadaan/create', [PengadaanController::class, 'create']);
+Route::post('pengadaan/import', [PengadaanController::class, 'import']);
 Route::post('pengadaan/update', [PengadaanController::class, 'update']);
 Route::get('pengadaan/delete', [PengadaanController::class, 'delete']);
 Route::get('pengadaan/detail', [PengadaanController::class, 'pengadaanDetail']);
@@ -50,6 +51,7 @@ Route::get('perencana-pengadaan/detail', [PerencanaanController::class, 'detail'
 Route::get('perencana-pengadaan/form', [PerencanaanController::class, 'form']);
 Route::post('perencana-pengadaan/create', [PerencanaanController::class, 'create']);
 Route::post('perencana-pengadaan/update', [PerencanaanController::class, 'update']);
+Route::post('perencana-pengadaan/update-nodin', [PerencanaanController::class, 'updateNoDin']);
 Route::get('perencana-pengadaan/drp-export', [PerencanaanController::class, 'exportDrp']);
 Route::get('perencana-pengadaan/pakta_integritas-export', [PerencanaanController::class, 'exportPaktaIntegritas']);
 Route::get('perencana-pengadaan/hpe-export', [PerencanaanController::class, 'exportHpe']);

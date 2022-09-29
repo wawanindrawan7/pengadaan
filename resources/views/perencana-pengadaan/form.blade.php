@@ -109,21 +109,57 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                         <div class="form-group form-group-default">
-                            <label for="exampleFormControlInput1">Nomor Nota Dinas</label>
-                            <input type="text" class="form-control" name="no_nota_dinas" required>
+                            <label for="">Kebutuhan</label>
+                            <select name="kebutuhan" class="form-control">
+                                <option>Spesifik</option>
+                                <option>Standard</option>
+                            </select>
                         </div>
                     </div>
-                    <div class="col-md-4">
+
+                    <div class="col-md-2">
                         <div class="form-group form-group-default">
-                            <label>Tanggal Nota Dinas</label>
-                            <input type="text" class="form-control date" name="tgl_nota_dinas" required>
+                            <label for="">Volume</label>
+                            <select name="volume" class="form-control">
+                                <option>Sedikit</option>
+                                <option>Banyak</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group form-group-default">
+                            <label for="">Jumlah Pengguna</label>
+                            <select name="jumlah_pengguna" class="form-control">
+                                <option>Satu Unit</option>
+                                <option>Lebih dari Satu Unit</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group form-group-default">
+                            <label for="">Penyedia</label>
+                            <select name="penyedia" class="form-control">
+                                <option>Dalam negeri</option>
+                                <option>Luar negeri</option>
+                                <option>Dalam dan LN</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group form-group-default">
+                            <label for="">Jumlah Vendor</label>
+                            <select name="jumlah_vendor" class="form-control">
+                                <option>Banyak</option>
+                                <option>Cukup</option>
+                                <option>Sedikit</option>
+                            </select>
                         </div>
                     </div>
                 </div>
-
 
                 <div class="form-group form-group-default bg-info text-white">
                    <label for=""><b class="text-white">HPE ITEM</b></label>

@@ -8,6 +8,7 @@ use App\Models\FormPenilaian;
 use App\Models\Mitra;
 use App\Models\Pengadaan;
 use App\Models\PenilaianVendor;
+use App\Models\Unit;
 use App\Models\VPenilaian;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,6 +18,11 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class PenilaianVendorController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function formErrect(Request $r)
     {
         $pengadaan = Pengadaan::find($r->id);
@@ -198,80 +204,129 @@ class PenilaianVendorController extends Controller
     {
         
         $mitra = Mitra::orderBy('nama','asc')->get();
+        $unit = Unit::orderBy('nama','asc')->get();
+        $unit_select = null;
+        $unit_id = $r->has('unit_id') ? $r->unit_id : 'semua';
 
         $rekap = [];
+        $count_rekap = [];
 
         $mitra_select = null;
         $mitra_id = $r->has('mitra_id') ? $r->mitra_id : 'semua';
         $cat = $r->has('cat') ? $r->cat : 'semua';
 
         $u = Auth::user();
-        if($u->status == 'Admin'){
-            if($mitra_id != 'semua'){
-                $mitra_select = Mitra::find($mitra_id);
-            
-                $rekap = ($cat == 'semua') ? VPenilaian::where('id', $mitra_id)->get() : VPenilaian::where('id', $mitra_id)->where('dpt_non_dpt', $cat)->get();
-            }else{
-    
-                $rekap = ($cat == 'semua') ? VPenilaian::all() : VPenilaian::where('dpt_non_dpt', $cat)->get();
-            }
-        }elseif($u->kategori == 'Perencana' || $u->kategori == 'Pelaksana' || $u->kategori == 'Admin Unit'){
-            if($mitra_id != 'semua'){
-                $mitra_select = Mitra::find($mitra_id);
-            
-                $rekap = ($cat == 'semua') ? VPenilaian::where('unit_id', $u->uid)->where('id', $mitra_id)->get() : VPenilaian::where('id', $mitra_id)->where('dpt_non_dpt', $cat)->get();
-            }else{
-    
-                $rekap = ($cat == 'semua') ? VPenilaian::where('unit_id', $u->uid)->get() : VPenilaian::where('unit_id', $u->uid)->where('dpt_non_dpt', $cat)->get();
-            }
-        }else{
-            if($mitra_id != 'semua'){
-                $mitra_select = Mitra::find($mitra_id);
-            
-                if ($cat == 'semua'){
-                    $rekap = VPenilaian::where(function($q){
-                        return $q->where('dpk_users_id', Auth::id())->orWhere('pk_users_id', Auth::id())->orWhere('pk3_users_id', Auth::id())->orWhere('peng_users_id', Auth::id());
-                    })->where('id', $mitra_id)->get();
-                }else{
-                    $rekap = VPenilaian::where(function($q){
-                        return $q->where('dpk_users_id', Auth::id())->orWhere('pk_users_id', Auth::id())->orWhere('pk3_users_id', Auth::id())->orWhere('peng_users_id', Auth::id());
-                    })->where('id', $mitra_id)->where('dpt_non_dpt', $cat)->get();
-                }
-            }else{
-                if ($cat == 'semua'){
-                    $rekap = VPenilaian::where(function($q){
-                        return $q->where('dpk_users_id', Auth::id())->orWhere('pk_users_id', Auth::id())->orWhere('pk3_users_id', Auth::id())->orWhere('peng_users_id', Auth::id());
-                    })->get();
-                }else{
-                    $rekap = VPenilaian::where(function($q){
-                        return $q->where('dpk_users_id', Auth::id())->orWhere('pk_users_id', Auth::id())->orWhere('pk3_users_id', Auth::id())->orWhere('peng_users_id', Auth::id());
-                    })->where('dpt_non_dpt', $cat)->get();
-                }
-            }
+        $query = VPenilaian::query();
+
+        if($unit_id != 'semua'){
+            $unit_select = Unit::find($unit_id);
+            $query = $query->where('unit_id', $unit_id);
         }
+
+        if($mitra_id != 'semua'){
+            $mitra_select = Mitra::find($mitra_id);
+            $query = $query->where('id', $mitra_id);
+        }
+        if($cat != 'semua'){
+            $query = $query->where('dpt_non_dpt', $cat);
+        }
+
+
+        if($u->status == 'Admin'){  
+        }elseif($u->kategori == 'Perencana' || $u->kategori == 'Pelaksana' || $u->kategori == 'Admin Unit'){
+            // return Auth::user()->uid;
+            $query = $query->where('unit_id', Auth::user()->uid);
+        }else{
+            $query = $query->where(function($q){
+                return $q->where('dpk_users_id', Auth::id())->orWhere('pk_users_id', Auth::id())->orWhere('pk3_users_id', Auth::id())->orWhere('peng_users_id', Auth::id());
+            });
+        }
+
+        $rekap = $query->get();
+        // return $rekap;
+
+
+        $count_rekap = $this->countRekap($rekap);
+
+        // return $count_rekap;
         
 
-        return view('penilaian_vendor.rekap', compact('mitra','rekap','mitra_select','cat'));
+        return view('penilaian_vendor.rekap', compact('mitra','rekap','mitra_select','cat','count_rekap','unit','unit_select'));
 
+    }
+
+    public function countRekap($rekap){
+        $belum_selesai = 0;
+        $selesai = 0;
+        $sudah_dinilai = 0;
+        $belum_dinilai = 0;
+
+        $baik = 0;
+        $cukup = 0;
+        $buruk = 0;
+
+        foreach ($rekap as $u) {
+            if ( $u->tgl_akhir != null && (strtotime(date('Y-m-d')) >= strtotime($u->tgl_akhir) || $u->tgl_selesai != NULL)){
+                $selesai += 1;
+                if($u->pv_kategori != NULL){
+                    $sudah_dinilai += 1;
+
+                    if($u->pv_kategori == 'Baik'){
+                        $baik += 1;
+                    }elseif($u->pv_kategori == 'Cukup'){
+                        $cukup += 1;
+                    }elseif($u->pv_kategori == 'Buruk'){
+                        $buruk += 1;
+                    }
+                }else{
+                    $belum_dinilai += 1;
+                }
+            }else{
+                $belum_selesai += 1;
+            }
+        }
+
+        return ['belum_selesai' => $belum_selesai, 'selesai' => $selesai, 'sudah_dinilai' => $sudah_dinilai, 'belum_dinilai' => $belum_dinilai, 'baik' => $baik, 'cukup' => $cukup, 'buruk' => $buruk];
     }
 
     public function exportRekap(Request $r)
     {
 
-        $mitra_select = Mitra::find($r->mitra_id);
+        $unit_id = $r->has('unit_id') ? $r->unit_id : 'semua';
         $rekap = [];
-
-        $mitra_select = null;
+    
         $mitra_id = $r->has('mitra_id') ? $r->mitra_id : 'semua';
         $cat = $r->has('cat') ? $r->cat : 'semua';
+
+        $u = Auth::user();
+        $query = VPenilaian::query();
+
+        if($unit_id != 'semua'){
+            $query = $query->where('unit_id', $unit_id);
+        }
+
         if($mitra_id != 'semua'){
             $mitra_select = Mitra::find($mitra_id);
-        
-            $rekap = ($cat == 'semua') ? VPenilaian::where('id', $mitra_id)->get() : VPenilaian::where('id', $mitra_id)->where('dpt_non_dpt', $cat)->get();
-        }else{
-
-            $rekap = ($cat == 'semua') ? VPenilaian::all() : VPenilaian::where('dpt_non_dpt', $cat)->get();
+            $query = $query->where('id', $mitra_id);
         }
+        
+        if($cat != 'semua'){
+            $query = $query->where('dpt_non_dpt', $cat);
+        }
+
+
+        if($u->status == 'Admin'){  
+        }elseif($u->kategori == 'Perencana' || $u->kategori == 'Pelaksana' || $u->kategori == 'Admin Unit'){
+            // return Auth::user()->uid;
+            $query = $query->where('unit_id', Auth::user()->uid);
+        }else{
+            $query = $query->where(function($q){
+                return $q->where('dpk_users_id', Auth::id())->orWhere('pk_users_id', Auth::id())->orWhere('pk3_users_id', Auth::id())->orWhere('peng_users_id', Auth::id());
+            });
+        }
+                
+        $rekap = $query->get();
+        // return $rekap;
 
         $res = [];
         $no = 1;
@@ -293,6 +348,7 @@ class PenilaianVendorController extends Controller
 
         $reader = IOFactory::createReader('Xlsx');
         $excel = $reader->load('penilaian-vendor.xlsx');
+        $excel->setActiveSheetIndex(0);
         $start = 5;
         $excel->getActiveSheet()->fromArray($res, null, 'A' . $start, false, false);
         $end = ($start + count($res) - 1);
@@ -308,6 +364,13 @@ class PenilaianVendorController extends Controller
 
 
         $excel->getActiveSheet()->setCellValue("B2", ($mitra_select != null) ? ': '.$mitra_select->nama : ': Semua');
+
+
+        // $excel->setActiveSheetIndex(1);
+        // $count_rekap = $this->countRekap($rekap);
+        // $excel->getActiveSheet()->setCellValue("C6", $count_rekap['selesai']);
+        // $excel->getActiveSheet()->setCellValue("C7", $count_rekap['sudah_dinilai']);
+        // $excel->getActiveSheet()->setCellValue("C8", $count_rekap['belum_dinilai']);
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="'.$filename.'.xlsx"');

@@ -57,8 +57,12 @@ class PerencanaanController extends Controller
             $p->nilai_hpe = $r->nilai_hpe;
             $p->nomor_rks = $r->nomor_rks;
             $p->tgl_rks = date('Y-m-d', strtotime($r->tgl_rks));
-            $p->no_nota_dinas = $r->no_nota_dinas;
-            $p->tgl_nota_dinas = date('Y-m-d', strtotime($r->tgl_nota_dinas));
+            $p->kebutuhan = $r->kebutuhan;
+            $p->volume = $r->volume;
+            $p->jumlah_pengguna = $r->jumlah_pengguna;
+            $p->penyedia = $r->penyedia;
+            $p->jumlah_vendor = $r->jumlah_vendor;
+            // $p->tgl_nota_dinas = date('Y-m-d', strtotime($r->tgl_nota_dinas));
             $p->pengadaan_id = $r->pengadaan_id;
             $p->users_id = Auth::id();
             $p->save();
@@ -102,6 +106,27 @@ class PerencanaanController extends Controller
             $p->tgl_hpe = date('Y-m-d', strtotime($r->tgl_hpe));
             $p->tgl_rks = date('Y-m-d', strtotime($r->tgl_rks));
             $p->nomor_rks = $r->nomor_rks;
+            $p->kebutuhan = $r->kebutuhan;
+            $p->volume = $r->volume;
+            $p->jumlah_pengguna = $r->jumlah_pengguna;
+            $p->penyedia = $r->penyedia;
+            $p->jumlah_vendor = $r->jumlah_vendor;
+            $p->save();
+            DB::commit();
+            return 'success';
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $th->getMessage();
+        }
+    }
+
+    public function updateNoDin(Request $r)
+    {
+        // return $r->all();
+        DB::beginTransaction();
+        try {
+            $p = Perencanaan::find($r->id);
+            // return $p;
             $p->no_nota_dinas = $r->no_nota_dinas;
             $p->tgl_nota_dinas = date('Y-m-d', strtotime($r->tgl_nota_dinas));
             $p->save();

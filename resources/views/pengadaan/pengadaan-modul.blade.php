@@ -154,6 +154,43 @@
                         </div>
                     </div>
 
+                    <div class="form-group form-group-default">
+                        <label for="exampleFormControlInput1">Direaksi Pekerjaan</label>
+                        <div class="select2-input select2-warning mt-2">
+                            <select name="direksi_pk_id" id="e_direksi_pk_id" style="width: 100%" class="form-control">
+                                <option value=""></option>
+                                @foreach ($user as $u)
+                                    <option value="{{ $u->id }}">{{ $u->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-group-default">
+                        <label for="exampleFormControlInput1">Pengawas Pekerjaan</label>
+                        <div class="select2-input select2-warning mt-2">
+                            <select name="pengawas_pk_id" id="e_pengawas_pk_id" style="width: 100%" class="form-control">
+                                <option value=""></option>
+                                @foreach ($user as $u)
+                                    <option value="{{ $u->id }}">{{ $u->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-group-default">
+                        <label for="exampleFormControlInput1">Pengawas K3</label>
+                        <div class="select2-input select2-warning mt-2">
+                            <select name="pengawas_k3_id" id="e_pengawas_k3_id" style="width: 100%"
+                                class="form-control">
+                                <option value=""></option>
+                                @foreach ($user as $u)
+                                    <option value="{{ $u->id }}">{{ $u->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -254,17 +291,7 @@
     </div>
 </div>
 
-<div class="form-group form-group-default">
-    <label>Komite Value For Money</label>
-    <p class="mt-2">
-        @php
-            $no = 1;
-        @endphp
-        @foreach ($pengadaan->usersReviewer as $item)
-            {!! $no++ . '. ' . $item->users->name . '<br>' !!}
-        @endforeach
-    </p>
-</div>
+
 
 
 <div class="form-group form-group-default">
@@ -296,12 +323,13 @@
             class="badge badge-success">Upload File</span></a>
 </div>
 
-<a title="Update" href="#" class="btn btn-warning btn-round btn-xs mr-2 btn-update"
+<a title="Update" href="#" class="btn btn-warning btn-round mr-2 btn-update"
     data-id="{{ $pengadaan->id }}" data-nama="{{ $pengadaan->nama }}" data-lokasi="{{ $pengadaan->lokasi }}"
     data-sumber_anggaran="{{ $pengadaan->sumber_anggaran }}" data-nilai_anggaran="{{ $pengadaan->nilai_anggaran }}"
     data-jenis="{{ $pengadaan->jenis }}" data-volume="{{ $pengadaan->volume }}"
     data-metode_pengadaan="{{ $pengadaan->metode_pengadaan }}" data-no_nota_dinas="{{ $pengadaan->no_nota_dinas }}"
-    data-tgl_nota_dinas="{{ $pengadaan->tgl_nota_dinas }}">
+    data-tgl_nota_dinas="{{ $pengadaan->tgl_nota_dinas }}" data-dpu_id="{{ $pengadaan->direksiPk->users_id }}"
+    data-ppku_id="{{ ($pengadaan->pengawasPk != null) ? $pengadaan->pengawasPk->users_id : '' }}" data-ppk3u_id="{{ ($pengadaan->pengawasK3) ? $pengadaan->pengawasK3->users_id : '' }}">
     <i class="fa fa-edit"></i> <span>Edit Pengadaan</span>
 </a>
 
