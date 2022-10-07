@@ -51,10 +51,12 @@ Route::get('perencana-pengadaan/detail', [PerencanaanController::class, 'detail'
 Route::get('perencana-pengadaan/form', [PerencanaanController::class, 'form']);
 Route::post('perencana-pengadaan/create', [PerencanaanController::class, 'create']);
 Route::post('perencana-pengadaan/update', [PerencanaanController::class, 'update']);
+Route::post('perencana-pengadaan/edit-hpe', [PerencanaanController::class, 'editHpe']);
 Route::post('perencana-pengadaan/update-nodin', [PerencanaanController::class, 'updateNoDin']);
 Route::get('perencana-pengadaan/drp-export', [PerencanaanController::class, 'exportDrp']);
 Route::get('perencana-pengadaan/pakta_integritas-export', [PerencanaanController::class, 'exportPaktaIntegritas']);
 Route::get('perencana-pengadaan/hpe-export', [PerencanaanController::class, 'exportHpe']);
+Route::get('perencana-pengadaan/load-khs-kontrak', [PerencanaanController::class, 'loadKhsKontrak']);
 
 
 // Route::post('perencanaan/update', [PerencanaanController::class, 'update']);
@@ -82,6 +84,7 @@ Route::get('manajemen-kontrak', [ManajemenKontrakController::class, 'view']);
 Route::post('manajemen-kontrak/upload-penilaian', [ManajemenKontrakController::class, 'uploadPenilaianFile']);
 Route::post('manajemen-kontrak/edit-penilaian-f1', [ManajemenKontrakController::class, 'editPenilaianF1']);
 Route::post('manajemen-kontrak/edit-penilaian-f2', [ManajemenKontrakController::class, 'editPenilaianF2']);
+Route::post('manajemen-kontrak/edit-tgl-penilaian', [ManajemenKontrakController::class, 'editTglPenilaian']);
 Route::post('amandemen/create', [AmandemenController::class, 'create']);
 Route::post('amandemen/update', [AmandemenController::class, 'update']);
 Route::get('amandemen/delete', [AmandemenController::class, 'delete']);

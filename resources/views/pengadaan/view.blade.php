@@ -82,6 +82,7 @@
                                     <select name="jenis" class="form-control">
                                         <option>Barang</option>
                                         <option>Jasa</option>
+                                        <option>Barang & Jasa</option>
                                     </select>
                                 </div>
                             </div>
@@ -98,7 +99,7 @@
                             <div class="col-md-6">
                                 <div class="form-group form-group-default">
                                     <label for="exampleFormControlInput1">Metode Pengadaan</label>
-                                    <select name="metode_pengadaan" class="form-control">
+                                    <select name="metode_pengadaan" id="metode_pengadaan" class="form-control">
                                         <option>Pengadaan Langsung</option>
                                         <option>Penunjukan Langsung</option>
                                         <option>Tender Terbatas</option>
@@ -107,6 +108,10 @@
                                     </select>
                                 </div>
                             </div>
+                        </div>
+                        
+                        <div class="no-kontrak-blok">
+                            
                         </div>
 
                         <div class="row">
@@ -271,7 +276,12 @@
                                     <td>{{ $no++ }}</td>
                                     <td>
                                         {!! $u->nama !!}
-                                        {!! ($u->pelaksanaan != null) ? "<br><br>".$u->pelaksanaan->nomor_kontrak."<br><br>" : '' !!}
+                                        {!! ($u->pelaksanaan != null) ? "<br><br>No.Kontrak : ".$u->pelaksanaan->nomor_kontrak."<br>" : '' !!}
+                                        @if($u->khs_pid != null)
+                                        <a href="{!! url('pengadaan/detail?id='.$u->khs_pid."&tab=pelaksana") !!}" class="khs_link">{!! 'KHS No : '.$u->khs_no ."<br><br>" !!}</a>
+                                        @else
+                                        <br>
+                                        @endif
                                     </td>
                                     <td>
                                         {{ $u->pelaksanaan != null ? $u->pelaksanaan->mitra->nama : '' }}
@@ -393,6 +403,45 @@
                 ordering: false,
             });
         });
+
+        $(document).on('change','#metode_pengadaan', function(e){
+            var metode_pengadaan = $(this).val()
+            if(metode_pengadaan === 'Kontrak Rinci'){
+                $('.no-kontrak-blok').append(
+                    '<div class="form-group form-group-default">\
+                        <label>No. Kontrak KHS</label>\
+                        <select class="form-control" id="no_kontrak" name="khs_pid" style="width:100%" required></select>\
+                    </div>'
+                )
+
+
+                loadKhsKontrak()
+
+
+            }else{
+                $('.no-kontrak-blok').empty()
+            }
+        })
+
+        function loadKhsKontrak(){
+            $.ajax({
+                type : 'GET',
+                url : "{{ url('perencana-pengadaan/load-khs-kontrak') }}",
+                success : function(r){
+                    console.log(r)
+                    $('#no_kontrak').empty()
+                    $('#no_kontrak').append('<option value=""></option>')
+
+                    $.each(r.kontrak, function(i, d){
+                        $('#no_kontrak').append('<option value="'+d.id+'">'+d.pelaksanaan.nomor_kontrak+' / '+d.nama+' / '+d.pelaksanaan.mitra.nama+'</option>')
+                    })
+
+                    $('#no_kontrak').select2({
+                        theme: "bootstrap"
+                    });
+                }
+            })
+        }
 
 
 

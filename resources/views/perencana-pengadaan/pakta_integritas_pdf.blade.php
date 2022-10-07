@@ -24,7 +24,7 @@
     <p class="text">Kami yang menyatakan dan bertandatangan di bawah ini, Penguna Barang/Jasa, Direksi
         Pekerjaan, Pejabat Perencana
         Pengadaan Barang/Jasa, Pejabat Pelaksana Pengadaan Barang/Jasa Serta Komite Value For Money PT PLN (Persero)
-        Unit Induk Wilayah Nusa Tenggara Barat dengan ini menyatakan dengan sebenarnya, bahwa sehubungan dengan proses
+       {{ $pengadaan->unit->nama }} dengan ini menyatakan dengan sebenarnya, bahwa sehubungan dengan proses
         pengadaan <b>Pekerjaan: {{ $pengadaan->nama }}</b> menyatakan:
     </p>
 
@@ -50,7 +50,7 @@
         peraturan dan
         kewajiban normative lainnya yang terkait, dan mematuhi seluruh kertentuan dan peraturan perundang-undangan yang
         berlaku, termasuk mempertimbangkan best practice, yang dipandang perlu, penting dan kritikal dalam proses
-        tersebut (duly abiding the laws).</p>
+        tersebut (duty abiding the laws).</p>
     <p class="text">Pernyataan ini kami sampaikan dengan sebenar-benarnya, tanpa menyembunyikan fakta dan hal material
         apapun, dan
         dengan demikian kami bertanggung jawab sepenuhnya atas kebenaran dari hal-hal yang kami nyatakan di sini,

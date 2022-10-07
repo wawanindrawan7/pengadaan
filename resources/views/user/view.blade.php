@@ -42,20 +42,35 @@
                             <label for="exampleFormControlInput1">Jabatan</label>
                             <select class="form-control" name="status" required>
                                 <option value=""></option>
+                                <option>Admin Unit</option>
                                 @foreach ($jabatan as $j)
                                     <option>{{ $j->status }}</option>
                                 @endforeach
                             </select>
                         </div> 
 
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Kategori</label>
-                            <select class="form-control" name="status">
-                                <option value=""></option>
-                                <option>Perencana</option>
-                                <option>Pelaksana</option>
-                                <option>Admin Unit</option>
-                            </select>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleFormControlInput1">Kategori</label>
+                                    <select class="form-control" name="kategori">
+                                        <option value=""></option>
+                                        <option>Perencana</option>
+                                        <option>Pelaksana</option>
+                                        <option>Admin Unit</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleFormControlInput1">Level</label>
+                                    <select class="form-control" name="level">
+                                        <option value=""></option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div> 
 
                         <div class="form-group">
@@ -117,6 +132,7 @@
                             <select class="form-control" name="status" id="e_status">
                                 <option value=""></option>
                                 <option>Admin</option>
+                                <option>Admin Unit</option>
                                 @foreach ($jabatan as $j)
                                     <option>{{ $j->status }}</option>
                                 @endforeach
@@ -132,16 +148,30 @@
                                 @endforeach
                             </select>
                         </div>  --}}
-
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Kategori</label>
-                            <select class="form-control" name="kategori" id="e_kategori">
-                                <option value=""></option>
-                                <option>Perencana</option>
-                                <option>Pelaksana</option>
-                                <option>Admin Unit</option>
-                            </select>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleFormControlInput1">Kategori</label>
+                                    <select class="form-control" name="kategori" id="e_kategori">
+                                        <option value=""></option>
+                                        <option>Perencana</option>
+                                        <option>Pelaksana</option>
+                                        <option>Admin Unit</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleFormControlInput1">Level</label>
+                                    <select class="form-control" name="level" id="e_level">
+                                        <option value=""></option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
+
 
                     </div>
                     <div class="modal-footer">
@@ -296,7 +326,7 @@
                                 <th>NIP</th>
                                 <th>Email</th>
                                 <th>Jabatan</th>
-                                <th>Kategori</th>
+                                <th>Kategori / Level</th>
                                 <th>No. Whatsap</th>
                                 <th>Unit</th>
                                 <th>Option</th>
@@ -313,7 +343,13 @@
                                     <td>{{ $u->nip }}</td>
                                     <td>{{ $u->email }}</td>
                                     <td>{{ $u->status }}</td>
-                                    <td>{{ $u->kategori }}</td>
+                                    <td>
+                                        {{ $u->kategori }}
+
+                                        @if($u->level != null)
+                                        {{ "($u->level)" }}
+                                        @endif
+                                    </td>
                                     <td>{{ $u->no_wa }}</td>
                                     <td>
                                         @if ($u->usersUnit != null)
@@ -332,7 +368,7 @@
                                         <a title="Update" href="#"
                                             class="btn btn-warning btn-round btn-xs mr-2 btn-update"
                                             data-id="{{ $u->id }}" data-name="{{ $u->name }}" data-email="{{ $u->email }}" data-kategori="{{ $u->kategori }}" data-status="{{ $u->status }}" data-nip="{{ $u->nip }}" data-no_wa="{{ $u->no_wa }}"
-                                            data-unit_id="{{ $u->usersUnit != null ? $u->usersUnit->unit_id : '' }}">
+                                            data-unit_id="{{ $u->usersUnit != null ? $u->usersUnit->unit_id : '' }}" data-level="{{ $u->level }}">
                                             <i class="fa fa-edit"></i>
                                         </a>
 
@@ -342,11 +378,13 @@
                                             <i class="fa fa-key"></i>
                                         </a>
 
+                                        @if(Auth::user()->status == 'Admin')
                                         <a title="Delete" href="#"
                                             class="btn btn-danger btn-round btn-xs mr-2 btn-delete"
                                             data-id="{{ $u->id }}">
                                             <i class="fa fa-trash"></i>
                                         </a>
+                                        @endif
                                     </td>
 
                                 </tr>
@@ -487,6 +525,7 @@
             $('#e_no_wa').val($(this).data('no_wa'))
             $('#e_status').val($(this).data('status'))
             $('#e_kategori').val($(this).data('kategori'))
+            $('#e_level').val($(this).data('level'))
 
             $('#update-user').modal('show')
         })

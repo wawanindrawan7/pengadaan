@@ -144,6 +144,7 @@
             <div class="card-head-row">
                 <div class="card-title">Mitra List</div>
                 <div class="card-tools">
+                    
                     <a href="#" class="btn btn-info btn-border btn-round btn-sm mr-2" data-toggle="modal" data-target="#create-modal">
                         <span class="btn-label">
                             <i class="fa fa-plus"></i>
@@ -186,14 +187,18 @@
                             <td>{{ $u->no_wa }}</td>
                             <td>{{ $u->alamat }}</td>
                             <td align="center">
+                                @if(Auth::user()->status == 'Admin')
                                 <a title="Update" href="#" class="btn btn-warning btn-round btn-xs mr-2 btn-update" data-id="{{ $u->id }}"
                                     data-nama="{{ $u->nama }}" data-npwp="{{ $u->npwp }}" data-no_wa="{{ $u->no_wa }}" data-alamat="{{ $u->alamat }}" data-kategori="{{ $u->kategori }}" data-email="{{ $u->email }}">
                                     <i class="fa fa-edit"></i>
                                 </a>
+                                
 
                                 <a title="Delete" href="#" class="btn btn-danger btn-round btn-xs mr-2 btn-delete" data-id="{{ $u->id }}">
                                     <i class="fa fa-trash"></i>
                                 </a>
+
+                                @endif
                             </td>
 
                         </tr>

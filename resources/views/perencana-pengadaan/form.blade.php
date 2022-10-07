@@ -263,7 +263,7 @@
     });
 
     $(document).on('input','#nilai_hpe', function(){
-        var nilai_anggaran = {{ $pengadaan->nilai_anggaran }}
+        var nilai_anggaran = "{{ $pengadaan->nilai_anggaran }}"
 
         var nilai_hpe = $('#nilai_hpe').val()
         $('.f_nilai_hpe').text(nf.format(nilai_hpe))

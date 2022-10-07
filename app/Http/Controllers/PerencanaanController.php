@@ -21,27 +21,35 @@ class PerencanaanController extends Controller
     {
         return $this->middleware('auth');
     }
-
+    
     public function view(Request $r)
     {
         $pengadaan = Pengadaan::where('state', '>=', 1)->get();
         return view('perencana-pengadaan.view', compact('pengadaan'));
     }
-
+    
     public function detail(Request $r)
     {
         $pengadaan = Pengadaan::find($r->id);
         $pengadaan_file = PengadaanFile::where('pengadaan_id', $pengadaan->id)->get();
         return view('perencana-pengadaan.detail', compact('pengadaan', 'pengadaan_file'));
     }
-
-
+    
+    
     public function form(Request $r)
     {
         $pengadaan = Pengadaan::find($r->pengadaan_id);
         return view('perencana-pengadaan.form', compact('pengadaan'));
     }
 
+    public function loadKhsKontrak(){
+        $kontrak = Pengadaan::whereHas('perencanaan', function($q){
+            return $q->where('jenis_kontrak', 'KHS');
+        })->whereHas('pelaksanaan')->with('pelaksanaan.mitra')->get();
+
+        return compact('kontrak');
+    }
+    
     public function create(Request $r)
     {
         // return $r->all();
@@ -66,7 +74,7 @@ class PerencanaanController extends Controller
             $p->pengadaan_id = $r->pengadaan_id;
             $p->users_id = Auth::id();
             $p->save();
-
+            
             $hpe_item = HpeItemTemp::where('pengadaan_id', $r->pengadaan_id)->get();
             foreach ($hpe_item as $ti) {
                 $item = new HpeItem();
@@ -78,10 +86,10 @@ class PerencanaanController extends Controller
                 $item->jumlah = $ti->jumlah;
                 $item->perencanaan_id = $p->id;
                 $item->save();
-
+                
                 $ti->delete();
             }
-
+            
             DB::commit();
             return 'success';
         } catch (\Throwable $th) {
@@ -89,7 +97,7 @@ class PerencanaanController extends Controller
             return $th->getMessage();
         }
     }
-
+    
     public function update(Request $r)
     {
         // return $r->all();
@@ -119,7 +127,28 @@ class PerencanaanController extends Controller
             return $th->getMessage();
         }
     }
+    
+    public function editHpe(Request $r)
+    {
+        // return $r->all();
+        DB::beginTransaction();
+        try {
+            $item = HpeItem::find($r->id);
+            $item->item = $r->item;
+            $item->satuan = $r->satuan;
+            $item->vol_1 = $r->vol_1;
+            $item->vol_2 = $r->vol_2;
+            $item->harga_satuan = $r->harga_satuan;
+            $item->jumlah = $r->jumlah;
+            $item->save();
 
+            DB::commit();
+            return 'success';
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $th->getMessage();
+        }
+    }
     public function updateNoDin(Request $r)
     {
         // return $r->all();
@@ -137,20 +166,20 @@ class PerencanaanController extends Controller
             return $th->getMessage();
         }
     }
-
+    
     public function submit(Request $r)
     {
         DB::beginTransaction();
         try {
-
+            
             $pp = Perencanaan::find($r->id);
             $pp->submit = 1;
             $pp->save();
-
+            
             $p = Pengadaan::find($pp->pengadaan_id);
             $p->state = 2;
             $p->save();
-
+            
             DB::commit();
             return 'success';
         } catch (\Throwable $th) {
@@ -158,7 +187,7 @@ class PerencanaanController extends Controller
             return $th->getMessage();
         }
     }
-
+    
     public function uploadFile1(Request $r)
     {
         // return $r->all();
@@ -171,10 +200,10 @@ class PerencanaanController extends Controller
                 $u->file = 'file/' . date('YmdHis') . '-' . $f->getClientOriginalName();
                 $u->perencanaan_id = $r->perencanaan_id;
                 $u->save();
-
+                
                 $f->move('file', $u->file);
             }
-
+            
             DB::commit();
             return 'success';
         } catch (\Throwable $th) {
@@ -182,7 +211,7 @@ class PerencanaanController extends Controller
             return $th->getMessage();
         }
     }
-
+    
     public function uploadFile(Request $r)
     {
         // return $r->all();
@@ -193,10 +222,10 @@ class PerencanaanController extends Controller
             $file_drp = ($r->hasFile('file_drp')) ? $r->file('file_drp') : null;
             $file_nota_dinas = ($r->hasFile('file_nota_dinas')) ? $r->file('file_nota_dinas') : null;
             $file_hpe = ($r->hasFile('file_hpe')) ? $r->file('file_hpe') : null;
-
+            
             $p = Perencanaan::find($r->perencanaan_id);
-
-
+            
+            
             $u = ($p->perencanaanFile == null) ? new PerencanaanFile() : PerencanaanFile::find($p->perencanaanFile->id);
             if ($file_rks != null) {
                 $u->file_rks = 'file/' . date('YmdHis') . '-' . $file_rks->getClientOriginalName();
@@ -237,7 +266,7 @@ class PerencanaanController extends Controller
             return $th->getMessage();
         }
     }
-
+    
     public function deleteFile(Request $r)
     {
         DB::beginTransaction();
@@ -251,21 +280,21 @@ class PerencanaanController extends Controller
             return $th->getMessage();
         }
     }
-
+    
     public function exportDrp(Request $r)
     {
         $pengadaan = Pengadaan::find($r->id);
         $pdf = FacadePdf::loadView('perencana-pengadaan.drp-pdf', compact('pengadaan'));
         return $pdf->stream();
     }
-
+    
     public function exportPaktaIntegritas(Request $r)
     {
         $pengadaan = Pengadaan::find($r->id);
         $pdf = FacadePdf::loadView('perencana-pengadaan.pakta_integritas_pdf', compact('pengadaan'));
         return $pdf->stream();
     }
-
+    
     public function exportHpe(Request $r)
     {
         $pengadaan = Pengadaan::find($r->id);

@@ -340,7 +340,7 @@
         </span>
         Create Data Pelaksana Pengadaan
     </a>
-@elseif($pengadaan->pelaksanaan == null && $pengadaan->state == 2 && Auth::user()->kategori == 'Pelaksana')
+@elseif($pengadaan->pelaksanaan == null && $pengadaan->state == 2 && (Auth::user()->kategori == 'Pelaksana' || Auth::user()->status == 'Admin'))
     <a href="#" data-toggle="modal" data-target="#create-pelaksanaan"
         class="btn btn-success btn-round btn-sm">
         <span class="btn-label">
@@ -488,7 +488,7 @@
 
 @endif
 
-@if ($pengadaan->state == 2 && $pengadaan->pelaksanaan != null && Auth::user()->kategori == 'Pelaksana')
+@if ($pengadaan->state == 2 && $pengadaan->pelaksanaan != null && (Auth::user()->kategori == 'Pelaksana' || Auth::user()->status == 'Admin'))
     <a href="#" class="btn btn-success btn-round btn-sm btn-submit-pelaksanaan">
         <span class="btn-label">
             <i class="fa fa-check"></i>

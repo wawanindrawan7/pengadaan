@@ -8,7 +8,7 @@
     <title>{!! $pengadaan->nama !!}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    {{-- <style type="text/css">
+    <style type="text/css">
         table tr td,
         table tr th {
             font-size: 10pt;
@@ -32,10 +32,31 @@
         * {
             font-family: Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
         }
-    </style> --}}
+    </style>
 </head>
 
-<body style="margin: 0">
+<body style="margin: 20">
+    <center>
+        <h5>HARGA PERHITUNGAN ENJINIR (HPE)</h5>
+    </center>
+
+    <table id="basic-datatables" class="mt-3">
+        <tr>
+            <th width="10%">PEKERJAAN</th>
+            <th width="1%">:</th>
+            <th>{{ $pengadaan->nama }}</th>
+        </tr>
+        <tr>
+            <th width="10%">LOKASI</th>
+            <th width="1%">:</th>
+            <th>{{ $pengadaan->lokasi }}</th>
+        </tr>
+    </table>
+
+    <hr>
+
+    
+
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -76,5 +97,13 @@
                 </th>
             </tr>
         </tfoot>
+    </table>
+    <br>
+    <br>
+    <table class="table table-bordered">
+        <tr>
+            <td width="50%" align="center"><b>MENGETAHUI:<br>GENERAL MANAGER<br><br><br><br><br><br><br>GENERAL MANAGER</b></td>
+            <td width="50%" align="center"><b>{{ $pengadaan->unit->kota.', '.$pengadaan->perencanaan->tgl_hpe }} <br>DISUSUN OLEH:<br>PEJABAT PERENCANA PENGADAAN<br><br><br><br><br><br>PEJABAT</b></td>
+        </tr>
     </table>
 </body>

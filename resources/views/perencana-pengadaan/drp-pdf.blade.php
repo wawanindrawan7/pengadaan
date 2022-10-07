@@ -26,7 +26,7 @@
 <body style="margin: 0">
     <div class="container">
         <p style="text-align: center">
-            <b style="font-size: 18sp">PT PLN (PERSERO) UNIT INDUK WILAYAH NUSA TENGGARA BARAT</b>
+            <b style="font-size: 18sp">PT PLN (PERSERO) {{ $pengadaan->unit->nama }}</b>
             <br><br>
             <b style="font-size: 18sp">DOKUMEN RENCANA PENGADAAN</b>
             <br>

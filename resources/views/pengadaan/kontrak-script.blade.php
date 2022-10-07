@@ -3,6 +3,13 @@
         $('#pv_id').val($(this).data('id'))
     })
 
+    $(document).on('click','.btn-edit-tgl', function(e){
+        e.preventDefault()
+        $('#e_tgl_id').val($(this).data('id'))
+        $('#e_tgl_penilaian').val($(this).data('tgl_penilaian'))
+        $('#e_dpt_non_dpt').val($(this).data('cat'))
+        $('#edit-tgl-modal').modal('show')
+    })
     $(document).on('click','.btn-edit-nilai-f1', function(e){
         e.preventDefault()
         $('#f1_id').val($(this).data('id'))
@@ -49,6 +56,33 @@
         $.ajax({
             type: 'POST',
             url: "{!! url('manajemen-kontrak/edit-penilaian-f2') !!}",
+            data: new FormData(this),
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function (r) {
+                console.log(r)
+                if (r == 'success') {
+                    swal("Good job!", "Simpan data berhasil !", {
+                        icon: "success",
+                        timer : 1500,
+                        buttons: {
+                            confirm: {
+                                className: 'btn btn-success'
+                            }
+                        },
+                    }).then(function () {
+                        location.reload()
+                    });
+                }
+            }
+        })
+    });
+    $('#form_edit_tgl').on('submit', function (e) {
+        e.preventDefault()
+        $.ajax({
+            type: 'POST',
+            url: "{!! url('manajemen-kontrak/edit-tgl-penilaian') !!}",
             data: new FormData(this),
             contentType: false,
             cache: false,

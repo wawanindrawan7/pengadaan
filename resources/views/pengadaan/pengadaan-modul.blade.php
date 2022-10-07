@@ -110,6 +110,7 @@
                                 <select name="jenis" id="e_jenis" class="form-control">
                                     <option>Barang</option>
                                     <option>Jasa</option>
+                                    <option>Barang & Jasa</option>
                                 </select>
                             </div>
                         </div>
@@ -135,6 +136,10 @@
                                 </select>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="no-kontrak-blok">
+                            
                     </div>
 
                     <div class="row">
@@ -264,11 +269,18 @@
         <div class="form-group form-group-default">
             <label>Tanggal Nota Dinas</label>
             <input type="text" class="form-control"
-                value="{{ date('d-m-Y', strtotime($pengadaan->tgl_nota_dinas)) }}" disabled />
+                value="{{ $pengadaan->tgl_nota_dinas != null ? date('d-m-Y', strtotime($pengadaan->tgl_nota_dinas)) : '' }}" disabled />
         </div>
     </div>
 </div>
 
+@if($pengadaan->khs_pid != null)
+<div class="form-group form-group-default">
+    <label>No. Kontrak KHS</label>
+    <input type="text" class="form-control" value="{{ $pengadaan->khs_no }}" disabled />
+    <a href="{!! url('pengadaan/detail?id='.$pengadaan->khs_pid) !!}">Lihat Detail KHS</a>
+</div>
+@endif
 <div class="row">
     <div class="col-md-4">
         <div class="form-group form-group-default">
@@ -324,7 +336,7 @@
 </div>
 
 <a title="Update" href="#" class="btn btn-warning btn-round mr-2 btn-update"
-    data-id="{{ $pengadaan->id }}" data-nama="{{ $pengadaan->nama }}" data-lokasi="{{ $pengadaan->lokasi }}"
+    data-id="{{ $pengadaan->id }}" data-khs_pid="{{ $pengadaan->khs_pid }}" data-nama="{{ $pengadaan->nama }}" data-lokasi="{{ $pengadaan->lokasi }}"
     data-sumber_anggaran="{{ $pengadaan->sumber_anggaran }}" data-nilai_anggaran="{{ $pengadaan->nilai_anggaran }}"
     data-jenis="{{ $pengadaan->jenis }}" data-volume="{{ $pengadaan->volume }}"
     data-metode_pengadaan="{{ $pengadaan->metode_pengadaan }}" data-no_nota_dinas="{{ $pengadaan->no_nota_dinas }}"

@@ -25,6 +25,23 @@ class ManajemenKontrakController extends Controller
         return view('manajemen-kontrak.view', compact('pengadaan'));
     }
     
+    public function editTglPenilaian(Request $r)
+    {
+        // return $r->all();
+        DB::beginTransaction();
+        try {
+
+            $p = PenilaianVendor::find($r->id);
+            $p->tgl_penilaian = $r->tgl_penilaian;
+            $p->dpt_non_dpt = $r->dpt_non_dpt;
+            $p->save();
+            DB::commit();
+            return 'success';
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $th->getMessage();
+        }
+    }
     public function editPenilaianF1(Request $r)
     {
         // return $r->all();
@@ -142,7 +159,7 @@ class ManajemenKontrakController extends Controller
     {
         $u = Auth::user();
         if($u->status == 'Admin'){
-            $pengadaan = Pengadaan::orderBy('id','desc')->get();
+            $pengadaan = Pengadaan::whereHas('pelaksanaan')->orderBy('id','desc')->get();
         }elseif($u->kategori == 'Perencana' || $u->kategori == 'Pelaksana' || $u->kategori == 'Admin Unit'){
             $pengadaan = Pengadaan::where('unit_id', $u->uid)->whereHas('pelaksanaan')->orderBy('id','desc')->get();
         }else{

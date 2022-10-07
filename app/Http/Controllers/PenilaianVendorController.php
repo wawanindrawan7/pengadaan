@@ -363,7 +363,7 @@ class PenilaianVendorController extends Controller
         ]);
 
 
-        $excel->getActiveSheet()->setCellValue("B2", ($mitra_select != null) ? ': '.$mitra_select->nama : ': Semua');
+        // $excel->getActiveSheet()->setCellValue("B2", ($mitra_select != null) ? ': '.$mitra_select->nama : ': Semua');
 
 
         // $excel->setActiveSheetIndex(1);

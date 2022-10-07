@@ -113,6 +113,11 @@
                             </div>
                         </div>
 
+                        {{-- <div class="form-group form-group-default">
+                            <label for="">Rentang Tanggal</label>
+                            <input type="text" readonly class="form-control">
+                        </div> --}}
+
                         <div class="form-group">
                             <button type="submit" class="btn btn-success btn-sm">Export</button>
                         </div>
@@ -160,10 +165,17 @@
                             <td>{{ $no ++ }}</td>
                             <td style="font-size: 9pt;padding-left: 0;padding-right: 0;">{{ $u->nama }}</td>
                             <td style="font-size: 9pt;">
+                                {!! ($u->pv_kategori != null) ? '<i class="fa icon-check text-success"></i>' : '<i class="fa icon-close text-danger"></i>' !!}
                                 <a href="{!! url('pengadaan/detail?id='.$u->peng_id."&tab=kontrak") !!}">
                                 {{ $u->peng_nama }}
-                                {!! ($u->nomor_kontrak != null) ? "<br><br>".$u->nomor_kontrak."<br>".$u->unit_nama."<br><br>" : '' !!}
                                 </a>
+                                {!! ($u->nomor_kontrak != null) ? "<br><br>".$u->nomor_kontrak."<br>".$u->unit_nama."<br>" : '' !!}
+
+                                @if($u->khs_pid != null)
+                                <a href="{!! url('pengadaan/detail?id='.$u->khs_pid."&tab=pelaksana") !!}" class="khs_link">{!! 'KHS No : '.$u->khs_no ."<br><br>" !!}</a>
+                                @else
+                                <br>
+                                @endif
                             </td>
                             {{-- <td style="font-size: 9pt;">{{ $u->nomor_kontrak }}</td> --}}
                             {{-- <td>{{ number_format($u->nilai_kontrak) }}</td> --}}
@@ -171,7 +183,9 @@
                             {{-- <td>{{ $u->tgl_selesai }}</td> --}}
                             <td style="font-size: 9pt;">{{ $u->tgl_akhir }}</td>
                             <td style="font-size: 9pt;">{{ $u->total }}</td>
-                            <td style="font-size: 9pt;">{{ $u->pv_kategori }}</td>
+                            <td style="font-size: 9pt;" align="center">
+                                {!! ($u->pv_kategori != null) ? $u->pv_kategori : '' !!}
+                            </td>
                             {{-- <td>{{ $u->dpt_non_dpt }}</td> --}}
                         </tr>
 

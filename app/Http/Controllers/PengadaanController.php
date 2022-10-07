@@ -20,6 +20,11 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class PengadaanController extends Controller
 {
+    public function __construct()
+    {
+        return $this->middleware('auth');
+    }
+
     public function view()
     {
         $user = User::all();
@@ -64,6 +69,11 @@ class PengadaanController extends Controller
             $p->tgl_nota_dinas = date('Y-m-d', strtotime($r->tgl_nota_dinas));
             $p->users_id = Auth::id();
             $p->unit_id = (Auth::user()->status == 'Admin') ? $r->unit_id : Auth::user()->uid;
+            if($r->has('khs_pid')){
+                $pc = Pengadaan::find($r->khs_pid);
+                $p->khs_pid = $r->khs_pid;
+                $p->khs_no = $pc->pelaksanaan->nomor_kontrak;
+            }
             $p->save();
             
             $direaksi_pk = new DireksiPk();
@@ -98,6 +108,9 @@ class PengadaanController extends Controller
     {
         DB::beginTransaction();
         try {
+
+            // return $r->all();
+
             $p = Pengadaan::find($r->id);
             $p->nama = $r->nama;
             $p->lokasi = $r->lokasi;
@@ -108,6 +121,11 @@ class PengadaanController extends Controller
             $p->metode_pengadaan = $r->metode_pengadaan;
             $p->no_nota_dinas = $r->no_nota_dinas;
             $p->tgl_nota_dinas = date('Y-m-d', strtotime($r->tgl_nota_dinas));
+            if($r->khs_pid != null){
+                $pc = Pengadaan::find($r->khs_pid);
+                $p->khs_pid = $r->khs_pid;
+                $p->khs_no = $pc->pelaksanaan->nomor_kontrak;
+            }
             $p->save();
             
             if($p->direksiPk->users_id != $r->direksi_pk_id){
@@ -123,10 +141,12 @@ class PengadaanController extends Controller
                 $pengawas_pk->users_id = $r->pengawas_pk_id;
                 $pengawas_pk->save();
             }else{
-                $pengawas_pk = new PengawasPk();
-                $pengawas_pk->pengadaan_id = $p->id;
-                $pengawas_pk->users_id = $r->pengawas_pk_id;
-                $pengawas_pk->save();
+                if($r->pengawas_pk_id != null){
+                    $pengawas_pk = new PengawasPk();
+                    $pengawas_pk->pengadaan_id = $p->id;
+                    $pengawas_pk->users_id = $r->pengawas_pk_id;
+                    $pengawas_pk->save();
+                }
             }
             
             if($p->pengawasK3 != null && $p->pengawasK3->users_id != $r->pengawas_k3_id){
@@ -135,10 +155,13 @@ class PengadaanController extends Controller
                 $pengawas_k3->users_id = $r->pengawas_k3_id;
                 $pengawas_k3->save();
             }else{
-                $pengawas_k3 = new PengawasK3();
-                $pengawas_k3->pengadaan_id = $p->id;
-                $pengawas_k3->users_id = $r->pengawas_k3_id;
-                $pengawas_k3->save();
+                if($r->pengawas_k3_id != null){
+                    $pengawas_k3 = new PengawasK3();
+                    $pengawas_k3->pengadaan_id = $p->id;
+                    $pengawas_k3->users_id = $r->pengawas_k3_id;
+                    $pengawas_k3->save();
+                }
+                
             }
             
             

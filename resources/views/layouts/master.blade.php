@@ -238,6 +238,8 @@
                                 <p>Unit</p>
                             </a>
                         </li>
+                        @endif
+                        @if(Auth::user()->status == 'Admin' || Auth::user()->status == 'Admin Unit')
                         <li class="nav-item">
                             <a href="{{ url('mitra') }}">
                                 <i class="fas  fa-users-cog"></i>
@@ -245,7 +247,7 @@
                             </a>
                         </li>
                         @endif
-                        @if(Auth::user()->status == 'Admin' || Auth::user()->kategori == 'Admin Unit')
+                        @if(Auth::user()->status == 'Admin')
                         <li class="nav-item">
                             <a href="{{ url('users') }}">
                                 <i class="fas fa-users"></i>

@@ -263,6 +263,75 @@
     </div>
 </div>
 
+<div class="modal fade" id="edit-hpe-modal" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form id="form_edit_hpe" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="id" id="hpe_id">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLabel">Edit HPE</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group form-group-default">
+                                <label for="exampleFormControlInput1">Nama Item</label>
+                                <input type="text" class="form-control" id="hpe_item" name="item" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-group-default">
+                                <label for="exampleFormControlInput1">Satuan</label>
+                                <input type="text" class="form-control" id="hpe_satuan" name="satuan" required>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group form-group-default">
+                                <label for="exampleFormControlInput1">Vol 1</label>
+                                <input type="text" class="form-control" id="hpe_vol_1" name="vol_1" required>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group form-group-default">
+                                <label for="exampleFormControlInput1">Vol 2</label>
+                                <input type="text" class="form-control" id="hpe_vol_2" name="vol_2">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-group-default">
+                                <label for="exampleFormControlInput1">Harga Satuan</label>
+                                <input type="text" class="form-control" id="hpe_harga_satuan" name="harga_satuan" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-group-default">
+                                <label for="exampleFormControlInput1">Jumlah</label>
+                                <input type="text" class="form-control" id="f_hpe_jumlah" readonly>
+                                <input type="hidden" class="form-control" id="hpe_jumlah" name="jumlah">
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 <div class="row">
     <div class="col-md-6">
@@ -281,7 +350,7 @@
 
 
 
-@if ($pengadaan->submit == 1 && $pengadaan->perencanaan == null && Auth::user()->kategori == 'Perencana')
+@if ($pengadaan->submit == 1 && $pengadaan->perencanaan == null && (Auth::user()->kategori == 'Perencana' || Auth::user()->status == 'Admin'))
     <a href="{{ url('perencana-pengadaan/form?pengadaan_id=' . $pengadaan->id) }}"
         class="btn btn-success btn-round btn-sm">
         <span class="btn-label">
@@ -479,7 +548,7 @@
                         <th style="text-align: center;" rowspan="2">Satuan</th>
                         <th style="text-align: center;" rowspan="2" colspan="2">Vol</th>
                         <th style="text-align: center;" colspan="2">Nilai Pekerjaan</th>
-                        {{-- <th style="text-align: center;"  rowspan="2">Option</th> --}}
+                        <th style="text-align: center;"  rowspan="2">Option</th>
 
                     </tr>
                     <tr>
@@ -500,6 +569,11 @@
                             <td align="center" width="5%" align="center">{{ $item->vol_2 }}</td>
                             <td align="right">{{ number_format($item->harga_satuan) }}</td>
                             <td align="right">{{ number_format($item->jumlah) }}</td>
+                            <td align="center">
+                                <a href="#" class="btn btn-sm btn-rounded btn-warning btn-edit-hpe" data-id="{{ $item->id }}"
+                                    data-item="{{ $item->item }}" data-satuan="{{ $item->satuan }}" data-vol_1="{{ $item->vol_1 }}" data-vol_2="{{ $item->vol_2 }}"
+                                    data-harga_satuan="{{ $item->harga_satuan }}" data-jumlah="{{ $item->jumlah }}">Edit</a>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

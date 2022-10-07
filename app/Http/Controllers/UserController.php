@@ -14,10 +14,10 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
-    // public function __construct()
-    // {
-    //     return $this->middleware('auth');
-    // }
+    public function __construct()
+    {
+        return $this->middleware('auth');
+    }
 
     public function view(){
         $jabatan = User::groupBy('status')->get("status");
@@ -41,6 +41,7 @@ class UserController extends Controller
             $u->no_wa = $r->no_wa;
             $u->status = $r->status;
             $u->kategori = $r->kategori;
+            $u->level = $r->level;
             $u->email = $r->email;
             $u->password = Hash::make($r->password);
             $u->uid = $r->unit_id;
@@ -67,6 +68,7 @@ class UserController extends Controller
             $u->no_wa = $r->no_wa;
             $u->status = $r->status;
             $u->kategori = $r->kategori;
+            $u->level = $r->level;
             $u->email = $r->email;
             // $u->password = Hash::make($r->password);
             $u->save();

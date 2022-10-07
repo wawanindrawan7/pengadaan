@@ -83,7 +83,14 @@
                             <td style="font-size: 9pt;">{{ $no ++ }}</td>
                             <td style="font-size: 9pt;">
                                 {{ $p->nama }}
-                                {!! ($p->pelaksanaan != null) ? "<br><br>".$p->pelaksanaan->nomor_kontrak."<br><br>" : '' !!}
+                                @if($p->pelaksanaan != null)
+                                {!! "<br><br>".$p->pelaksanaan->nomor_kontrak."<br>" !!}
+                                @if($p->khs_pid != null)
+                                <a href="{!! url('pengadaan/detail?id='.$p->khs_pid."&tab=pelaksana") !!}" class="khs_link">{!! 'KHS No : '.$p->khs_no ."<br><br>" !!}</a>
+                                @else
+                                <br>
+                                @endif
+                                @endif
                             </td>
                             <td style="font-size: 9pt;">{{ $p->unit->nama }}</td>
                             <td style="font-size: 9pt;">{{ $p->metode_pengadaan }}</td>

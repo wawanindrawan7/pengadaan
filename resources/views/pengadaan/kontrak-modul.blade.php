@@ -207,6 +207,47 @@
     </div>
 </div>
 
+<div class="modal fade" id="edit-tgl-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form id="form_edit_tgl">
+                @csrf
+                <input type="hidden" name="id" id="e_tgl_id">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="">Tgl. Penilaian</label>
+                        <input type="text" name="tgl_penilaian" id="e_tgl_penilaian" required class="form-control date">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">DPT / Non DPT</label>
+                        <select class="form-control" name="dpt_non_dpt" id="e_dpt_non_dpt" required>
+                            <option value=""></option>
+                            <option>DPT Jasa Konstruksi JTM, Gardu Distribusi dan JTR</option>
+                            <option>DPT Jasa Konstruksi SR dan APP</option>
+                            <option>DPT Jasa Grinding dan Polishing Crankshaft Mesin Diesel</option>
+                            <option>DPT Jasa Rekondisi Sparepart Mesin Diesel</option>
+                            <option>Non DPT</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 <div class="row">
     <div class="col-md-12">
@@ -394,11 +435,19 @@
                                         <input type="text" name="tgl_peilaian" readonly class="form-control" value="{{ date('d-m-Y', strtotime($pengadaan->pelaksanaan->penilaianVendor->tgl_penilaian)) }}">
                                     </div>
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleFormControlInput1">DPT / Non DPT</label>
                                         <input type="text" name="tgl_peilaian" readonly class="form-control" value="{{ $pengadaan->pelaksanaan->penilaianVendor->dpt_non_dpt }}">
                                         
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+
+                                    <div class="form-group">
+                                        {{-- <label for="">Opt</label> --}}
+                                        <button class="btn btn-rounded btn-warning form-control mt-4 btn-edit-tgl" data-id="{{ $pengadaan->pelaksanaan->penilaianVendor->id }}"
+                                            data-tgl_penilaian="{{ $pengadaan->pelaksanaan->penilaianVendor->tgl_penilaian }}" data-cat="{{ $pengadaan->pelaksanaan->penilaianVendor->dpt_non_dpt }}">Edit</button>
                                     </div>
                                 </div>
                             </div>
@@ -466,13 +515,24 @@
                                         <input type="text" name="tgl_peilaian" readonly class="form-control" value="{{ date('d-m-Y', strtotime($pengadaan->pelaksanaan->penilaianVendor->tgl_penilaian)) }}">
                                     </div>
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleFormControlInput1">DPT / Non DPT</label>
                                         <input type="text" name="tgl_peilaian" readonly class="form-control" value="{{ $pengadaan->pelaksanaan->penilaianVendor->dpt_non_dpt }}">
                                         
                                     </div>
                                 </div>
+
+                                <div class="col-md-2">
+
+                                    <div class="form-group">
+                                        {{-- <label for="">Opt</label> --}}
+                                        <button class="btn btn-rounded btn-warning form-control mt-4 btn-edit-tgl" data-id="{{ $pengadaan->pelaksanaan->penilaianVendor->id }}"
+                                            data-tgl_penilaian="{{ $pengadaan->pelaksanaan->penilaianVendor->tgl_penilaian }}" data-cat="{{ $pengadaan->pelaksanaan->penilaianVendor->dpt_non_dpt }}">Edit</button>
+                                    </div>
+                                </div>
+
+                                
                             </div>
 
                             <table id="basic-datatables" class="display table table-bordered table-hover">

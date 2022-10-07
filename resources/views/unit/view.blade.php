@@ -107,7 +107,7 @@
                             <th width="1%">No.</th>
                             <th width="30%">Nama Unit</th>
                             <th width="10%">Kota</th>
-                            <th>Option</th>
+                            <th width="3%">Option</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -124,10 +124,11 @@
                                     data-nama="{{ $u->nama }}" data-kota="{{ $u->kota }}">
                                     <i class="fa fa-edit"></i>
                                 </a>
-
+                                @if(Auth::user()->status == 'Admin')
                                 <a title="Delete" href="#" class="btn btn-danger btn-round btn-xs mr-2 btn-delete" data-id="{{ $u->id }}">
                                     <i class="fa fa-trash"></i>
                                 </a>
+                                @endif
                             </td>
 
                         </tr>

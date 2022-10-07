@@ -96,6 +96,46 @@
         })
     });
 
+    function countJumlah(){
+        var vol_1 = $('#hpe_vol_1').val()
+        var vol_2 = $('#hpe_vol_2').val()
+        var harga_satuan = $('#hpe_harga_satuan').val()
+
+        var jumlah = 0
+
+        if(vol_2 == '' || vol_2 == 0){
+            jumlah = vol_1 * harga_satuan
+        }else{
+            jumlah = vol_1 * vol_2 * harga_satuan
+        }
+        $('#hpe_jumlah').val(jumlah)
+        $('#f_hpe_jumlah').val(nf.format(jumlah))
+
+    }
+
+    $(document).on('input','#hpe_vol_1', function(){
+        countJumlah()
+    })
+    $(document).on('input','#hpe_vol_2', function(){
+        countJumlah()
+    })
+    $(document).on('input','#hpe_harga_satuan', function(){
+        countJumlah()
+    })
+
+    $(document).on('click', '.btn-edit-hpe', function(e) {
+        e.preventDefault()
+        $('#hpe_id').val($(this).data('id'))
+        $('#hpe_item').val($(this).data('item'))
+        $('#hpe_satuan').val($(this).data('satuan'))
+        $('#hpe_vol_1').val($(this).data('vol_1'))
+        $('#hpe_vol_2').val($(this).data('vol_2'))
+        $('#hpe_harga_satuan').val($(this).data('harga_satuan'))
+        $('#hpe_jumlah').val($(this).data('jumlah'))
+        $('#f_hpe_jumlah').val(nf.format($(this).data('jumlah')))
+        $('#edit-hpe-modal').modal('show')
+    })
+
     $(document).on('click', '.btn-update-perencanaan', function(e) {
         console.log($(this).data('no_nota_dinas'))
         $('#pp_id').val($(this).data('id'))
@@ -123,6 +163,33 @@
         $.ajax({
             type: 'post',
             url: "{!! url('perencana-pengadaan/update') !!}",
+            data: new FormData(this),
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(r) {
+                console.log(r)
+                if (r == 'success') {
+                    swal("Good job!", "Simpan data berhasil !", {
+                        icon: "success",
+                        buttons: {
+                            confirm: {
+                                className: 'btn btn-success'
+                            }
+                        },
+                    }).then(function() {
+                        window.location = "{!! url('pengadaan/detail?id=' . $pengadaan->id . '&tab=perencana') !!}"
+                    });
+                }
+            }
+        })
+    });
+
+    $('#form_edit_hpe').on('submit', function(e) {
+        e.preventDefault()
+        $.ajax({
+            type: 'post',
+            url: "{!! url('perencana-pengadaan/edit-hpe') !!}",
             data: new FormData(this),
             contentType: false,
             cache: false,
