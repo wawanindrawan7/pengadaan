@@ -83,49 +83,60 @@
         </div>
     </div>
 
+
     <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-head-row">
-                    <div class="card-title">Grafik Pengadaan</div>
-                    {{-- <div class="card-tools">
-                        <a href="#" class="btn btn-info btn-border btn-round btn-sm mr-2" data-toggle="modal"
-                            data-target="#create-modal">
-                            <span class="btn-label">
-                                <i class="fa fa-plus"></i>
-                            </span>
-                            Create
-                        </a>
-                    </div> --}}
-                </div>
-            </div>
+        <div class="card full-height">
             <div class="card-body">
-                <div id="chartdiv" style="width: 100%;height: 550px;"></div>
+                <div class="card-title">Statistik Pengadaan</div>
+                <div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+                    <div class="px-2 pb-2 pb-md-0 text-center">
+                        <div id="pengadaan_langsung"></div>
+                        <h6 class="fw-bold mt-3 mb-0">Pengadaan Langsung</h6>
+                    </div>
+                    <div class="px-2 pb-2 pb-md-0 text-center">
+                        <div id="penunjukan_langsung"></div>
+                        <h6 class="fw-bold mt-3 mb-0">Penunjukan Langsung</h6>
+                    </div>
+                    <div class="px-2 pb-2 pb-md-0 text-center">
+                        <div id="tender_terbatas"></div>
+                        <h6 class="fw-bold mt-3 mb-0">Tender Terbatas</h6>
+                    </div>
+                    <div class="px-2 pb-2 pb-md-0 text-center">
+                        <div id="tender_terbuka"></div>
+                        <h6 class="fw-bold mt-3 mb-0">Tender Terbuka</h6>
+                    </div>
+                    <div class="px-2 pb-2 pb-md-0 text-center">
+                        <div id="kontrak_rinci"></div>
+                        <h6 class="fw-bold mt-3 mb-0">Kontrak Rinci</h6>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     
     <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-head-row">
-                    <div class="card-title">Grafik Penilaian Vendor</div>
-                    {{-- <div class="card-tools">
-                        <a href="#" class="btn btn-info btn-border btn-round btn-sm mr-2" data-toggle="modal"
-                            data-target="#create-modal">
-                            <span class="btn-label">
-                                <i class="fa fa-plus"></i>
-                            </span>
-                            Create
-                        </a>
-                    </div> --}}
-                </div>
-            </div>
+        <div class="card full-height">
             <div class="card-body">
-                <div id="chartdiv_penilaian" style="width: 100%;height: 550px;"></div>
+                <div class="card-title">Statistik Penilaian Kinerja Vendor</div>
+                <div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+                    <div class="px-2 pb-2 pb-md-0 text-center">
+                        <div id="baik"></div>
+                        <h6 class="fw-bold mt-3 mb-0">Baik</h6>
+                    </div>
+                    <div class="px-2 pb-2 pb-md-0 text-center">
+                        <div id="cukup"></div>
+                        <h6 class="fw-bold mt-3 mb-0">Cukup</h6>
+                    </div>
+                    <div class="px-2 pb-2 pb-md-0 text-center">
+                        <div id="buruk"></div>
+                        <h6 class="fw-bold mt-3 mb-0">Buruk</h6>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
+    
     
 </div>
 @endsection
@@ -133,113 +144,122 @@
 <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
 <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
 <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+<script src="{{ asset('public/atlantis/assets/js/plugin/chart-circle/circles.min.js') }}"></script>
 <script>
-    am5.ready(function () {
+   Circles.create({
+			id:'pengadaan_langsung',
+			radius:45,
+			value:{{ $pengadaan_langsung }},
+			maxValue:{{ $total }},
+			width:7,
+			text: {{ $pengadaan_langsung }},
+			colors:['#f1f1f1', '#8cc265'],
+			duration:400,
+			wrpClass:'circles-wrp',
+			textClass:'circles-text',
+			styleWrapper:true,
+			styleText:true
+		})
 
-        // Create root element
-        // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-        var root = am5.Root.new("chartdiv");
+        Circles.create({
+			id:'penunjukan_langsung',
+			radius:45,
+			value:{{ $penunjukan_langsung }},
+			maxValue:{{ $total }},
+			width:7,
+			text: {{ $penunjukan_langsung }},
+			colors:['#f1f1f1', '#d18f52'],
+			duration:400,
+			wrpClass:'circles-wrp',
+			textClass:'circles-text',
+			styleWrapper:true,
+			styleText:true
+		})
 
-        // Set themes
-        // https://www.amcharts.com/docs/v5/concepts/themes/
-        root.setThemes([
-            am5themes_Animated.new(root)
-        ]);
+        Circles.create({
+			id:'tender_terbatas',
+			radius:45,
+			value:{{ $tender_terbatas }},
+			maxValue:{{ $total }},
+			width:7,
+			text: {{ $tender_terbatas }},
+			colors:['#f1f1f1', '#c24038'],
+			duration:400,
+			wrpClass:'circles-wrp',
+			textClass:'circles-text',
+			styleWrapper:true,
+			styleText:true
+		})
+        Circles.create({
+			id:'tender_terbuka',
+			radius:45,
+			value:{{ $tender_terbuka }},
+			maxValue:{{ $total }},
+			width:7,
+			text: {{ $tender_terbuka }},
+			colors:['#f1f1f1', '#2BB930'],
+			duration:400,
+			wrpClass:'circles-wrp',
+			textClass:'circles-text',
+			styleWrapper:true,
+			styleText:true
+		})
+        Circles.create({
+			id:'kontrak_rinci',
+			radius:45,
+			value:{{ $kontrak_rinci }},
+			maxValue:{{ $total }},
+			width:7,
+			text: {{ $kontrak_rinci }},
+			colors:['#f1f1f1', '#528bff'],
+			duration:400,
+			wrpClass:'circles-wrp',
+			textClass:'circles-text',
+			styleWrapper:true,
+			styleText:true
+		})
 
-        // Create chart
-        // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
-        // start and end angle must be set both for chart and series
-        var chart = root.container.children.push(am5percent.PieChart.new(root, {
-            startAngle: 180,
-            endAngle: 360,
-            layout: root.verticalLayout,
-            innerRadius: am5.percent(50)
-        }));
-
-        // Create series
-
-        // start and end angle must be set both for chart and series
-        var series = chart.series.push(am5percent.PieSeries.new(root, {
-            startAngle: 180,
-            endAngle: 360,
-            valueField: "value",
-            categoryField: "kategori",
-            alignLabels: false
-        }));
-
-        series.states.create("hidden", {
-            startAngle: 180,
-            endAngle: 180
-        });
-
-        series.slices.template.setAll({
-            cornerRadius: 5
-        });
-
-        series.ticks.template.setAll({
-            forceHidden: true
-        });
-
-        // Set data
-
-        series.data.setAll(@json($chart_data, JSON_PRETTY_PRINT));
-
-        series.appear(1000, 100);
-
-    });
-
-    am5.ready(function () {
-
-        // Create root element
-        // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-        var root = am5.Root.new("chartdiv_penilaian");
-
-        // Set themes
-        // https://www.amcharts.com/docs/v5/concepts/themes/
-        root.setThemes([
-            am5themes_Animated.new(root)
-        ]);
-
-        // Create chart
-        // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
-        // start and end angle must be set both for chart and series
-        var chart = root.container.children.push(am5percent.PieChart.new(root, {
-            startAngle: 180,
-            endAngle: 360,
-            layout: root.verticalLayout,
-            innerRadius: am5.percent(50)
-        }));
-
-        // Create series
-
-        // start and end angle must be set both for chart and series
-        var series = chart.series.push(am5percent.PieSeries.new(root, {
-            startAngle: 180,
-            endAngle: 360,
-            valueField: "value",
-            categoryField: "kategori",
-            alignLabels: false
-        }));
-
-        series.states.create("hidden", {
-            startAngle: 180,
-            endAngle: 180
-        });
-
-        series.slices.template.setAll({
-            cornerRadius: 5
-        });
-
-        series.ticks.template.setAll({
-            forceHidden: true
-        });
-
-        // Set data
-
-        series.data.setAll(@json($chart_penilaian_data, JSON_PRETTY_PRINT));
-
-        series.appear(1000, 100);
-
-    });
+    Circles.create({
+			id:'baik',
+			radius:45,
+			value:{{ $baik }},
+			maxValue:{{ ($baik + $cukup + $buruk) }},
+			width:7,
+			text: {{ $baik }},
+			colors:['#f1f1f1', '#2BB930'],
+			duration:400,
+			wrpClass:'circles-wrp',
+			textClass:'circles-text',
+			styleWrapper:true,
+			styleText:true
+		})
+    Circles.create({
+			id:'cukup',
+			radius:45,
+			value:{{ $cukup }},
+			maxValue:{{ ($baik + $cukup + $buruk) }},
+			width:7,
+			text: {{ $cukup }},
+			colors:['#f1f1f1', '#47ABF7'],
+			duration:400,
+			wrpClass:'circles-wrp',
+			textClass:'circles-text',
+			styleWrapper:true,
+			styleText:true
+		})
+    Circles.create({
+			id:'buruk',
+			radius:45,
+			value:{{ $buruk }},
+			maxValue:{{ ($baik + $cukup + $buruk) }},
+			width:7,
+			text: {{ $buruk }},
+			colors:['#f1f1f1', '#F15860'],
+			duration:400,
+			wrpClass:'circles-wrp',
+			textClass:'circles-text',
+			styleWrapper:true,
+			styleText:true
+		})
 </script>
 @endsection

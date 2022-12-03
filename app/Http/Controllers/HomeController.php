@@ -34,7 +34,12 @@ class HomeController extends Controller
         $u = Auth::user();
 
         $chart_data = [];
-        
+        $pengadaan_langsung = 0;
+        $penunjukan_langsung = 0;
+        $tender_terbatas = 0;
+        $tender_terbuka = 0;
+        $kontrak_rinci = 0;
+
 
         $sangat_baik = 0;
         $baik = 0;
@@ -60,11 +65,19 @@ class HomeController extends Controller
                     }else{
                         // $belum_dinilai ++;
                     }
+                    if($rw->metode_pengadaan == 'Pengadaan Langsung'){
+                        $pengadaan_langsung ++; 
+                    }elseif($rw->metode_pengadaan == 'Penunjukan Langsung'){
+                        $penunjukan_langsung ++;
+                    }elseif($rw->metode_pengadaan == 'Tender Terbatas'){
+                        $tender_terbatas ++;
+                    }elseif($rw->metode_pengadaan == 'Tender Terbuka'){
+                        $tender_terbuka ++;
+                    }elseif($rw->metode_pengadaan == 'Kontrak Rinci'){
+                        $kontrak_rinci ++;
+                    }
                 }
-                array_push($chart_data, array(
-                    'kategori' => $peng->metode_pengadaan,
-                    'value' => count($row),
-                ));
+
             }
         }elseif($u->kategori == 'Perencana' || $u->kategori == 'Pelaksana' || $u->kategori == 'Admin Unit'){
             $pengadaan = Pengadaan::where('unit_id', $u->uid)->groupBy('metode_pengadaan')->get();
@@ -84,11 +97,20 @@ class HomeController extends Controller
                     }else{
                         // $belum_dinilai ++;
                     }
+
+                    if($rw->metode_pengadaan == 'Pengadaan Langsung'){
+                        $pengadaan_langsung ++; 
+                    }elseif($rw->metode_pengadaan == 'Penunjukan Langsung'){
+                        $penunjukan_langsung ++;
+                    }elseif($rw->metode_pengadaan == 'Tender Terbatas'){
+                        $tender_terbatas ++;
+                    }elseif($rw->metode_pengadaan == 'Tender Terbuka'){
+                        $tender_terbuka ++;
+                    }elseif($rw->metode_pengadaan == 'Kontrak Rinci'){
+                        $kontrak_rinci ++;
+                    }
                 }
-                array_push($chart_data, array(
-                    'kategori' => $peng->metode_pengadaan,
-                    'value' => count($row),
-                ));
+                
             }
         }else{
             $pengadaan = Pengadaan::where('users_id', $u->id)
@@ -119,28 +141,40 @@ class HomeController extends Controller
                     }else{
                         // $belum_dinilai ++;
                     }
+
+                    if($rw->metode_pengadaan == 'Pengadaan Langsung'){
+                        $pengadaan_langsung ++; 
+                    }elseif($rw->metode_pengadaan == 'Penunjukan Langsung'){
+                        $penunjukan_langsung ++;
+                    }elseif($rw->metode_pengadaan == 'Tender Terbatas'){
+                        $tender_terbatas ++;
+                    }elseif($rw->metode_pengadaan == 'Tender Terbuka'){
+                        $tender_terbuka ++;
+                    }elseif($rw->metode_pengadaan == 'Kontrak Rinci'){
+                        $kontrak_rinci ++;
+                    }
                 }
-                array_push($chart_data, array(
-                    'kategori' => $peng->metode_pengadaan,
-                    'value' => count($row),
-                ));
+
+                
             }
             
         }
 
-        $chart_penilaian_data = [
-            // ['kategori' => 'Sangat Baik', 'value' => $sangat_baik],
-            ['kategori' => 'Baik', 'value' => $baik],
-            ['kategori' => 'Cukup', 'value' => $cukup],
-            ['kategori' => 'Buruk', 'value' => $buruk],
-            // ['kategori' => 'Belum Dinilai', 'value' => $belum_dinilai],
-        ];
+        // $chart_penilaian_data = [
+        //     'baik' => $baik,
+        //     'cukup' => $cukup,
+        //     'buruk' => $buruk
+        // ];
 
-        // return $chart_penilaian_data;
+        // return $kontrak_rinci;
 
 
+        $total = $pengadaan_langsung + $penunjukan_langsung + $tender_terbatas + $tender_terbuka + $kontrak_rinci;
 
 
-        return view('home', compact('inisiasi','perencana','pelaksana','kontrak','chart_data','chart_penilaian_data'));
+
+
+        return view('home', compact('inisiasi','perencana','pelaksana','kontrak','chart_data',
+        'baik','cukup','buruk', 'pengadaan_langsung','penunjukan_langsung','tender_terbatas','tender_terbuka','kontrak_rinci','total'));
     }
 }

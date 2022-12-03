@@ -182,6 +182,8 @@ class PenilaianVendorController extends Controller
         }
     }
 
+    
+
     public function export(Request $r)
     {
         $pengadaan = Pengadaan::find($r->id);
@@ -215,6 +217,9 @@ class PenilaianVendorController extends Controller
         $mitra_id = $r->has('mitra_id') ? $r->mitra_id : 'semua';
         $cat = $r->has('cat') ? $r->cat : 'semua';
 
+        $dr = null;
+    
+
         $u = Auth::user();
         $query = VPenilaian::query();
 
@@ -229,6 +234,13 @@ class PenilaianVendorController extends Controller
         }
         if($cat != 'semua'){
             $query = $query->where('dpt_non_dpt', $cat);
+        }
+
+        if($r->has('dr') && $r->dr != null){
+            $dr = $r->dr;
+            $d1 = ($r->has('dr')) ? date('Y-m-d', strtotime(substr($dr, 0, 10))) : date('Y-m-d');
+            $d2 = ($r->has('dr')) ? date('Y-m-d', strtotime(substr($dr, 13))) : date('Y-m-d');
+            $query = $query->where('tgl_akhir', '>=', $d1)->where('tgl_akhir', '<=', $d2);
         }
 
 
@@ -251,7 +263,7 @@ class PenilaianVendorController extends Controller
         // return $count_rekap;
         
 
-        return view('penilaian_vendor.rekap', compact('mitra','rekap','mitra_select','cat','count_rekap','unit','unit_select'));
+        return view('penilaian_vendor.rekap', compact('mitra','rekap','mitra_select','cat','count_rekap','unit','unit_select','dr'));
 
     }
 
@@ -312,6 +324,13 @@ class PenilaianVendorController extends Controller
         
         if($cat != 'semua'){
             $query = $query->where('dpt_non_dpt', $cat);
+        }
+
+        if($r->has('dr') && $r->dr != null){
+            $dr = $r->dr;
+            $d1 = ($r->has('dr')) ? date('Y-m-d', strtotime(substr($dr, 0, 10))) : date('Y-m-d');
+            $d2 = ($r->has('dr')) ? date('Y-m-d', strtotime(substr($dr, 13))) : date('Y-m-d');
+            $query = $query->where('tgl_akhir', '>=', $d1)->where('tgl_akhir', '<=', $d2);
         }
 
 

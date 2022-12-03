@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('css')
+<link rel="stylesheet" href="{!! asset('daterangepicker/daterangepicker.css') !!}">
+@endsection
 @section('content')
 <div class="col-md-12">
     <div class="row">
@@ -52,15 +55,6 @@
         <div class="card-header">
             <div class="card-head-row">
                 <div class="card-title">Rekap Penilaian Kinerja Vendor</div>
-                {{-- <div class="card-tools">
-                    <a href="#" class="btn btn-info btn-border btn-round btn-sm mr-2" data-toggle="modal" data-target="#create-modal">
-                        <span class="btn-label">
-                            <i class="fa fa-plus"></i>
-                        </span>
-                        Create
-                    </a>
-
-                </div> --}}
             </div>
         </div>
         <div class="card-body">
@@ -113,13 +107,15 @@
                             </div>
                         </div>
 
-                        {{-- <div class="form-group form-group-default">
+                        <div class="form-group form-group-default">
                             <label for="">Rentang Tanggal</label>
-                            <input type="text" readonly class="form-control">
-                        </div> --}}
+                            <input type="text" readonly class="form-control" id="dr">
+                        </div>
+                        
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-success btn-sm">Export</button>
+                            <a href="{{ url('penilaian/rekap') }}" class="btn btn-danger btn-sm">Reset</a>
                         </div>
                     </form>
                 </div>
@@ -205,6 +201,8 @@
 <script src="{{ asset('public/atlantis/assets/js/plugin/datatables/datatables.min.js') }}"></script>
 <script src="{{ asset('public/atlantis/assets/js/plugin/select2/select2.full.min.js') }}"></script>
 <script src="{{ asset('public/atlantis/assets/js/plugin/chart-circle/circles.min.js') }}"></script>
+<script src="{{ asset('public/atlantis/assets/js/plugin/moment/moment.min.js') }}"></script>
+<script src="{!! asset('daterangepicker/daterangepicker.js') !!}"></script>
 <script>
     $(document).ready(function() {
         $('#basic-datatables').DataTable({
@@ -212,6 +210,31 @@
             ordering: false,
         });
     });
+
+    $('#dr').daterangepicker({
+            timePicker: false,
+            timePickerIncrement: 30,
+            locale: {
+                format: 'YYYY-MM-DD'
+            }
+
+    })
+
+    @if($dr != null)
+    var dr = "{{ $dr }}"
+    $('#dr').val(dr)
+    @else
+    $('#dr').val('')
+    @endif
+
+    $(document).on('change','#dr', function(){
+        var in_dr = $(this).val()
+        console.log(in_dr)
+        var unit_id = $('#unit_id').val()
+        var mitra_id = $('#mitra_id').val()
+        var cat = $('#dpt_non_dpt').val()
+        window.location = "{!! url('penilaian/rekap?unit_id=') !!}"+unit_id+'&mitra_id='+mitra_id+'&cat='+cat+"&dr="+in_dr
+    })
 
     Circles.create({
 			id:'selesai',
@@ -299,10 +322,12 @@
 			styleText:true
 		})
 
-    $('#unit_id').select2({
+    
+        $('#unit_id').select2({
         theme: "bootstrap",
         placeholder:"Pilih Vendor"
     });
+    
     $('#mitra_id').select2({
         theme: "bootstrap",
         placeholder:"Pilih Vendor"
@@ -316,7 +341,8 @@
         var unit_id = $(this).val()
         var mitra_id = $('#mitra_id').val()
         var cat = $('#dpt_non_dpt').val()
-        window.location = "{!! url('penilaian/rekap?unit_id=') !!}"+unit_id+'&mitra_id='+mitra_id+'&cat='+cat
+        var in_dr = $('#dr').val()
+        window.location = "{!! url('penilaian/rekap?unit_id=') !!}"+unit_id+'&mitra_id='+mitra_id+'&cat='+cat+"&dr="+in_dr
         // console.log(mitra_id)
     })
 
@@ -324,7 +350,8 @@
         var mitra_id = $(this).val()
         var unit_id = $('#unit_id').val()
         var cat = $('#dpt_non_dpt').val()
-        window.location = "{!! url('penilaian/rekap?unit_id=') !!}"+unit_id+'&mitra_id='+mitra_id+'&cat='+cat
+        var in_dr = $('#dr').val()
+        window.location = "{!! url('penilaian/rekap?unit_id=') !!}"+unit_id+'&mitra_id='+mitra_id+'&cat='+cat+"&dr="+in_dr
         // console.log(mitra_id)
     })
     
@@ -332,7 +359,8 @@
         var cat = $(this).val()
         var mitra_id = $('#mitra_id').val()
         var unit_id = $('#unit_id').val()
-        window.location = "{!! url('penilaian/rekap?unit_id=') !!}"+unit_id+'&mitra_id='+mitra_id+'&cat='+cat
+        var in_dr = $('#dr').val()
+        window.location = "{!! url('penilaian/rekap?unit_id=') !!}"+unit_id+'&mitra_id='+mitra_id+'&cat='+cat+"&dr="+in_dr
         // console.log(mitra_id)
     })
 

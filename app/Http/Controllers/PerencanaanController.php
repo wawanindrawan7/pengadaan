@@ -8,6 +8,7 @@ use App\Models\Pengadaan;
 use App\Models\PengadaanFile;
 use App\Models\Perencanaan;
 use App\Models\PerencanaanFile;
+use App\Models\UsersReviewer;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -65,6 +66,9 @@ class PerencanaanController extends Controller
             $p->nilai_hpe = $r->nilai_hpe;
             $p->nomor_rks = $r->nomor_rks;
             $p->tgl_rks = date('Y-m-d', strtotime($r->tgl_rks));
+            $p->nomor_pakta_integritas = $r->nomor_pakta_integritas;
+            $p->tgl_pakta_integritas = date('Y-m-d', strtotime($r->tgl_pakta_integritas));
+            $p->tgl_drp = date('Y-m-d', strtotime($r->tgl_drp));
             $p->kebutuhan = $r->kebutuhan;
             $p->volume = $r->volume;
             $p->jumlah_pengguna = $r->jumlah_pengguna;
@@ -114,12 +118,29 @@ class PerencanaanController extends Controller
             $p->tgl_hpe = date('Y-m-d', strtotime($r->tgl_hpe));
             $p->tgl_rks = date('Y-m-d', strtotime($r->tgl_rks));
             $p->nomor_rks = $r->nomor_rks;
+            $p->nomor_pakta_integritas = $r->nomor_pakta_integritas;
+            $p->tgl_pakta_integritas = $r->tgl_pakta_integritas;
+            $p->tgl_drp = $r->tgl_drp;
             $p->kebutuhan = $r->kebutuhan;
             $p->volume = $r->volume;
             $p->jumlah_pengguna = $r->jumlah_pengguna;
             $p->penyedia = $r->penyedia;
             $p->jumlah_vendor = $r->jumlah_vendor;
             $p->save();
+
+            if(count($r->users_komite_id) > 0){
+                $pengadaan = Pengadaan::find($p->pengadaan_id);
+                //del old vfm
+                $vfm = UsersReviewer::where('pengadaan_id', $p->pengadaan_id)->delete();
+
+                foreach($r->users_komite_id as $uid){
+                    $nvfm = new UsersReviewer();
+                    $nvfm->pengadaan_id = $p->pengadaan_id;
+                    $nvfm->users_id = $uid;
+                    $nvfm->save();
+                }
+            }
+
             DB::commit();
             return 'success';
         } catch (\Throwable $th) {

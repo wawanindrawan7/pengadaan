@@ -262,6 +262,43 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="active-opt-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <form id="form_active_opt">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Active / Non Active</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <input type="hidden" name="id" id="act_id">
+
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Nama</label>
+                            <input type="text" class="form-control" id="act_name" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Active / Non Active</label>
+                            <select class="form-control" name="active" id="act_status" required>
+                                <option value="1">Active</option>
+                                <option value="0">Non Active</option>
+                            </select>
+                        </div>  
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <div class="modal fade" id="password-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -329,6 +366,7 @@
                                 <th>Kategori / Level</th>
                                 <th>No. Whatsap</th>
                                 <th>Unit</th>
+                                <th>Active</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -363,6 +401,9 @@
                                             data-id="{{ $u->id }}" data-name="{{ $u->name }}">Pointing Unit
                                         </a>
                                         @endif
+                                    </td>
+                                    <td>
+                                        <a href="#" class="btn-active-opt" data-id="{{ $u->id }}" data-name="{{ $u->name }}" data-active="{{ $u->active }}"><span class="badge {{ ($u->active == 1) ? 'bg-success' : 'bg-danger' }} text-white">{{ ($u->active == 1) ? 'Active' : 'Non Active' }}</span></a>
                                     </td>
                                     <td align="center">
                                         <a title="Update" href="#"
@@ -407,6 +448,42 @@
             $('#basic-datatables').DataTable({
                 pageLength:100
             });
+        });
+
+        $(document).on('click','.btn-active-opt', function(e){
+            e.preventDefault()
+            $('#act_id').val($(this).data('id'))
+            $('#act_name').val($(this).data('name'))
+            $('#act_status').val($(this).data('active'))
+
+            $('#active-opt-modal').modal('show')
+        })
+
+        $('#form_active_opt').on('submit', function(e) {
+            e.preventDefault()
+            $.ajax({
+                type: 'POST',
+                url: "{!! url('users/active/update') !!}",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(r) {
+                    console.log(r)
+                    if (r == 'success') {
+                        swal("Good job!", "Simpan data berhasil !", {
+                            icon: "success",
+                            buttons: {
+                                confirm: {
+                                    className: 'btn btn-success'
+                                }
+                            },
+                        }).then(function() {
+                            location.reload()
+                        });
+                    }
+                }
+            })
         });
 
         $(document).on('click','.btn-update-password', function(e){

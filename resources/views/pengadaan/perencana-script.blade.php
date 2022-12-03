@@ -1,4 +1,8 @@
 <script>
+    $('#e_users_komite').select2({
+        theme: "bootstrap"
+    });
+
     $(document).on('input','#e_nilai_hpe', function(){
         var nilai_anggaran = "{{ $pengadaan->nilai_anggaran }}"
 
@@ -137,7 +141,7 @@
     })
 
     $(document).on('click', '.btn-update-perencanaan', function(e) {
-        console.log($(this).data('no_nota_dinas'))
+        
         $('#pp_id').val($(this).data('id'))
         $('#e_kategori_kebutuhan').val($(this).data('kategori_kebutuhan'))
         $('#e_tgl_penggunaan').val($(this).data('tgl_penggunaan'))
@@ -155,6 +159,15 @@
         $('#epr_jumlah_pengguna').val($(this).data('jumlah_pengguna'))
         $('#epr_penyedia').val($(this).data('penyedia'))
         $('#epr_jumlah_vendor').val($(this).data('jumlah_vendor'))
+
+        var users_vfm = $(this).data('vfm')
+        var ids = []
+        $.each(users_vfm, function(i, d){
+            ids.push(d.users_id)
+        })
+
+        $('#e_users_komite').val(ids).trigger('change')
+        console.log(ids)
         $('#update-perencanaan-modal').modal('show')
     })
 

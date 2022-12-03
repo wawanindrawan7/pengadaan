@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\AmandemenController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\FormPenilaianLainController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HpeItemController;
 use App\Http\Controllers\ManajemenKontrakController;
 use App\Http\Controllers\MitraController;
@@ -10,7 +13,10 @@ use App\Http\Controllers\PenilaianVendorController;
 use App\Http\Controllers\PerencanaanController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
+use App\Mail\SendResetPassword;
+use App\Providers\Whatsapp;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,11 +34,29 @@ Route::get('/', function () {
     return redirect('login');
 });
 
+Route::get('/wa', function () {
+    event(new Whatsapp('08125221835', "TEST WA SENDER"));
+});
+
+Route::get('/mail', function () {
+    $details = [
+        'title' => 'Mail from CoVerMap',
+        'body' => 'This is for testing email using smtp'
+    ];
+
+    Mail::to('erwin.jnefer@gmail.com')->send(new SendResetPassword($details));
+    dd("Email sent !");
+});
+
 
 
 Auth::routes();
+Route::any('/register', [HomeController::class, 'index']);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('req-otp', [LoginController::class, 'reqOtp']);
+Route::post('reset-password', [LoginController::class, 'resetPassword']);
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('pengadaan', [PengadaanController::class, 'view']);
 Route::post('pengadaan/create', [PengadaanController::class, 'create']);
@@ -82,8 +106,10 @@ Route::get('pelaksanaan-file/delete', [PelaksanaanController::class, 'deleteFile
 
 Route::get('manajemen-kontrak', [ManajemenKontrakController::class, 'view']);
 Route::post('manajemen-kontrak/upload-penilaian', [ManajemenKontrakController::class, 'uploadPenilaianFile']);
+Route::get('manajemen-kontrak/reset-penilaian', [ManajemenKontrakController::class, 'resetPenilaian']);
 Route::post('manajemen-kontrak/edit-penilaian-f1', [ManajemenKontrakController::class, 'editPenilaianF1']);
 Route::post('manajemen-kontrak/edit-penilaian-f2', [ManajemenKontrakController::class, 'editPenilaianF2']);
+Route::post('manajemen-kontrak/edit-penilaian-f3', [ManajemenKontrakController::class, 'editPenilaianF3']);
 Route::post('manajemen-kontrak/edit-tgl-penilaian', [ManajemenKontrakController::class, 'editTglPenilaian']);
 Route::post('amandemen/create', [AmandemenController::class, 'create']);
 Route::post('amandemen/update', [AmandemenController::class, 'update']);
@@ -99,8 +125,12 @@ Route::post('users/update', [UserController::class, 'update']);
 Route::post('users/update-password', [UserController::class, 'updatePassword']);
 Route::post('users/pointing-unit/create', [UserController::class, 'createUnit']);
 Route::post('users/pointing-unit/update', [UserController::class, 'updateUnit']);
+Route::post('users/active/update', [UserController::class, 'updateActive']);
 Route::get('users/delete', [UserController::class, 'delete']);
 Route::get('users/import', [UserController::class, 'import']);
+
+Route::get('profile',[UserController::class, 'profile']);
+Route::post('profile/update-account',[UserController::class, 'updateAccount']);
 
 Route::get('unit', [UnitController::class, 'view']);
 Route::post('unit/create', [UnitController::class, 'create']);
@@ -122,6 +152,13 @@ Route::get('penilaian/form-supply-only', [PenilaianVendorController::class, 'for
 Route::get('penilaian/form-supply-errect', [PenilaianVendorController::class, 'formSupplyErrect']);
 Route::get('penilaian/form-khs_distribusi_niaga', [PenilaianVendorController::class, 'formKhsDistribusiNiaga']);
 Route::get('penilaian/export', [PenilaianVendorController::class, 'export']);
+
+Route::get('penilaian/form-lain', [FormPenilaianLainController::class, 'form']);
+Route::post('penilaian/form-lain/create', [FormPenilaianLainController::class, 'create']);
+Route::get('penilaian/form-lain/load-temp', [FormPenilaianLainController::class, 'loadTemp']);
+Route::get('penilaian/form-lain/add-item', [FormPenilaianLainController::class, 'addItem']);
+Route::get('penilaian/form-lain/del-item', [FormPenilaianLainController::class, 'delItem']);
+
 
 Route::get('penilaian/rekap', [PenilaianVendorController::class, 'rekap']);
 Route::get('penilaian/rekap/export', [PenilaianVendorController::class, 'exportRekap']);

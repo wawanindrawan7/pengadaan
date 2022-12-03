@@ -155,6 +155,29 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group form-group-default">
+                                <label for="exampleFormControlInput1">Nomor Pakta Integritas</label>
+                                <input type="text" class="form-control" name="nomor_pakta_integritas" id="e_nomor_pakta_integritas"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-group-default">
+                                <label>Tanggal Pakta Integritas</label>
+                                <input type="text" class="form-control date" name="tgl_pakta_integritas" id="e_tgl_pakta_integritas"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-group-default">
+                                <label>Tanggal DRP</label>
+                                <input type="text" class="form-control date" name="tgl_drp" id="e_tgl_drp"
+                                    required>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="row">
                         <div class="col-md-4">
@@ -207,6 +230,19 @@
                                     <option>Sedikit</option>
                                 </select>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-group-default">
+                        <label for="exampleFormControlInput1">User Komite Value For Money</label>
+                        <div class="select2-input select2-warning mt-2">
+                            <select name="users_komite_id[]" id="e_users_komite" multiple="multiple" class="form-control"
+                                style="width: 100%" required>
+                                <option value=""></option>
+                                @foreach($user as $u)
+                                    <option value="{{ $u->id }}">{{ $u->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
 
@@ -435,6 +471,30 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-md-4">
+            <div class="form-group form-group-default">
+                <label>Nomor Pakta Integritas</label>
+                <input type="text" class="form-control" value="{{ $pengadaan->perencanaan->nomor_pakta_integritas }}"
+                    readonly />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group form-group-default">
+                <label>Tanggal Pakta Integritas</label>
+                <input type="text" class="form-control"
+                    value="{{ ($pengadaan->perencanaan->tgl_pakta_integritas != null) ? date('d-m-Y', strtotime($pengadaan->perencanaan->tgl_pakta_integritas)) : '' }}" readonly />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group form-group-default">
+                <label>Tanggal DRP</label>
+                <input type="text" class="form-control"
+                    value="{{ ($pengadaan->perencanaan->tgl_drp != null) ? date('d-m-Y', strtotime($pengadaan->perencanaan->tgl_drp)) : '' }}" readonly />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-md-2">
             <div class="form-group form-group-default">
                 <label>Kebutuhan</label>
@@ -500,12 +560,13 @@
         data-jumlah_pengguna="{{ $pengadaan->perencanaan->jumlah_pengguna }}"
         data-penyedia="{{ $pengadaan->perencanaan->penyedia }}"
         data-jumlah_vendor="{{ $pengadaan->perencanaan->jumlah_vendor }}"
+        data-vfm="{{ $pengadaan->usersReviewer }}"
         >
         <i class="fa fa-edit"></i> <span>Edit</span>
     </a>
 
     <div class="form-group form-group-default bg-primary text-white mt-3">
-        <label for=""><b class="text-white">NOTA DINAS</b></label>
+        <label for=""><b class="text-white">NOTA DINAS PENGGUNA KE PELAKSANA</b></label>
     </div>
 
     <div class="row">

@@ -130,7 +130,7 @@
                         </div>
 
                         <div class="form-group form-group-default">
-                            <label for="exampleFormControlInput1">Direaksi Pekerjaan</label>
+                            <label for="exampleFormControlInput1">Direksi Pekerjaan</label>
                             <div class="select2-input select2-warning mt-2">
                                 <select name="direksi_pk_id" id="direksi_pk_id" style="width: 100%" class="form-control">
                                     <option value=""></option>

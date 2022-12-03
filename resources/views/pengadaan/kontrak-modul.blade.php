@@ -207,6 +207,34 @@
     </div>
 </div>
 
+<div class="modal fade" id="edit-nilai-f3-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form id="form_edit_nilai_f3">
+                @csrf
+                <input type="hidden" name="id" id="f3_id">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Nilai</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Nilai</label>
+                        <input type="number" step="any" class="form-control" name="nilai" id="f3_nilai">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="edit-tgl-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -299,6 +327,28 @@
                     <label>Nilai Kontrak</label>
                     <input type="text" class="form-control"
                         value="{{ number_format($pengadaan->pelaksanaan->nilai_kontrak) }}" readonly />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group form-group-default">
+                    <label>Direksi Pekerjaan</label>
+                    <input type="text" class="form-control" value="{{ $pengadaan->direksiPk->users->name }}" disabled />
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="form-group form-group-default">
+                    <label>Pengawas Pekerjaan</label>
+                    <input type="text" class="form-control" value="{{ $pengadaan->pengawasPk != null ? $pengadaan->pengawasPk->users->name : ''}}" disabled />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group form-group-default">
+                    <label>Pengawas K3</label>
+                    <input type="text" class="form-control" value="{{ $pengadaan->pengawasK3 != null ? $pengadaan->pengawasK3->users->name : '' }}" disabled />
                 </div>
             </div>
         </div>
@@ -413,7 +463,7 @@
                 class="btn btn-primary btn-round form-control">Form KHS Distribusi & Niaga</a>
         </div>
         <div class="col-md-2">
-            <a href="{{ url('penilaian/form-lainnya?id=' . $pengadaan->id) }}"
+            <a href="{{ url('penilaian/form-lain?id=' . $pengadaan->pelaksanaan->id) }}"
                 class="btn btn-info btn-round form-control">Form Lainnya</a>
         </div>
     </div>
@@ -503,7 +553,7 @@
                             </table>
                         </div>
                     </div>
-                        @else
+                        @elseif($pengadaan->pelaksanaan->penilaianVendor->form == 'KHS Distribusi & Niaga')
                         <div class="row mt-3">
                             <div class="col-md-12">
                             <h3>Form Penilaian Vendor ({{ $pengadaan->pelaksanaan->penilaianVendor->form }})</h3>
@@ -591,11 +641,92 @@
                             </table>
                             </div>
                         </div>
+                        @else
+
+                        <div class="row mt-3">
+
+                            <h3>Form Penilaian Vendor ({{ $pengadaan->pelaksanaan->penilaianVendor->form }})</h3>
+                            
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="">Tanggal</label>
+                                            <input type="text" name="tgl_peilaian" readonly class="form-control" value="{{ date('d-m-Y', strtotime($pengadaan->pelaksanaan->penilaianVendor->tgl_penilaian)) }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleFormControlInput1">DPT / Non DPT</label>
+                                            <input type="text" name="tgl_peilaian" readonly class="form-control" value="{{ $pengadaan->pelaksanaan->penilaianVendor->dpt_non_dpt }}">
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+    
+                                        <div class="form-group">
+                                            {{-- <label for="">Opt</label> --}}
+                                            <button class="btn btn-rounded btn-warning form-control mt-4 btn-edit-tgl" data-id="{{ $pengadaan->pelaksanaan->penilaianVendor->id }}"
+                                                data-tgl_penilaian="{{ $pengadaan->pelaksanaan->penilaianVendor->tgl_penilaian }}" data-cat="{{ $pengadaan->pelaksanaan->penilaianVendor->dpt_non_dpt }}">Edit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="table-responsive mt-3">
+                                <table id="basic-datatables" class="display table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th width="1%">No.</th>
+                                            <th width="60%">Kriteria Penilaian</th>
+                                            <th width="10%">Nilai</th>
+                                      
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php
+                                        $no = 1;
+                                        @endphp
+                                        @foreach($pengadaan->pelaksanaan->penilaianVendor->formPenilaianLain as $u)
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $u->kriteria }}</td>
+                                     
+                                            <td align="right">
+                                                <a href="#" class="btn-edit-nilai-f3" data-id="{{ $u->id }}" data-nilai="{{ $u->nilai }}"><b>{{ $u->nilai }}</b></a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th colspan="2">Total</th>
+                                            <td align="right">{{ $pengadaan->pelaksanaan->penilaianVendor->total }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="2">Kategori</th>
+                                            <td align="right">{{ $pengadaan->pelaksanaan->penilaianVendor->kategori }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Keterangan</th>
+                                            <td colspan="2" align="right">{{ $pengadaan->pelaksanaan->penilaianVendor->ket }}</td>
+                                        </tr>
+                                        @if($pengadaan->pelaksanaan->penilaianVendor->file != null)
+                                        <tr>
+                                            <th>File</th>
+                                            <td align="right" colspan="2"><a href="{{ url($pengadaan->pelaksanaan->penilaianVendor->file) }}">{{ $pengadaan->pelaksanaan->penilaianVendor->file }}</a></td>
+                                        </tr>
+                                        @endif
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
                         @endif
 
                             
                                 <div class="col-md-12">
                                     <a href="#" class="btn btn-rounded btn-success btn-upload-file-nilai" data-toggle="modal" data-target="#penilaian-file-modal" data-id="{{ $pengadaan->pelaksanaan->penilaianVendor->id }}">Upload File Penilaian</a>
                                     <a href="{{ url('penilaian/export?id=' . $pengadaan->id) }}" class="btn btn-rounded btn-info">Export Penilaian Kinerja Vendor</a>
+                                    <a href="#" class="btn btn-rounded btn-danger btn-reset" data-id="{{ $pengadaan->pelaksanaan->penilaianVendor->id }}">Reset Penilaian</a>
                                 </div>
                             @endif

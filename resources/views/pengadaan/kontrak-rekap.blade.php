@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('css')
+<link rel="stylesheet" href="{!! asset('daterangepicker/daterangepicker.css') !!}">
+@endsection
 @section('content')
 <div class="col-md-12">
     <div class="card">
@@ -6,22 +9,35 @@
             <div class="card-head-row">
                 <div class="card-title">Rekap Kontrak</div>
                 <div class="card-tools">
-                    <a href="{{ url('manajemen-kontrak/rekap/export') }}" class="btn btn-success btn-round btn-sm mr-2">
+                    {{-- <a href="{{ url('manajemen-kontrak/rekap/export') }}" class="btn btn-success btn-round btn-sm mr-2">
                         <span class="btn-label">
                             <i class="fa fa-file-excel"></i>
                         </span>
                         Export
-                    </a>
-
+                    </a> --}}
+                    
                 </div>
             </div>
         </div>
         <div class="card-body">
-            {{-- <div class="row">
+            <div class="row">
                 <div class="col-md-12">
-                    <form method="get" action="{{ url('penilaian/rekap/export') }}">
+                    <form method="get" action="{{ url('manajemen-kontrak/rekap/export') }}">
                         @csrf
                         <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group form-group-default">
+                                    <label for="exampleFormControlInput1">Unit</label>
+                                    <div class="select2-input select2-warning mt-2">
+                                        <select class="form-control" id="unit_id" name="unit_id" style="width: 100%" required>
+                                            <option>semua</option>
+                                            @foreach($unit as $un)
+                                            <option value="{{ $un->id }}" {{ ($unit_select != null && $unit_select->id == $un->id) ? 'selected' : '' }}>{{ $un->nama }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-md-8">
                                 <div class="form-group form-group-default">
                                     <label for="exampleFormControlInput1">Penyedia Barang Jasa</label>
@@ -29,35 +45,29 @@
                                         <select class="form-control" id="mitra_id" name="mitra_id" style="width: 100%" required>
                                             <option>semua</option>
                                             @foreach($mitra as $item)
-                                                <option value="{{ $item->id }}" {{ ($mitra_select != null && $mitra_select->id==$item->id) ? 'selected' : '' }}>{{ $item->nama }}</option>
+                                            <option value="{{ $item->id }}" {{ ($mitra_select != null && $mitra_select->id==$item->id) ? 'selected' : '' }}>{{ $item->nama }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group form-group-default">
-                                    <label for="">DPT / Non DPT</label>
-                                    <div class="select2-input select2-warning mt-2">
-                                        <select name="dpt_non_dpt" id="dpt_non_dpt" class="form-control" style="width: 100%">
-                                            <option value="semua">semua</option>
-                                            <option {{ $cat == 'DPT Jasa Konstruksi JTM, Gardu Distribusi dan JTR' ? 'selected' : '' }}>DPT Jasa Konstruksi JTM, Gardu Distribusi dan JTR</option>
-                                            <option {{ $cat == 'DPT Jasa Konstruksi SR dan APP' ? 'selected' : '' }}>DPT Jasa Konstruksi SR dan APP</option>
-                                            <option {{ $cat == 'DPT Jasa Grinding dan Polishing Crankshaft Mesin Diesel' ? 'selected' : '' }}>DPT Jasa Grinding dan Polishing Crankshaft Mesin Diesel</option>
-                                            <option {{ $cat == 'DPT Jasa Rekondisi Sparepart Mesin Diesel' ? 'selected' : '' }}>DPT Jasa Rekondisi Sparepart Mesin Diesel</option>
-                                            <option {{ $cat == 'Non DPT' ? 'selected' : '' }}>Non DPT</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
+                           
                         </div>
-
+                        
+                        <div class="form-group form-group-default">
+                            <label for="">Rentang Tanggal</label>
+                            <input type="text" class="form-control" id="dr" readonly>
+                        </div>
+                        
+                        
+                        
                         <div class="form-group">
                             <button type="submit" class="btn btn-success btn-sm">Export</button>
+                            <a href="{{ url('manajemen-kontrak/rekap') }}" class="btn btn-danger btn-sm">Reset</a>
                         </div>
                     </form>
                 </div>
-            </div> --}}
+            </div>
             <div class="table-responsive mt-3">
                 <table id="basic-datatables" class="display table table-striped table-bordered table-hover">
                     <thead>
@@ -76,33 +86,34 @@
                     
                     <tbody>
                         @php
-                            $no = 1;
+                        $no = 1;
                         @endphp
-                        @foreach ($pengadaan as $p)
+                        @foreach ($rekap as $u)
                         <tr>
                             <td style="font-size: 9pt;">{{ $no ++ }}</td>
                             <td style="font-size: 9pt;">
-                                {{ $p->nama }}
-                                @if($p->pelaksanaan != null)
-                                {!! "<br><br>".$p->pelaksanaan->nomor_kontrak."<br>" !!}
-                                @if($p->khs_pid != null)
-                                <a href="{!! url('pengadaan/detail?id='.$p->khs_pid."&tab=pelaksana") !!}" class="khs_link">{!! 'KHS No : '.$p->khs_no ."<br><br>" !!}</a>
+                                <a href="{!! url('pengadaan/detail?id='.$u->peng_id."&tab=kontrak") !!}">
+                                    {{ $u->peng_nama }}
+                                </a>
+                                {!! ($u->nomor_kontrak != null) ? "<br><br>".$u->nomor_kontrak."<br>".$u->unit_nama."<br>" : '' !!}
+                                
+                                @if($u->khs_pid != null)
+                                <a href="{!! url('pengadaan/detail?id='.$u->khs_pid."&tab=pelaksana") !!}" class="khs_link">{!! 'KHS No : '.$u->khs_no ."<br><br>" !!}</a>
                                 @else
                                 <br>
                                 @endif
-                                @endif
                             </td>
-                            <td style="font-size: 9pt;">{{ $p->unit->nama }}</td>
-                            <td style="font-size: 9pt;">{{ $p->metode_pengadaan }}</td>
-                            <td style="font-size: 9pt;">{{ $p->pelaksanaan->mitra->nama }}</td>
+                            <td style="font-size: 9pt;">{{ $u->unit_nama }}</td>
+                            <td style="font-size: 9pt;">{{ $u->metode_pengadaan }}</td>
+                            <td style="font-size: 9pt;">{{ $u->nama }}</td>
                             {{-- <td>{{ $p->pelaksanaan->nomor_kontrak }}</td> --}}
-                            <td style="font-size: 9pt;" align="right">{{ number_format($p->pelaksanaan->nilai_kontrak) }}</td>
-                            <td style="font-size: 9pt;">{{ $p->pelaksanaan->tgl_kontrak }}</td>
-                            <td style="font-size: 9pt;">{{ $p->pelaksanaan->tgl_akhir }}</td>
+                            <td style="font-size: 9pt;" align="right">{{ number_format($u->nilai_kontrak) }}</td>
+                            <td style="font-size: 9pt;">{{ $u->tgl_kontrak }}</td>
+                            <td style="font-size: 9pt;">{{ $u->tgl_akhir }}</td>
                         </tr>
-
-                    
-
+                        
+                        
+                        
                         @endforeach
                     </tbody>
                 </table>
@@ -114,36 +125,67 @@
 @section('js')
 <script src="{{ asset('public/atlantis/assets/js/plugin/datatables/datatables.min.js') }}"></script>
 <script src="{{ asset('public/atlantis/assets/js/plugin/select2/select2.full.min.js') }}"></script>
+<script src="{{ asset('public/atlantis/assets/js/plugin/moment/moment.min.js') }}"></script>
+<script src="{!! asset('daterangepicker/daterangepicker.js') !!}"></script>
 <script>
     $(document).ready(function() {
         $('#basic-datatables').DataTable({
             pageLength:100
         });
     });
-
+    
     $('#mitra_id').select2({
         theme: "bootstrap",
         placeholder:"Pilih Vendor"
     });
-    $('#dpt_non_dpt').select2({
+    $('#unit_id').select2({
         theme: "bootstrap",
         placeholder:"Pilih Vendor"
     });
 
-    $(document).on('change','#mitra_id', function(){
-        var mitra_id = $(this).val()
-        var cat = $('#dpt_non_dpt').val()
-        window.location = "{!! url('penilaian/rekap?mitra_id=') !!}"+mitra_id+'&cat='+cat
-        console.log(mitra_id)
-    })
-    
-    $(document).on('change','#dpt_non_dpt', function(){
-        var cat = $(this).val()
-        var mitra_id = $('#mitra_id').val()
-        window.location = "{!! url('penilaian/rekap?mitra_id=') !!}"+mitra_id+'&cat='+cat
-        console.log(mitra_id)
+    $('#dr').daterangepicker({
+            timePicker: false,
+            timePickerIncrement: 30,
+            locale: {
+                format: 'YYYY-MM-DD'
+            }
+
     })
 
-</script>
+    @if($dr != null)
+    var dr = "{{ $dr }}"
+    $('#dr').val(dr)
+    @else
+    $('#dr').val('')
+    @endif
+
+    $(document).on('change','#dr', function(){
+        var in_dr = $(this).val()
+        console.log(in_dr)
+        var unit_id = $('#unit_id').val()
+        var mitra_id = $('#mitra_id').val()
     
+        window.location = "{!! url('manajemen-kontrak/rekap?unit_id=') !!}"+unit_id+'&mitra_id='+mitra_id+"&dr="+in_dr
+    })
+    
+    $(document).on('change','#unit_id', function(){
+        var unit_id = $(this).val()
+        var mitra_id = $('#mitra_id').val()
+        
+        var in_dr = $('#dr').val()
+        window.location = "{!! url('manajemen-kontrak/rekap?unit_id=') !!}"+unit_id+'&mitra_id='+mitra_id+"&dr="+in_dr
+        // console.log(mitra_id)
+    })
+
+    $(document).on('change','#mitra_id', function(){
+        var mitra_id = $(this).val()
+        var unit_id = $('#unit_id').val()
+        
+        var in_dr = $('#dr').val()
+        window.location = "{!! url('manajemen-kontrak/rekap?unit_id=') !!}"+unit_id+'&mitra_id='+mitra_id+"&dr="+in_dr
+        // console.log(mitra_id)
+    })
+    
+</script>
+
 @endsection

@@ -137,16 +137,16 @@
         <br>
         <p style="text-align: justify;font-size: 10pt;">Dokumen rencana pengadaan ini disusun dan diusulkan oleh Pejabat Perencana Pengadaan.</p>
         <br>
-        <p style="text-align: center; margin-left: 400px;font-size: 10pt;">Mataram, {{ date('d F Y') }}<br>Pejabat Perencana Pengadaan</p>
-        <p style="text-align: center; margin-left: 400px;margin-top: 100px;font-size: 10pt;">Doddy Hertanto</p>
+        <p style="text-align: center; margin-left: 400px;font-size: 10pt;">Mataram, {{ date('d F Y', strtotime($pengadaan->perencanaan->tgl_drp)) }}<br>Pejabat Perencana Pengadaan</p>
+        <p style="text-align: center; margin-left: 400px;margin-top: 100px;font-size: 10pt;"><b>Doddy Hertanto</b></p>
         <br>
-        <div class="page_break"></div>
+        {{-- <div class="page_break"></div> --}}
         <p style="font-size: 10pt;">Telah <i>Direview</i> Oleh;<br>Komite <i>Value For Money</i></p>
         <table style="width: 100%">
             @foreach ($pengadaan->usersReviewer as $item)
-                <tr>
-                    <th width="30%">{{ $item->users->name }}</th>
-                    <th width="15%">.......................</th>
+                <tr style="height: 300px;">
+                    <th width="30%">{!! "\n".$item->users->name."\n\n" !!}</th>
+                    <th width="15%"><br>.......................<br><br></th>
                 </tr>
             @endforeach
         </table>

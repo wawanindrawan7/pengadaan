@@ -111,6 +111,30 @@
                 </div>
 
                 <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group form-group-default">
+                            <label for="exampleFormControlInput1">Nomor Pakta Integritas</label>
+                            <input type="text" class="form-control" name="nomor_pakta_integritas"
+                                required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group form-group-default">
+                            <label>Tanggal Pakta Integritas</label>
+                            <input type="text" class="form-control date" name="tgl_pakta_integritas" id="e_tgl_pakta_integritas"
+                                required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group form-group-default">
+                            <label>Tanggal DRP</label>
+                            <input type="text" class="form-control date" name="tgl_drp" id="e_tgl_drp"
+                                required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
                     <div class="col-md-2">
                         <div class="form-group form-group-default">
                             <label for="">Kebutuhan</label>

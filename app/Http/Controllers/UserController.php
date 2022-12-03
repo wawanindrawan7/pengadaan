@@ -6,6 +6,7 @@ use App\Imports\ImportUser;
 use App\Models\Unit;
 use App\Models\User;
 use App\Models\UsersUnit;
+use App\Providers\Whatsapp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -70,6 +71,29 @@ class UserController extends Controller
             $u->kategori = $r->kategori;
             $u->level = $r->level;
             $u->email = $r->email;
+            // $u->password = Hash::make($r->password);
+            $u->save();
+
+            // if($u->usersUnit == null){
+            //     $uu = new UsersUnit();
+            // }else{
+            //     $uu = UsersUnit::find($u->usersUnit->id);
+            // }
+            // $uu->unit_id = $r->unit_id;
+            // $uu->save();
+            DB::commit();
+            return 'success';
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $th->getMessage();
+        }
+    }
+
+    public function updateActive(Request $r){
+        DB::beginTransaction();
+        try {
+            $u = User::find($r->id);
+            $u->active = $r->active;
             // $u->password = Hash::make($r->password);
             $u->save();
 
@@ -168,6 +192,33 @@ class UserController extends Controller
 
         }
         return 'success';
+    }
+
+    public function profile(Request $r)
+    {
+        $tab = $r->has('tab') ? $r->tab : 'profil'; 
+        return view('user.profile', compact('tab'));
+    }
+
+    public function updateAccount(Request $r)
+    {
+        DB::beginTransaction();
+        try {
+            $p = User::find($r->id);
+            $p->no_wa = $r->no_wa;
+            $p->password = Hash::make($r->password);
+            $p->save();
+
+            $text = "*Hi $p->name*,\nUpdate akun anda berhasil berikut detail akun anda:\nNo. WA : $p->no_wa\nPassword : $r->password";
+            event(new Whatsapp($p->no_wa, $text));
+
+            DB::commit();
+            return 'success';
+        } catch (\Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+            return $th->getMessage();
+        }
     }
 
 

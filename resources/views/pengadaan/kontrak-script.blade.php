@@ -23,6 +23,13 @@
         $('#edit-nilai-f2-modal').modal('show')
     })
 
+    $(document).on('click','.btn-edit-nilai-f3', function(e){
+        e.preventDefault()
+        $('#f3_id').val($(this).data('id'))
+        $('#f3_nilai').val($(this).data('nilai'))
+        $('#edit-nilai-f3-modal').modal('show')
+    })
+
     $('#form_edit_nilai_f1').on('submit', function (e) {
         e.preventDefault()
         $.ajax({
@@ -51,6 +58,43 @@
         })
     });
 
+    $('#form_edit_nilai_f3').on('submit', function (e) {
+        e.preventDefault()
+        $.ajax({
+            type: 'POST',
+            url: "{!! url('manajemen-kontrak/edit-penilaian-f3') !!}",
+            data: new FormData(this),
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function (r) {
+                console.log(r)
+                if (r == 'success') {
+                    swal("Good job!", "Simpan data berhasil !", {
+                        icon: "success",
+                        timer : 1500,
+                        buttons: {
+                            confirm: {
+                                className: 'btn btn-success'
+                            }
+                        },
+                    }).then(function () {
+                        location.reload()
+                    });
+                }else{
+                    swal("Ops !", "Nilai melebihi 100 !", {
+                        icon: "success",
+                        timer : 1500,
+                        buttons: {
+                            confirm: {
+                                className: 'btn btn-danger'
+                            }
+                        },
+                    })
+                }
+            }
+        })
+    });
     $('#form_edit_nilai_f2').on('submit', function (e) {
         e.preventDefault()
         $.ajax({
@@ -78,6 +122,7 @@
             }
         })
     });
+
     $('#form_edit_tgl').on('submit', function (e) {
         e.preventDefault()
         $.ajax({
@@ -185,4 +230,50 @@
             }
         })
     });
+
+    $(document).on('click', '.btn-reset', function(e) {
+            var id = $(this).data('id')
+            e.preventDefault()
+            swal({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                buttons: {
+                    confirm: {
+                        text: 'Yes, reset it!',
+                        className: 'btn btn-success'
+                    },
+                    cancel: {
+                        visible: true,
+                        className: 'btn btn-danger'
+                    }
+                }
+            }).then((Delete) => {
+                if (Delete) {
+                    $.ajax({
+                        type: 'GET',
+                        url: "{{ url('manajemen-kontrak/reset-penilaian?id=') }}" + id,
+                        success: function(r) {
+                            console.log(r)
+                            if (r == 'success') {
+                                swal({
+                                    title: 'Reset !',
+                                    text: 'Your file has been reset.',
+                                    type: 'success',
+                                    buttons: {
+                                        confirm: {
+                                            className: 'btn btn-success'
+                                        }
+                                    }
+                                }).then(function() {
+                                    window.location = "{!! url('pengadaan/detail?id='.$pengadaan->id.'&tab=kontrak') !!}"
+                                });
+                            }
+                        }
+                    })
+                } else {
+                    swal.close();
+                }
+            });
+        })
 </script>

@@ -20,6 +20,10 @@ class PenilaianVendor extends Model
     {
         return $this->hasMany('App\Models\FormPenilaian');
     }
+    public function formPenilaianLain()
+    {
+        return $this->hasMany('App\Models\FormPenilaianLain');
+    }
 
     public function formKhs()
     {
